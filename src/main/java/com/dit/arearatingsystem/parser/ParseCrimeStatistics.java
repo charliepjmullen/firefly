@@ -1,129 +1,121 @@
 package com.dit.arearatingsystem.parser;
 
-import java.io.*;
+import java.io.*; 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.jsoup.*; 
 import org.jsoup.nodes.Document; 
-import org.jsoup.nodes.Element; 
+ 
 import org.jsoup.select.Elements;
 
 public class ParseCrimeStatistics {
-
-	//public static void main(String[]args) {
 	
 	double average = 2323.26;
 	double rating = 0;
-		
-	public void ParseCrime(String gardaStation) {
+
+	
+ 	public double ParseCrime(String gardaStation_name) {
 	try {
 		 
-		
 		String crimeReport = "";
-		
-		
-		
-		
+
 		ArrayList<Integer> crimeStats = new ArrayList<Integer>();
 		crimeStats.clear();
 		
-		if(gardaStation.equals("Airport")) {
+		if(gardaStation_name.equals("Airport Police Station")) {
 			crimeReport = "Dublin Airport.html";
-		} else if(gardaStation.equals("Balbriggan")) {
+		} else if(gardaStation_name.equals("Balbriggan Garda Station")) {
 				crimeReport = "Balbriggan.html";
-		} else if(gardaStation.equals("Ballymun")) {
+		} else if(gardaStation_name.equals("Ballymun Garda Station")) {
 			     crimeReport = "Ballymun.html";
-		} else if(gardaStation.equals("Ballyfermot")) {
+		} else if(gardaStation_name.equals("Ballyfermot Garda Station")) {
 			crimeReport = "Ballyfermot.html";
-	    } else if(gardaStation.equals("Blackrock")) {
+	    } else if(gardaStation_name.equals("blackrock police station")) {
 			crimeReport = "Blackrock.html";
-	    } else if(gardaStation.equals("Blanchardstown")) {
+	    } else if(gardaStation_name.equals("Blanchardstown Garda Station")) {
 			crimeReport = "Blanchardstown.html";
-	    } else if(gardaStation.equals("Bridewell")) {
+	    } else if(gardaStation_name.equals("Bridewell Garda Station")) {
 			crimeReport = "Bridewell.html";
-	    } else if(gardaStation.equals("Cabinteely")) {
+	    } else if(gardaStation_name.equals("Garda Station")) {
 			crimeReport = "Cabinteely.html";
-	    } else if(gardaStation.equals("Cabra")) {
+	    } else if(gardaStation_name.equals("Cabra Garda Station")) {
 			crimeReport = "Cabra.html";
-	    } else if(gardaStation.equals("Clondalkin")) {
+	    } else if(gardaStation_name.equals("Clondalkin")) {
 			crimeReport = "Clondalkin.html";
-	    } else if(gardaStation.equals("Clontarf")) {
+	    } else if(gardaStation_name.equals("Clontarf Garda Station")) {
 			crimeReport = "Clontarf.html";
-	    } else if(gardaStation.equals("Coolock")) {
+	    } else if(gardaStation_name.equals("Coolock Garda Station")) {
 			crimeReport = "Coolock.html";
-	    } else if(gardaStation.equals("Crumlin")) {
+	    } else if(gardaStation_name.equals("Crumlin Garda Station")) {
 			crimeReport = "Crumlin.html";
-	    } else if(gardaStation.equals("Donnybrook")) {
+	    } else if(gardaStation_name.equals("Donnybrook Garda Station")) {
 			crimeReport = "Donnybrook.html";
-	    } else if(gardaStation.equals("Dun Laoghaire")) {
+	    } else if(gardaStation_name.equals("Dun Laoghaire District Garda Station")) {
 			crimeReport = "Dun Laoghaire.html";
-	    } else if(gardaStation.equals("Dundrum")) {
+	    } else if(gardaStation_name.equals("Dundrum Garda Station")) {
 			crimeReport = "Dundrum.html";
-	    } else if(gardaStation.equals("Finglas")) {
+	    } else if(gardaStation_name.equals("Finglas Garda Station")) {
 			crimeReport = "Finglas.html";
-	    } else if(gardaStation.equals("Fitzgibbon Street")) {
+	    } else if(gardaStation_name.equals("Fitzgibbon Street Garda Station")) {
 			crimeReport = "Fitzgibbon Street.html";
-	    } else if(gardaStation.equals("Garristown")) {
+	    } else if(gardaStation_name.equals("Garristown")) {
 			crimeReport = "Garristown.html";
-	    } else if(gardaStation.equals("Howth")) {
+	    } else if(gardaStation_name.equals("Howth Garda Station")) {
 			crimeReport = "Howth.html";
-	    } else if(gardaStation.equals("Irishtown")) {
+	    } else if(gardaStation_name.equals("Irishtown Garda Station")) {
 			crimeReport = "Irishtown.html";
-	    } else if(gardaStation.equals("Kevin Street")) {
+	    } else if(gardaStation_name.equals("Kevin Street District Garda Station")) {
 			crimeReport = "Kevin Street.html";
-	    } else if(gardaStation.equals("Kilmainham")) {
+	    } else if(gardaStation_name.equals("Kilmainham Garda Station")) {
 			crimeReport = "Kilmainham.html";
-	    } else if(gardaStation.equals("Lucan")) {
+	    } else if(gardaStation_name.equals("Lucan Garda Station")) {
 			crimeReport = "Lucan.html";
-	    } else if(gardaStation.equals("Lusk")) {
+	    } else if(gardaStation_name.equals("Lusk Garda Station")) {
 			crimeReport = "Lusk.html";
-	    } else if(gardaStation.equals("Malahide")) {
+	    } else if(gardaStation_name.equals("Malahide Garda Station")) {
 			crimeReport = "Malahide.html";
-	    } else if(gardaStation.equals("Mountjoy")) {
+	    } else if(gardaStation_name.equals("Mountjoy Garda Station")) {
 			crimeReport = "Mountjoy.html";
-	    } else if(gardaStation.equals("Pearse Street")) {
+	    } else if(gardaStation_name.equals("Pearse Street Garda Station")) {
 			crimeReport = "Pearse Street.html";
-	    } else if(gardaStation.equals("Raheny")) {
+	    } else if(gardaStation_name.equals("Raheny")) {
 			crimeReport = "Raheny.html";
-	    } else if(gardaStation.equals("Rathcoole")) {
+	    } else if(gardaStation_name.equals("Rathcoole Garda Station")) {
 			crimeReport = "Rathcoole.html";
-	    } else if(gardaStation.equals("Rathfarnam")) {
+	    } else if(gardaStation_name.equals("Rathfarnam Garda Station")) {
 			crimeReport = "Rathfarnam.html";
-	    } else if(gardaStation.equals("Rathmines")) {
+	    } else if(gardaStation_name.equals("Rathmines Garda Station")) {
 			crimeReport = "Rathmines.html";
-	    } else if(gardaStation.equals("Ronanstown")) {
+	    } else if(gardaStation_name.equals("Ronanstown Garda Station")) {
 			crimeReport = "Ronanstown.html";
-	    } else if(gardaStation.equals("Santry")) {
+	    } else if(gardaStation_name.equals("Santry Garda Station")) {
 			crimeReport = "Santry.html";
-	    } else if(gardaStation.equals("Shankill")) {
+	    } else if(gardaStation_name.equals("Garda Shankill")) {
 			crimeReport = "Shankill.html";
-	    } else if(gardaStation.equals("Skerries")) {
+	    } else if(gardaStation_name.equals("Skerries Garda Station")) {
 			crimeReport = "Skerries.html";
-	    } else if(gardaStation.equals("Store Street")) {
+	    } else if(gardaStation_name.equals("Store Street District Garda Station")) {
 			crimeReport = "Store Street.html";
-	    } else if(gardaStation.equals("Sundrive Road")) {
+	    } else if(gardaStation_name.equals("Crumlin Garda Station")) {
 			crimeReport = "Sundrive Road.html";
-	    } else if(gardaStation.equals("Swords")) {
+	    } else if(gardaStation_name.equals("Swords Garda Station")) {
 			crimeReport = "Swords.html";
-	    } else if(gardaStation.equals("Tallaght")) {
+	    } else if(gardaStation_name.equals("Tallaght Garda Station")) {
 			crimeReport = "Tallaght.html";
-	    } else if(gardaStation.equals("Terenure")) {
+	    } else if(gardaStation_name.equals("Terenure Garda Station")) {
 			crimeReport = "Terenure.html";
+	    } else if(gardaStation_name.equals(null)) {
+	    	System.out.println("error");
 	    }
 		
-		
-		
-			
 
 		File input = new File(crimeReport);
-		Document doc = Jsoup.parse(input, "UTF-8");//, "http://www.cso.ie");
+		Document doc = Jsoup.parse(input, "UTF-8");
 
 		Elements numbers = doc.select("td");
 		Elements titles = doc.select("th");
 
 
-	
 		for(int i=9; i<titles.size(); i++)
 		{
 			  
@@ -140,88 +132,19 @@ public class ParseCrimeStatistics {
 		double sum = 0;
 		for(i = 1; i < crimeStats.size(); i++) 
 		    sum += crimeStats.get(i);
-	        //double sum2 = sum/crimeStats.size();
 			
 			// Calculates the average number of crimes a station deals with over the span of 6 years to 2 decimal places
 			double sum2 = sum/6;
 	        double result = Math.round(sum2 * 100.0) / 100.0;
-	        //System.out.println(sum);
-	        //System.out.println(result);
-	       
-	        double rating2 = (result / average * 100) / 50;
+
+	        double rating2 = 1 + (result - 70.00)*(10-1)/(1000.00- 70.00);
 	        rating =  Math.round(rating2 * 100.0) / 100.0;
-	       
-	        System.out.println("Rating: " + rating );
-	        System.out.println(" ");
 
 
-	
 	}catch (IOException e) {
 		e.printStackTrace();
 	}
-	//System.out.println(rating);
-	//return rating;
+
+	return rating;
 }
 	}
-
-
-
-
-//if(result <= average*0.10) {
-//	   rating = 1;
-//}
-//else if (result > average*0.10 &&  result <= average*0.20) {
-//	   rating = 1.5;
-//}
-//else if (result > average*0.20 &&  result <= average*0.25){
-//	   rating = 2;
-//}
-//else if (result > average*0.25 &&  result <= average*0.30){
-//	   rating = 2.5;
-//}
-//else if (result > average*0.30 &&  result <= average*0.35){
-//	   rating = 3;
-//}
-//else if (result > average*0.35 &&  result <= average*0.40){
-//	   rating = 3.5;
-//}
-//else if (result > average*0.40 &&  result <= average*0.45){
-//	   rating = 4;
-//}
-//else if (result > average*0.45 &&  result <= average*0.50){
-//	   rating = 4.5;
-//}
-//else if (result > average*0.50 &&  result <= average*0.55){
-//	   rating = 5;
-//}
-//else if (result > average*0.55 &&  result <= average*0.60){
-//	   rating = 5.5;
-//}
-//else if (result > average*0.60 &&  result <= average*0.65){
-//	   rating = 6;
-//}
-//else if (result > average*0.65 &&  result <= average*0.70){
-//	   rating = 6.5;
-//}
-//else if (result > average*0.70 &&  result <= average*0.75){
-//	   rating = 7;
-//}
-//else if (result > average*0.75 &&  result <= average*0.80){
-//	   rating = 7.5;
-//}
-//else if (result > average*0.80 &&  result <= average*0.85){
-//	   rating = 8;
-//}
-//else if (result > average*0.85 &&  result <= average*0.90){
-//	   rating = 8.5;
-//}
-//else if (result > average*0.90 &&  result <= average*0.95){
-//	   rating = 9;
-//}
-//else if (result > average*0.95 &&  result <= average*1){
-//	   rating = 9.5;
-//}
-//else if (result > 1){
-//	   rating = 10;
-//}
-

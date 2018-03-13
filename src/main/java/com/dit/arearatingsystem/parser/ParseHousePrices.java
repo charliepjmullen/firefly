@@ -1,55 +1,64 @@
 package com.dit.arearatingsystem.parser;
 
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;    
-import org.apache.poi.ss.usermodel.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
 
 
 public class ParseHousePrices {
    
-    public static final String SAMPLE_XLSX_FILE_PATH = "./LatLongPrice.xlsx";
+	public ArrayList<Double> housePrices = new ArrayList<>();
+	double average;
+	public double ParseHousePrice(double latitude, double longitude) {
+	      Connection c = null;
+	      Statement stmt = null;
+	      
+	      housePrices.clear();
+	      try {
+	         Class.forName("org.postgresql.Driver");
+	         c = DriverManager
+	            .getConnection("jdbc:postgresql://localhost:5432/arearatingpgdb",
+	            "postgres", "root");
+	         c.setAutoCommit(false);
+	         System.out.println("Opened House Price database successfully");
 
-    public static void main(String[] args) throws IOException, InvalidFormatException {
+	         stmt = c.createStatement();
+	         ResultSet rs = stmt.executeQuery( "SELECT * FROM house_prices WHERE ST_DWithin(ST_MakePoint(latitude,longitude)::geography,ST_MakePoint("+ latitude + "," + longitude +")::geography,1000)" );
+	         while ( rs.next() ) {
+	            double  price = rs.getDouble("price");
+	            System.out.println();
+	            housePrices.add(price);
+	         }
+	         rs.close();
+	         stmt.close();
+	         c.close();
+	      } catch ( Exception e ) {
+	         System.err.println( e.getClass().getName()+": "+ e.getMessage() );
+	         System.exit(0);
+	      }
+	      
+	      int sum = 0;
+	      double total = 0;
+	      if(!housePrices.isEmpty()) {
+	    	    for (double houseprice : housePrices) {
+	    	         total = sum += houseprice;
+	    	    }
+	    	    double average2 = total/housePrices.size();
+	    	    average = (double)Math.round(average2 * 100.0)/100.0;
+	    	  }
 
-        // Creating a Workbook from an Excel file (.xls or .xlsx)
-        Workbook workbook = WorkbookFactory.create(new File(SAMPLE_XLSX_FILE_PATH));
-
-        // Retrieving the number of sheets in the Workbook
-        System.out.println("Workbook has " + workbook.getNumberOfSheets() + " Sheets : ");
-
-        // Obtain a sheetIterator and iterate over it
-        Iterator<Sheet> sheetIterator = workbook.sheetIterator();
-        System.out.println("Retrieving Latitude, Longitudes and House Price Values using Iterator");
-        while (sheetIterator.hasNext()) {
-            Sheet sheet = sheetIterator.next();
-            System.out.println("=> " + sheet.getSheetName());
-        }
-
-
-        // Getting the Sheet at index zero
-        Sheet sheet = workbook.getSheetAt(0);
-
-        // Create a DataFormatter to format and get each cell's value as String
-        DataFormatter dataFormatter = new DataFormatter();
-
-        // Obtain a rowIterator and columnIterator and iterate over them
-        System.out.println("\n\nIterating over Rows and Columns using Iterator\n");
-        Iterator<Row> rowIterator = sheet.rowIterator();
-        while (rowIterator.hasNext()) {
-            Row row = rowIterator.next();
-
-            // Now let's iterate over the columns of the current row
-            Iterator<Cell> cellIterator = row.cellIterator();
-
-            while (cellIterator.hasNext()) {
-                Cell cell = cellIterator.next();
-                String cellValue = dataFormatter.formatCellValue(cell);
-                System.out.print(cellValue + "\t");
-            }
-            System.out.println();
-        }
-
-    }}
+	      System.out.println("Operation done successfully");
+	      
+	    
+		return average;
+	   }
+	
+	  public List<Double> getList(){
+		return housePrices;
+    	  
+      }
+	}

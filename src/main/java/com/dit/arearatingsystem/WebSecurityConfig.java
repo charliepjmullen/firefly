@@ -34,6 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .permitAll();
+        //Disable csrf token as it is not needed for now and is preventing the applciation from running properly
+        http.csrf().disable();
     }
 
     @Autowired

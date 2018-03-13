@@ -1,17 +1,28 @@
 package com.dit.arearatingsystem.web;
 
-import com.dit.arearatingsystem.model.Area;
+import com.dit.arearatingsystem.model.Area; 
 import com.dit.arearatingsystem.model.GardaStation;
+import com.dit.arearatingsystem.model.HousePrice;
 import com.dit.arearatingsystem.model.User;
+import com.dit.arearatingsystem.parser.ParseCrimeStatistics;
+import com.dit.arearatingsystem.repository.AreaRepository;
 import com.dit.arearatingsystem.repository.GardaStationRepository;
 import com.dit.arearatingsystem.repository.UserRepository;
 import com.dit.arearatingsystem.service.SecurityService;
 import com.dit.arearatingsystem.service.UserService;
 import com.dit.arearatingsystem.validator.UserValidator;
+import com.dit.arearatingsystem.parser.*;
+
+
+import java.io.IOException;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,6 +48,13 @@ public class UserController {
 	
 	@Autowired
 	GardaStationRepository gardaStationRepository;
+	
+	@Autowired
+	AreaRepository areaRepository;
+	
+
+	ParseCrimeStatistics parseCrime = new ParseCrimeStatistics();
+	ParseHousePrices parseHousePrice = new ParseHousePrices();
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -76,44 +94,105 @@ public class UserController {
         return "welcome";
     }
     
-	 @RequestMapping(value = "/results", method = RequestMethod.POST
-			 , produces = {"application/json"}
-             ,  consumes = {"application/x-www-form-urlencoded"}
-     )
-	 public @ResponseBody  String Submit(GardaStation gardaStation, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude) {
+	@RequestMapping(value = "/gardaStation", method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody  String Submit(@ModelAttribute GardaStation gardaStation, @RequestParam("gardastationname") String gardaStation_name, Model model) throws IOException {
 
-		 System.out.println(" ");
-	    System.out.println("Latitude: " + latitude + " Longitude: " + longitude + " from the client side");
+		System.out.println(" ");
+	    System.out.println("Garda Station: " + gardaStation_name);
 	    
-	    //String kevinst = "Kevin Street";
+	    System.out.println("About to parse....");
+	    double rating =  parseCrime.ParseCrime(gardaStation_name);
+	    System.out.println("Parsed");
 	    
-	    //parseCrime.ParseCrime(kevinst);
+	    System.out.println("Crime Rating: " + rating);
 	    
-	   
-	  //m  gardaStation = gardaStationRepository.findByGarda_Station_LatitudeAndGarda_Station_Longitude(latitude, longitude);
-
-	    //System.out.println( gardaStation.getGardaStation_name());
+	    model.addAttribute("rating", rating);
 	    
-//	    String parseGardaStation = gardaStation.getGardaStation_name();
-//	    parseCrime.ParseCrime(parseGardaStation);
-	    
-	    
-
 		return "/";
 	 }
-    
+	
+	
+	// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
+	@RequestMapping(value = "/saveAreaToProfile", method = RequestMethod.POST)
+	public @ResponseBody String saveAreaToProfile(Area area, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, 
+			@RequestParam("areaName") String areaName, 
+			@RequestParam("schools") double schools, 
+			@RequestParam("parks") double university, 
+			@RequestParam("bar") double bars, 
+			@RequestParam("gym") double gym,
+			@RequestParam("restaurant") double restaurant) {
+		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      areaRepository.save(area);
+	      User user = userRepository.findByUsername(username);
+	      
+	      System.out.println(username + " just saved " +"Area: " + area);
+
+		  
+	      user.addArea(area);
+	      userRepository.save(user);
+
+		return "/";
+	}
+	
 	@RequestMapping(value = "/savedAreasMap", method = RequestMethod.GET)
 	public String savedAreas(@Valid Area area, BindingResult bindingResult, Model model) {
-		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      areaRepository.save(area);
+	      User user = userRepository.findByUsername(username);
+	      
+	      List<Area> savedAreas = user.getSavedAreas();
+	      for (int i = 0; i < savedAreas.size(); i++) {
+	    	  model.addAttribute("savedAreas", savedAreas);
+	      }
+	      
+	      
 		return "savedAreas";
 	}
 	
-	@RequestMapping(value = "/saveAreaToProfile", method = RequestMethod.POST)
-	public String saveAreaToProfile(@Valid Area area, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, 
-			@RequestParam("address") String address, @RequestParam("username") String username) {
-		
-		System.out.println("Latitude: " + latitude + " Longitude: " + longitude + " Address:" + address +  " Usernaame: " + username +" from the client side");
-		
-		return "/savedAreas";
+	@RequestMapping(value = "/deletearea", method = RequestMethod.POST)
+	public String deleteArea(@Valid Area area, BindingResult bindingResult, Model model) {
+		 
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      User user = userRepository.findByUsername(username);
+	      System.out.println("User: " + user + "Area:" + area);
+	      user.deleteArea(area);
+	      userRepository.save(user);
+	      
+	      System.out.println(user + " deleted " + area);
+		  return "savedAreas";
 	}
+	
+	@RequestMapping(value = "/parseHousePrice", method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody String parseHousePrice(HousePrice housePrice, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
+		
+		double housePriceAverage = parseHousePrice.ParseHousePrice(latitude, longitude);
+		
+		List<Double> housePriceList = parseHousePrice.getList();
+		int housePriceListSize = housePriceList.size();
+		
+		System.out.println("The average house price for this area is: " + housePriceAverage + " based on " + housePriceListSize + " property prices in this area");
+		
+		model.addAttribute("houseprice", housePriceAverage);
+		model.addAttribute("housepricelistsize", housePriceListSize);
+
+		return "/";
+	}
+	
+	@RequestMapping(value = "/commuteCheckerPage", method = RequestMethod.GET)
+	public String commuteChecker(@Valid Area area, BindingResult bindingResult, Model model,  @RequestParam("areaName") String areaName) {
+		System.out.println("Area Name: "+ areaName);
+		model.addAttribute("areaName", areaName);
+	      
+		return "commuteChecker";
+	}
+	
+
+	
 }

@@ -13,6 +13,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Area Rating System</title>
     
@@ -208,15 +209,17 @@ function loginAlert(){
       console.log(Long);
 	  
 
-       //alert("Lat: " + Lat + " " + "Long: " + Long); 
-	$.ajax({
-     type: "POST",
-     url: "/results",
-     data: { latitude: Lat, longitude: Long }, // parameters
-     
-	 
-    //alert(status);
-})
+      //alert("Lat: " + Lat + " " + "Long: " + Long); 
+  	$.ajax({
+       type: "POST",
+       url: "/results",
+       data: { latitude: Lat, 
+               longitude: Long,  
+              }, 
+       datatype: 'json'
+      //alert(status);
+  });
+    
 
 }  
 
@@ -447,7 +450,24 @@ function loginAlert(){
 </head>
 
 <body>
-
+<div id="custom-bootstrap-menu-home" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
+    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
+ </a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="${contextPath}/registration">Register</a>
+                </li>
+                <li><a href="#">About Us</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <div class="container" id = "homelogin">
 
     <form method="POST" action="${contextPath}/login" class="form-signin">

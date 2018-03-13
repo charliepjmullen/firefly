@@ -18,7 +18,8 @@
 
     <!--  <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- <link href="${contextPath}/resources/css/common.css" rel="stylesheet"> -->
-
+    <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,7 +28,22 @@
 </head>
 
 <body>
-
+  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
+    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
+ </a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 <div class="container">
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
@@ -63,4 +79,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!--  <script src="${contextPath}/resources/js/bootstrap.min.js"></script> -->
 </body>
+
+
 </html>
