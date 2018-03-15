@@ -43,7 +43,7 @@
 <style>
 #geomap {
 	width: 80%;
-	height: 400px;
+	height: 700px;
 	float: right;
 }
 
@@ -61,6 +61,7 @@
 	width: 80%;
 }
 
+#addressbartable{float:right;}
 #topnavbar{float: right;}
 
 /* Nav Side Bar  */
@@ -274,7 +275,8 @@ function initialize() {
     marker = new google.maps.Marker({
         map: map,
         draggable: true,
-        position: latlng
+        position: latlng,
+        icon: {url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
     });
 
     google.maps.event.addListener(marker, "dragend", function () {
@@ -420,7 +422,7 @@ function loginAlert(){
 		   console.log(Long);
 
 		$.ajax({
-	     type: "POST",
+	     type: "GET",
 	     url: "/parseHousePrice",
 	     data: { latitude: Lat, 
               longitude: Long,  
@@ -428,8 +430,8 @@ function loginAlert(){
   datatype: 'json'
 });
 
-		
-	}
+		}
+	
 
   function getCafe(){
 
@@ -776,6 +778,8 @@ function loginAlert(){
       	var averageRatingRounded = averageRating.toFixed(1);
     		 var averageSchoolRatingTB = document.getElementById('schoolAvgRating');
     		 averageSchoolRatingTB.value = averageRatingRounded;
+
+    		 return averageRatingRounded;
     	}
 
    	function uniCallback(results4, status4){
@@ -1018,6 +1022,8 @@ function loginAlert(){
        datatype: 'json'
      });
 	 }
+
+ document.getElementById("demo").innerHTML = schoolCallback();
     
 </script>
 </head>
@@ -1036,26 +1042,26 @@ function loginAlert(){
 		<div class="menu-list">
 
 			<ul id="menu-content" class="menu-content collapse out">
-				<li><a href="#"> <i class="fa fa-bar-chart fa-lg"></i> Area
+				<li><a href="/"> <i class="fa fa-bar-chart fa-lg"></i> Area
 						Stats
 				</a></li>
 
 				<li data-toggle="collapse" data-target="#products"
-					class="collapsed active"><a href="#"><i
+					class="collapsed active"><a ><i
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">
-					<li><a href="#">Address</a></li>
-					<li><a href="#">Latitude</a></li>
-					<li><a href="#">Longitude</a></li>
-					<li><a href="#">House Price</a></li>
-					<li><a href="#">Crime Rating</a></li>
+					<li><a >Address</a></li>
+					<li><a >Latitude</a></li>
+					<li><a >Longitude</a></li>
+					<li><a href = "parseHousePrice" onclick = "parseHousePrice();" >House Price</a></li>
+					<li><a onclick="gardaStationReport();" >Crime Rating</a></li>
 				</ul>
 
 
 				<li data-toggle="collapse" data-target="#service" class="collapsed">
 					<a onclick="clearMarkers();SchoolsReport();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
-						Education <span class="arrow"></span></a>
+						Education  <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="service">
 					<li>Creche</li>
@@ -1104,7 +1110,7 @@ function loginAlert(){
 				</ul>
 				
 				<li data-toggle="collapse" data-target="commute" class="collapsed">
-					<a onClick="sendAddressToCommutePage();"  href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+					<a   href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
 				
 				<li data-toggle="collapse" data-target="savedareas" class="collapsed">
@@ -1173,7 +1179,36 @@ function loginAlert(){
 			</div>
 		</div>
 	</form>
-	<div id="geomap"></div>
+			<form>
+		<div class="form-group input-group">
+			<input type="text" name="addressBox"
+							id="addressBox" class="search_addr" size="45" class="form-control"
+				placeholder="Address" />
+			<div class="input-group-btn">
+				<button class="btn btn-default " type="submit"
+					onclick="saveAreaToUser();">Save
+						Area</button>
+			</div>
+		</div>
+	</form>
+		<!-- <div id="addressbartable">
+		<table style="width: 100%">
+			<tr>
+				<td>
+					<p>
+						Address: &nbsp; &nbsp;<input type="text" name="addressBox"
+							id="addressBox" class="search_addr" size="45" />
+					</p>
+				</td>
+				<td></td>
+				<td><button type="submit" onclick="saveAreaToUser();">Save
+						Area</button></td>
+
+			</tr>
+
+		</table>
+		</div> -->
+		<div id="geomap"></div>
 
 	<div class = inputboxes>
 	<div id="forminputs"></div>
@@ -1184,19 +1219,17 @@ function loginAlert(){
 			<tr>
 				<!-- display selected location information -->
 				<th>
-					<h5>House Price: ${houseprice}</h5>
-					<h5>Rating: ${rating}</h5>
-					<h4>Location Details</h4>
+					
 					<p>
-						Address: &nbsp; &nbsp;<input type="text" name="addressBox"
+						Address: &nbsp; &nbsp;<input type="hidden" name="addressBox"
 							id="addressBox" class="search_addr" size="45" />
 					</p>
 					<p>
-						Latitude: &nbsp; &nbsp;<input type="text" class="search_latitude"
+						<!-- Latitude: --> <input type="hidden" class="search_latitude"
 							size="30" />
 					</p>
 					<p>
-						Longitude: <input type="text" class="search_longitude" size="30" />
+						<!-- Longitude: --> <input type="hidden" class="search_longitude" size="30" />
 					</p>
 					<p style="height: 120px"></p>
 
@@ -1259,8 +1292,7 @@ function loginAlert(){
 				</th>
 
 				<th style="width: 50px"></th>
-				<th><button type="submit" onclick="saveAreaToUser();">Save
-						Area</button></th>
+				<th></th>
 			<tr>
 				<td></td>
 			</tr>

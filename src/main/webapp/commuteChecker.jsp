@@ -44,7 +44,7 @@
    <style>
 #geomap {
 	width: 80%;
-	height: 400px;
+	height: 700px;
 	float: right;
 }
 
@@ -511,7 +511,7 @@
 				</a></li>
 
 				<li data-toggle="collapse" data-target="#products"
-					class="collapsed active"><a href="#"><i
+					class="collapsed active"><a ><i
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">

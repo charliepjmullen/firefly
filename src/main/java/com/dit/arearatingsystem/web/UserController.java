@@ -93,23 +93,6 @@ public class UserController {
     public String welcome(Model model) {
         return "welcome";
     }
-    
-	@RequestMapping(value = "/gardaStation", method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody  String Submit(@ModelAttribute GardaStation gardaStation, @RequestParam("gardastationname") String gardaStation_name, Model model) throws IOException {
-
-		System.out.println(" ");
-	    System.out.println("Garda Station: " + gardaStation_name);
-	    
-	    System.out.println("About to parse....");
-	    double rating =  parseCrime.ParseCrime(gardaStation_name);
-	    System.out.println("Parsed");
-	    
-	    System.out.println("Crime Rating: " + rating);
-	    
-	    model.addAttribute("rating", rating);
-	    
-		return "/";
-	 }
 	
 	
 	// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
@@ -134,7 +117,7 @@ public class UserController {
 	      user.addArea(area);
 	      userRepository.save(user);
 
-		return "/";
+		return "savedAreas";
 	}
 	
 	@RequestMapping(value = "/savedAreasMap", method = RequestMethod.GET)
@@ -151,7 +134,7 @@ public class UserController {
 	      }
 	      
 	      
-		return "savedAreas";
+		return "/";
 	}
 	
 	@RequestMapping(value = "/deletearea", method = RequestMethod.POST)
@@ -169,8 +152,68 @@ public class UserController {
 		  return "savedAreas";
 	}
 	
-	@RequestMapping(value = "/parseHousePrice", method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody String parseHousePrice(HousePrice housePrice, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
+	@RequestMapping(value = "/parseHousePrice", method=RequestMethod.GET)
+	public @ResponseBody String parseHousePrice(@Valid HousePrice housePrice1, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
+		
+		double housePriceAverage = parseHousePrice.ParseHousePrice(latitude, longitude);
+		
+		List<Double> housePriceList = parseHousePrice.getList();
+		int housePriceListSize = housePriceList.size();
+		
+		System.out.println("The average house price for this area is: " + housePriceAverage + " based on " + housePriceListSize + " property prices in this area");
+		
+/*		model.addAttribute("houseprice", housePriceAverage);
+		model.addAttribute("housepricelistsize", housePriceListSize);*/
+
+		return "/";
+	}
+	
+	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.GET)
+	public String housePricePage(@Valid Area area, BindingResult bindingResult, Model model) {
+		return "houseprice";
+	}
+	
+	@RequestMapping(value = "/gardaStation", method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody String Submit(@ModelAttribute GardaStation gardaStation, @RequestParam("gardastationname") String gardaStation_name, Model model) throws IOException {
+
+		System.out.println(" ");
+	    System.out.println("Garda Station: " + gardaStation_name);
+	    
+	    System.out.println("About to parse....");
+	    double rating =  parseCrime.ParseCrime(gardaStation_name);
+	    System.out.println("Parsed");
+	    
+	    System.out.println("Crime Rating: " + rating);
+	    
+	    model.addAttribute("rating", rating);
+	    
+		return "crimestats";
+	 }
+	
+	@RequestMapping(value = "/commuteCheckerPage", method = RequestMethod.GET)
+	public String commuteChecker(@Valid Area area, BindingResult bindingResult, Model model) {
+		return "commuteChecker";
+	}
+	
+/*	@RequestMapping(value = "/crimestats", method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody String crimeStatistics(@ModelAttribute GardaStation gardaStation, @RequestParam("gardastationname") String gardaStation_name, Model model) throws IOException {
+
+		System.out.println(" ");
+	    System.out.println("Garda Station: " + gardaStation_name);
+	    
+	    System.out.println("About to parse....");
+	    double rating =  parseCrime.ParseCrime(gardaStation_name);
+	    System.out.println("Parsed");
+	    
+	    System.out.println("Crime Rating: " + rating);
+	    
+	    model.addAttribute("rating", rating);
+	    
+		return "crimestats";
+	}
+	
+	@RequestMapping(value = "/houseprice", method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody String housePrice(HousePrice housePrice, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
 		
 		double housePriceAverage = parseHousePrice.ParseHousePrice(latitude, longitude);
 		
@@ -181,17 +224,8 @@ public class UserController {
 		
 		model.addAttribute("houseprice", housePriceAverage);
 		model.addAttribute("housepricelistsize", housePriceListSize);
-
-		return "/";
-	}
-	
-	@RequestMapping(value = "/commuteCheckerPage", method = RequestMethod.GET)
-	public String commuteChecker(@Valid Area area, BindingResult bindingResult, Model model,  @RequestParam("areaName") String areaName) {
-		System.out.println("Area Name: "+ areaName);
-		model.addAttribute("areaName", areaName);
-	      
-		return "commuteChecker";
-	}
+		return "houseprice";
+	}*/
 	
 
 	
