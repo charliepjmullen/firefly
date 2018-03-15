@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
   
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -11,6 +14,7 @@
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>House Price</title>
@@ -201,6 +205,20 @@ function goBack() {
 	window.history.back();
 }
 
+$.ajax({
+    type: "POST",
+    url: "/parseHousePrice",
+    data: { latitude: Lat, 
+            longitude: Long,  
+          }, 
+    datatype: 'json'
+})
+.done(function( data, textStatus, jqxhr ) {    
+$("#housepriceID").val(data.houseprice);
+$("#housepricesize").val(data.housepricelistsize);
+
+});
+
 </script>
 
 </head>
@@ -222,23 +240,16 @@ function goBack() {
         </div>
     </div>
     
-   <%--  <c:forEach var="houseprice" items="${houseprice}">   
-    <tr>
-      <td>
-             ${houseprice}    
-      </td>
-    </tr>
-  </c:forEach>
-  <c:forEach var="housepricelistsize" items="${housepricelistsize}">     
-    <tr>
-      <td>
-             ${housepricelistsize}       
-     </td>
-    </tr>
-  </c:forEach> --%>
+<%--     <h4>Average House Price <text th:text="${houseprice}" /> </h4>
+	<h4>Number of Houses the average is caluclated by: <text th:text="${housepricelistsize}" /> </h4> --%>
+
+<h1 id ="housepriceID"></h1>
+ <h1 id ="housepricesize"> </h1>
+	
   
-<%--   <h1>${houseprice} </h1>
-  <h1>${housepricelistsize} </h1> --%>
+  
+   <h1>${houseprice} </h1>
+  <h1>${housepricelistsize} </h1> 
 
 </body>
 </html>

@@ -422,13 +422,13 @@ function loginAlert(){
 		   console.log(Long);
 
 		$.ajax({
-	     type: "GET",
+	     type: "POST",
 	     url: "/parseHousePrice",
 	     data: { latitude: Lat, 
-              longitude: Long,  
-		}, // parameters
-  datatype: 'json'
-});
+                 longitude: Long,  
+		       }, // parameters
+         datatype: 'json'
+        });
 
 		}
 	
@@ -1024,7 +1024,11 @@ function loginAlert(){
 	 }
 
  document.getElementById("demo").innerHTML = schoolCallback();
-    
+
+
+/* 	console.log('House Price:  ${houseprice}'); 
+	console.log('House Number:  ${housepricelistsize}'); */
+ 
 </script>
 </head>
 
@@ -1054,7 +1058,7 @@ function loginAlert(){
 					<li><a >Address</a></li>
 					<li><a >Latitude</a></li>
 					<li><a >Longitude</a></li>
-					<li><a href = "parseHousePrice" onclick = "parseHousePrice();" >House Price</a></li>
+					<li><a href= "parseHousePrice();" >House Price</a></li>
 					<li><a onclick="gardaStationReport();" >Crime Rating</a></li>
 				</ul>
 
@@ -1237,6 +1241,7 @@ function loginAlert(){
 				<th style="width: 50px"></th>
 				<th>
 					<h4>Area Rating</h4>
+			
 
 
 					<p>

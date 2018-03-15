@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -134,7 +135,7 @@ public class UserController {
 	      }
 	      
 	      
-		return "/";
+		return "savedAreas";
 	}
 	
 	@RequestMapping(value = "/deletearea", method = RequestMethod.POST)
@@ -152,8 +153,8 @@ public class UserController {
 		  return "savedAreas";
 	}
 	
-	@RequestMapping(value = "/parseHousePrice", method=RequestMethod.GET)
-	public @ResponseBody String parseHousePrice(@Valid HousePrice housePrice1, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
+	@RequestMapping(value = "/parseHousePrice", method={RequestMethod.POST, RequestMethod.GET})
+	public String parseHousePrice(@RequestBody @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
 		
 		double housePriceAverage = parseHousePrice.ParseHousePrice(latitude, longitude);
 		
@@ -162,19 +163,19 @@ public class UserController {
 		
 		System.out.println("The average house price for this area is: " + housePriceAverage + " based on " + housePriceListSize + " property prices in this area");
 		
-/*		model.addAttribute("houseprice", housePriceAverage);
-		model.addAttribute("housepricelistsize", housePriceListSize);*/
+		model.addAttribute("houseprice", housePriceAverage);
+		model.addAttribute("housepricelistsize", housePriceListSize);
 
-		return "/";
-	}
-	
-	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.GET)
-	public String housePricePage(@Valid Area area, BindingResult bindingResult, Model model) {
 		return "houseprice";
 	}
 	
+/*	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.GET)
+	public String housePricePage(@Valid Area area, BindingResult bindingResult, Model model) {
+		return "houseprice";
+	}*/
+	
 	@RequestMapping(value = "/gardaStation", method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody String Submit(@ModelAttribute GardaStation gardaStation, @RequestParam("gardastationname") String gardaStation_name, Model model) throws IOException {
+	public @ResponseBody String Submit(@RequestBody @RequestParam("gardastationname") String gardaStation_name, Model model) {
 
 		System.out.println(" ");
 	    System.out.println("Garda Station: " + gardaStation_name);
@@ -187,7 +188,7 @@ public class UserController {
 	    
 	    model.addAttribute("rating", rating);
 	    
-		return "crimestats";
+		return "/";
 	 }
 	
 	@RequestMapping(value = "/commuteCheckerPage", method = RequestMethod.GET)
