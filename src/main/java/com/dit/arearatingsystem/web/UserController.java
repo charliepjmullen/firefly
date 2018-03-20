@@ -15,7 +15,7 @@ import com.dit.arearatingsystem.parser.*;
 
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UserController {
@@ -76,7 +77,8 @@ public class UserController {
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return "redirect:/welcome";
+        /*return "redirect:/welcome";*/
+        return "commuteplanner";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
@@ -153,26 +155,55 @@ public class UserController {
 		  return "savedAreas";
 	}
 	
-	@RequestMapping(value = "/parseHousePrice", method={RequestMethod.POST, RequestMethod.GET})
-	public String parseHousePrice(@RequestBody @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
+	
+	
+	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.POST)
+	public ModelAndView parseHousePrice(@Valid HousePrice housePriceObject, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude) {
 		
-		double housePriceAverage = parseHousePrice.ParseHousePrice(latitude, longitude);
+		housePriceObject = new HousePrice();
+		
+		double housePrice = parseHousePrice.ParseHousePrice(latitude, longitude);
 		
 		List<Double> housePriceList = parseHousePrice.getList();
-		int housePriceListSize = housePriceList.size();
+		int number_of_houses = housePriceList.size();
 		
-		System.out.println("The average house price for this area is: " + housePriceAverage + " based on " + housePriceListSize + " property prices in this area");
+		housePriceObject.setHousePrice(housePrice);
+		housePriceObject.setNumber_of_houses(number_of_houses);
 		
+		System.out.println("The average house price for this area is: " + housePrice + " based on " + number_of_houses + " property prices in this area");
+		
+		/*model.addAttribute("housePriceObject", housePriceObject);
+		*/
+		List<HousePrice> housepricesList = new ArrayList<HousePrice>();
+		housepricesList.add(housePriceObject);
+/*		
 		model.addAttribute("houseprice", housePriceAverage);
 		model.addAttribute("housepricelistsize", housePriceListSize);
+		*/
+		 ModelAndView map = new ModelAndView("houseprice");
+		    map.addObject("housepricesList", housepricesList.toString());
+		
+/*		if(model.containsAttribute("houseprice") && model.containsAttribute("houseprice")) {
+			System.out.println(housePriceObject + "is passing throuogh.");
+			System.out.println(housePriceObject.getHousePrice());
+			System.out.println(housePriceObject.getNumber_of_houses());
+			
+			
+			System.out.println(housePriceAverage);
+			System.out.println(housePriceListSize);
+			System.out.println(model);
+		}*/
 
-		return "houseprice";
+		return map;
 	}
 	
-/*	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.GET)
+	
+	
+	
+	@RequestMapping(value = "/parseHousePrice2", method = RequestMethod.GET) 
 	public String housePricePage(@Valid Area area, BindingResult bindingResult, Model model) {
 		return "houseprice";
-	}*/
+	}
 	
 	@RequestMapping(value = "/gardaStation", method={RequestMethod.POST, RequestMethod.GET})
 	public @ResponseBody String Submit(@RequestBody @RequestParam("gardastationname") String gardaStation_name, Model model) {
@@ -227,6 +258,11 @@ public class UserController {
 		model.addAttribute("housepricelistsize", housePriceListSize);
 		return "houseprice";
 	}*/
+	
+	@RequestMapping(value = "/commuteplanner", method = RequestMethod.GET) 
+	public String CommutePlanner(@Valid Area area, BindingResult bindingResult, Model model) {
+		return "commuteplanner";
+	}
 	
 
 	

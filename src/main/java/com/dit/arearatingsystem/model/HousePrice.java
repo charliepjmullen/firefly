@@ -14,6 +14,7 @@ public class HousePrice {
 	private double housePrice;
 	private double latitude;
 	private double longitude;
+	private int number_of_houses;
 	
 	public HousePrice() {
 		super();
@@ -40,7 +41,22 @@ public class HousePrice {
 		this.housePrice_id = housePrice_id;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		
+	}
+	
+	public HousePrice(int housePrice_id, double housePrice, double latitude ,double longitude, int number_of_houses) {
+		super();
+		this.housePrice_id = housePrice_id;
+		this.housePrice = housePrice;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.number_of_houses = number_of_houses;
+	}
+	
+	public HousePrice(int housePrice_id, double housePrice,  int number_of_houses) {
+		super();
+		this.housePrice_id = housePrice_id;
+		this.housePrice = housePrice;
+		this.number_of_houses = number_of_houses;
 	}
 	
 
@@ -77,7 +93,13 @@ public class HousePrice {
 	}
 
 	
-	
+	public int getNumber_of_houses() {
+		return number_of_houses;
+	}
+
+	public void setNumber_of_houses(int number_of_houses) {
+		this.number_of_houses = number_of_houses;
+	}
 	
 	
 }

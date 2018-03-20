@@ -425,7 +425,7 @@ function loginAlert(){
 	     type: "POST",
 	     url: "/parseHousePrice",
 	     data: { latitude: Lat, 
-                 longitude: Long,  
+                 longitude: Long  
 		       }, // parameters
          datatype: 'json'
         });
@@ -716,6 +716,12 @@ function loginAlert(){
   	    var averageRatingTB = document.getElementById('restaurantAvgRating');
   	    averageRatingTB.value = averageRatingRounded;
 
+		 var a = document.querySelector('li[data-target="#food"] > a'); //get the a in the menu
+  	    var foodScore = document.createElement("span"); //create a new span
+  	    a.appendChild(foodScore); // add the span to the a
+
+  	    foodScore.innerText = averageRatingRounded;
+
     	  	}
 
 
@@ -734,9 +740,16 @@ function loginAlert(){
       
       var averageRating = results1.length == 0 ? 0 : totalRating / ratedCount; 
       var averageRatingRounded = averageRating.toFixed(1);
-    		 var averageBarRatingTB = document.getElementById('barAvgRating');
-    		 averageBarRatingTB.value = averageRatingRounded;
-    	  	}
+      var averageBarRatingTB = document.getElementById('barAvgRating');
+      averageBarRatingTB.value = averageRatingRounded;
+
+      var a = document.querySelector('li[data-target="#bars"] > a'); //get the a in the menu
+      var barScore = document.createElement("span"); //create a new span
+      a.appendChild(barScore); // add the span to the a
+
+    	  	 barScore.innerText = averageRatingRounded;
+    		 
+      }
 
 
 
@@ -760,6 +773,12 @@ function loginAlert(){
     	    
     	    var averageGymRatingTB = document.getElementById('gymAvgRating');
     	    averageGymRatingTB.value = averageRatingRounded;
+
+    	    var a = document.querySelector('li[data-target="#fitness"] > a'); //get the a in the menu
+    	    var fitnessScore = document.createElement("span"); //create a new span
+    	    a.appendChild(fitnessScore); // add the span to the a
+
+    	    fitnessScore.innerText = averageRatingRounded;
     	}
 
    	function schoolCallback(results3, status3){
@@ -776,10 +795,15 @@ function loginAlert(){
       
       	var averageRating = results3.length == 0 ? 0 : totalRating / ratedCount; 
       	var averageRatingRounded = averageRating.toFixed(1);
-    		 var averageSchoolRatingTB = document.getElementById('schoolAvgRating');
-    		 averageSchoolRatingTB.value = averageRatingRounded;
+      	
+    	var averageSchoolRatingTB = document.getElementById('schoolAvgRating');
+    	averageSchoolRatingTB.value = averageRatingRounded;
 
-    		 return averageRatingRounded;
+    	var a = document.querySelector('li[data-target="#education"] > a'); //get the a in the menu
+     	var educationScore = document.createElement("span"); //create a new span
+     	a.appendChild(educationScore); // add the span to the a
+
+     	educationScore.innerText = averageRatingRounded;
     	}
 
    	function uniCallback(results4, status4){
@@ -812,10 +836,10 @@ function loginAlert(){
         });
 
     
-    	var averageRating = results5.length == 0 ? 0 : totalRating / ratedCount; 
+/*     	var averageRating = results5.length == 0 ? 0 : totalRating / ratedCount; 
     	var averageRatingRounded = averageRating.toFixed(1);
   		var averageGardaRatingTB = document.getElementById('gardaAvgRating');
-  		averageGardaRatingTB.value = averageRatingRounded;
+  		averageGardaRatingTB.value = averageRatingRounded; */
   	}
 
   	function SchoolsReport(){
@@ -1023,11 +1047,7 @@ function loginAlert(){
      });
 	 }
 
- document.getElementById("demo").innerHTML = schoolCallback();
 
-
-/* 	console.log('House Price:  ${houseprice}'); 
-	console.log('House Number:  ${housepricelistsize}'); */
  
 </script>
 </head>
@@ -1058,7 +1078,7 @@ function loginAlert(){
 					<li><a >Address</a></li>
 					<li><a >Latitude</a></li>
 					<li><a >Longitude</a></li>
-					<li><a href= "parseHousePrice();" >House Price</a></li>
+					<li><a href= "javascript:parseHousePrice();" >House Price</a></li> 
 					<li><a onclick="gardaStationReport();" >Crime Rating</a></li>
 				</ul>
 
@@ -1074,7 +1094,7 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#food" class="collapsed">
-					<a onclick="clearMarkers();RestaurantReport();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food <span
+					<a onclick="clearMarkers();RestaurantReport();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food - <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="food">
@@ -1084,7 +1104,7 @@ function loginAlert(){
 
 
 				<li data-toggle="collapse" data-target="#new" class="collapsed">
-					<a onclick="clearMarkers();BarReport();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars <span
+					<a onclick="clearMarkers();BarReport();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars - <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="new">
@@ -1095,7 +1115,7 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#fitness" class="collapsed">
-					<a onclick="clearMarkers();GymReport();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness <span
+					<a onclick="clearMarkers();GymReport();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness - <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="fitness">
@@ -1105,7 +1125,7 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#leisure" class="collapsed">
-					<a href="#"><i class="fa fa-gift fa-lg"></i> Leisure <span
+					<a href="#"><i class="fa fa-gift fa-lg"></i> Leisure - <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="leisure">
@@ -1160,7 +1180,9 @@ function loginAlert(){
 								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
 
 							</c:if></li>
+							<li><a href="commuteplanner">test</a></li>
 						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
+		
 						</li>
 					</ul>
 					</div>
@@ -1225,7 +1247,7 @@ function loginAlert(){
 				<th>
 					
 					<p>
-						Address: &nbsp; &nbsp;<input type="hidden" name="addressBox"
+						<!-- Address: &nbsp; &nbsp; --><input type="hidden" name="addressBox"
 							id="addressBox" class="search_addr" size="45" />
 					</p>
 					<p>
@@ -1240,56 +1262,55 @@ function loginAlert(){
 				</th>
 				<th style="width: 50px"></th>
 				<th>
-					<h4>Area Rating</h4>
+					<h4><!-- Area Rating --></h4>
 			
 
 
 					<p>
-						Average House Price: <input type="text" size="10"
+						<!-- Average House Price: --> <input type="hidden" size="10"
 							value="${houseprice}" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();parseHousePrice();">Full Report</button>
 					</p>
 					<p>
-						Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input
-							type="text" size="10" value="${rating}" />&nbsp; &nbsp; &nbsp;
+						<!-- Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input
+							type="hidden" size="10" value="${rating}" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();gardaStationReport();">Full
 							Report</button>
 					</p>
 					<p>
-						Schools:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; <input type="text" size="10"
+						<!-- Schools:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
 							name="schoolAvgRating" id="schoolAvgRating" />&nbsp; &nbsp;
 						&nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();SchoolsReport();">Full Report</button>
 					</p>
 					<p>
-						Parks: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" size="10"
+						<!-- Parks: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
 							name="parkAvgRating" id="parkAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();UniversityReport();">Full Report</button>
 					</p>
 					<p>
-						Bars: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"
+						<!-- Bars: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden"
 							size="10" name="barAvgRating" id="barAvgRating" />&nbsp; &nbsp;
 						&nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();BarReport();">Full Report</button>
 					</p>
 					<p>
-						Restaurants: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp;<input type="text" size="10" name="restaurantAvgRating"
+						<!-- Restaurants: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; --><input type="hidden" size="10" name="restaurantAvgRating"
 							id="restaurantAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();RestaurantReport();">Full Report</button>
 					</p>
 					<p>
-						Gyms: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" size="10"
+						<!-- Gyms: --><input type="hidden" size="10"
 							name="gymAvgRating" id="gymAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();GymReport();">Full Report</button>

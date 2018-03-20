@@ -1,3 +1,4 @@
+
 package com.dit.arearatingsystem;
 
 import org.springframework.beans.factory.annotation.Autowired;

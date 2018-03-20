@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org">
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -14,38 +13,27 @@
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+<!------ Include the above in your HEAD tag ---------->
 <head>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>House Price</title>
+<title>Insert title here</title>
+    <link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-   <style>
-/* #geomap {
-	width: 80%;
-	height: 700px;
-	float: right;
-}
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-#inputbox {
-    float: right; }
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-#forminputs .p {
-	display: inline-block;
-	float: left;
-	clear: left;
-	width: 200px;
-	text-align: right;
-}
-
-#forminputs .input {
-	display: inline-block;
-	float: left;
-}
-
-/* Nav Side Bar  
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=geometry&amp;"></script>
+	
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+/* Nav Side Bar  */
 .nav-side-menu {
 	overflow: auto;
 	font-family: verdana;
@@ -89,7 +77,7 @@
                  float:right;
             }
      }
-
+*/
 }
 
 .nav-side-menu ul :not(collapsed) .arrow:before, .nav-side-menu li :not(collapsed) .arrow:before
@@ -199,63 +187,118 @@
 	.nav-side-menu .menu-list .menu-content {
 		display: block;
 	}
-} */
-</style>
-
-<script>
-
-function goBack() {
-	window.history.back();
 }
+</style>
+<script>
+var geocoder = new google.maps.Geocoder();
 
-/* $.ajax({
-    type: "POST",
-    url: "/parseHousePrice",
-    data: { latitude: Lat, 
-            longitude: Long,  
-          }, 
-    datatype: 'json'
-})
-.done(function( data, textStatus, jqxhr ) {    
-$("#housepriceID").val(data.houseprice);
-$("#housepricesize").val(data.housepricelistsize);
+var PostCodeid1 = '#address1';
+$(function() {
+	$(PostCodeid1).autocomplete({
+		source : function(request, response) {
+			geocoder.geocode({
+				'address' : request.term,
+				componentRestrictions : {
+					country : "ie"
+				}
+			}, function(results, status) {
+				response($.map(results, function(item) {
+					return {
+						label : item.formatted_address,
+						value : item.formatted_address,
+						lat : item.geometry.location.lat(),
+						lon : item.geometry.location.lng()
+					};
+				}));
+			});
+		}
+	});
+});
 
-}); */
+var PostCodeid2 = '#address2';
+$(function() {
+	$(PostCodeid2).autocomplete({
+		source : function(request, response) {
+			geocoder.geocode({
+				'address' : request.term,
+				componentRestrictions : {
+					country : "ie"
+				}
+			}, function(results, status) {
+				response($.map(results, function(item) {
+					return {
+						label : item.formatted_address,
+						value : item.formatted_address,
+						lat : item.geometry.location.lat(),
+						lon : item.geometry.location.lng()
+					};
+				}));
+			});
+		}
+	});
+});
+
+var PostCodeid3 = '#address3';
+$(function() {
+	$(PostCodeid3).autocomplete({
+		source : function(request, response) {
+			geocoder.geocode({
+				'address' : request.term,
+				componentRestrictions : {
+					country : "ie"
+				}
+			}, function(results, status) {
+				response($.map(results, function(item) {
+					return {
+						label : item.formatted_address,
+						value : item.formatted_address,
+						lat : item.geometry.location.lat(),
+						lon : item.geometry.location.lng()
+					};
+				}));
+			});
+		}
+	});
+});
+
+
+
 
 </script>
-
 </head>
 <body>
- <%--  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
+  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
         <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
     <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
  </a>
-
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:goBack();">Back</a>
+                <li><a href="javascript:goBack();">Back To The Map</a>
                 </li>
                 <li><a href="#">Log Out</a>
                 </li>
             </ul>
-        </div> 
-    </div> --%>
+        </div>
+    </div>
+</div>
 
-        
-    
-    
-    
- <table>
-    <c:forEach items="${housepricesList}" var="HousePrice"> 
-        <tr>
-            <td><c:out value="${HousePrice.housePrice}"/></td>
-            <td><c:out value="${HousePrice.number_of_houses}"/></td>
-        </tr>
-    </c:forEach>
-</table> 
+<div id = "inputbox">
+	<form id="myForm">
+	<br>
+	<br>
+	<br>
+ <input type="text" id="address1" class="forminput1" value = "${areaName}" placeholder="Set Starting Location" style ="width: 35%"/><br>
+ <input type="text" id="address2" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/> 		<br>
+ <input type="text" id="address3" class="forminput3"placeholder="Set Destination" width="35%" style ="width: 35%"/> 	<br>	
  
-
+  
+  <input type="button" id="routebtn" value="Save Commute locations" onclick="initialize()"/><br> 
+</form>
+</div>
+<br>
 </body>
 </html>
