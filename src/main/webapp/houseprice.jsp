@@ -247,15 +247,16 @@ $("#housepricesize").val(data.housepricelistsize);
     
     
     
- <table>
+<%--  <table>
     <c:forEach items="${housepricesList}" var="HousePrice"> 
         <tr>
             <td><c:out value="${HousePrice.housePrice}"/></td>
             <td><c:out value="${HousePrice.number_of_houses}"/></td>
         </tr>
     </c:forEach>
-</table> 
- 
+</table>  --%>
+ <p th:text="${session.houseprice}" th:unless="${session == null}">[...]</p>
+  <p th:text="${session.housepricelistsize}" th:unless="${session == null}">[...]</p>
 
 </body>
 </html>

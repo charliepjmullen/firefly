@@ -1091,6 +1091,10 @@ function loginAlert(){
 					<li>Creche</li>
 					<li>Primary Schoool</li>
 					<li>Secondary School</li>
+					<li><div class="slidecontainer">
+ 						 <input type="range" min="1" max="100" value="50">
+ 						 </div>
+ 					</li>	 
 				</ul>
 
 				<li data-toggle="collapse" data-target="#food" class="collapsed">
@@ -1198,7 +1202,7 @@ function loginAlert(){
 		<form>
 		<div class="form-group input-group">
 			<input type="text" id="search_location" class="form-control"
-				placeholder="Search location" />
+				placeholder="Search an area or put in an address " />
 			<div class="input-group-btn">
 				<button class="btn btn-default get_map" type="submit"
 					onclick="callAllFunctions();">Locate</button>

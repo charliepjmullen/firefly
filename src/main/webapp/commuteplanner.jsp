@@ -15,6 +15,13 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
     <link rel="stylesheet"
@@ -261,6 +268,21 @@ $(function() {
 	});
 });
 
+function saveCommuteAddresses(){
+
+	var address1 = document.getElementById("address1").value;
+	var address2 = document.getElementById("address2").value;
+	var address3 = document.getElementById("address3").value;
+
+	
+	$.ajax({
+ 	type: "POST",
+ 	url: "/savecommutes",
+ 	data: { address1: address1
+          }, // parameters
+    datatype: 'json'
+});
+}
 
 
 
@@ -275,30 +297,46 @@ $(function() {
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:goBack();">Back To The Map</a>
-                </li>
-                <li><a href="#">Log Out</a>
-                </li>
-            </ul>
-        </div>
+				<div class="collapse navbar-collapse navbar-menubuilder">
+
+					<div id ="topnavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><c:if
+								test="${pageContext.request.userPrincipal.name != null}">
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
+
+								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
+
+							</c:if></li>
+							<li><a href="commuteplanner">test</a></li>
+						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
+		
+						</li>
+					</ul>
+					</div>
+				</div>
     </div>
 </div>
 
 <div id = "inputbox">
-	<form id="myForm">
+	
 	<br>
 	<br>
 	<br>
- <input type="text" id="address1" class="forminput1" value = "${areaName}" placeholder="Set Starting Location" style ="width: 35%"/><br>
+ <input type="text" id="address1" class="forminput1"  placeholder="Set Starting Location" style ="width: 35%"/><br>
  <input type="text" id="address2" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/> 		<br>
  <input type="text" id="address3" class="forminput3"placeholder="Set Destination" width="35%" style ="width: 35%"/> 	<br>	
  
   
-  <input type="button" id="routebtn" value="Save Commute locations" onclick="initialize()"/><br> 
-</form>
+  <input type="button" id="routebtn" value="Save Commute locations" onclick="saveCommuteAddresses()"/><br> 
+
 </div>
 <br>
+
+<h4><a href = "/skip">Skip For Now</a></h4>
 </body>
 </html>

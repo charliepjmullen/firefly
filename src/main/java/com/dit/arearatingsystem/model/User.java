@@ -1,8 +1,9 @@
 package com.dit.arearatingsystem.model;
 
-import javax.persistence.*;
+import javax.persistence.*; 
 
 import com.dit.arearatingsystem.model.Area;
+import com.dit.arearatingsystem.model.Commutes;
 
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class User {
     private String passwordConfirm;
     private Set<Role> roles;
     private List<Area> savedAreas;
+    private List<Commutes> savedCommutes;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -67,13 +69,27 @@ public class User {
     public Set<Role> getRoles() {
         return roles;
     }
-
+	
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
     
+    @ManyToMany
+	@JoinTable(name = "user_commutes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "commutes_id"))
+	public List<Commutes> getSavedCommutes(){
+		return savedCommutes;
+	}
+	
+	public void setSavedCommutes(List<Commutes> savedCommutes) {
+		this.savedCommutes = savedCommutes;
+	}
+	
 	public void addArea(Area area) {
 		savedAreas.add(area);
+	}
+	
+	public void addCommute(Commutes commute) {
+		savedCommutes.add(commute);
 	}
 	
 	public void deleteArea(Area area) {

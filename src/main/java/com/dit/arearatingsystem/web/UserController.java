@@ -1,11 +1,13 @@
 package com.dit.arearatingsystem.web;
 
-import com.dit.arearatingsystem.model.Area; 
+import com.dit.arearatingsystem.model.Area;
+import com.dit.arearatingsystem.model.Commutes;
 import com.dit.arearatingsystem.model.GardaStation;
 import com.dit.arearatingsystem.model.HousePrice;
 import com.dit.arearatingsystem.model.User;
 import com.dit.arearatingsystem.parser.ParseCrimeStatistics;
 import com.dit.arearatingsystem.repository.AreaRepository;
+import com.dit.arearatingsystem.repository.CommutesRepository;
 import com.dit.arearatingsystem.repository.GardaStationRepository;
 import com.dit.arearatingsystem.repository.UserRepository;
 import com.dit.arearatingsystem.service.SecurityService;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +56,9 @@ public class UserController {
 	
 	@Autowired
 	AreaRepository areaRepository;
+	
+	@Autowired
+	CommutesRepository commutesRepository;
 	
 
 	ParseCrimeStatistics parseCrime = new ParseCrimeStatistics();
@@ -100,13 +106,14 @@ public class UserController {
 	
 	// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
 	@RequestMapping(value = "/saveAreaToProfile", method = RequestMethod.POST)
-	public @ResponseBody String saveAreaToProfile(Area area, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, 
-			@RequestParam("areaName") String areaName, 
-			@RequestParam("schools") double schools, 
-			@RequestParam("parks") double university, 
-			@RequestParam("bar") double bars, 
-			@RequestParam("gym") double gym,
-			@RequestParam("restaurant") double restaurant) {
+	public @ResponseBody String saveAreaToProfile(Area area, @RequestParam("latitude") double latitude,
+			                                                 @RequestParam("longitude") double longitude, 
+			                                                 @RequestParam("areaName") String areaName, 
+			                                                 @RequestParam("schools") double schools, 
+			                                                 @RequestParam("parks") double university, 
+			                                                 @RequestParam("bar") double bars, 
+			                                                 @RequestParam("gym") double gym,
+			                                                 @RequestParam("restaurant") double restaurant) {
 		
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
@@ -158,30 +165,39 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.POST)
-	public ModelAndView parseHousePrice(@Valid HousePrice housePriceObject, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude) {
+	public String housePricePage(/*@Valid HousePrice housePriceObject,*/ @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, HttpSession session) {
 		
-		housePriceObject = new HousePrice();
+		/*housePriceObject = new HousePrice();*/
 		
+		// Pass this value
 		double housePrice = parseHousePrice.ParseHousePrice(latitude, longitude);
 		
 		List<Double> housePriceList = parseHousePrice.getList();
+		//Pass this value
 		int number_of_houses = housePriceList.size();
 		
-		housePriceObject.setHousePrice(housePrice);
-		housePriceObject.setNumber_of_houses(number_of_houses);
+/*		String housePriceAverage2 = String.valueOf(housePrice);
+		String housePriceListSize2 = Integer.toString(number_of_houses);*/
+/*		housePriceObject.setHousePrice(housePrice);
+		housePriceObject.setNumber_of_houses(number_of_houses);*/
 		
 		System.out.println("The average house price for this area is: " + housePrice + " based on " + number_of_houses + " property prices in this area");
 		
 		/*model.addAttribute("housePriceObject", housePriceObject);
 		*/
-		List<HousePrice> housepricesList = new ArrayList<HousePrice>();
-		housepricesList.add(housePriceObject);
-/*		
-		model.addAttribute("houseprice", housePriceAverage);
-		model.addAttribute("housepricelistsize", housePriceListSize);
-		*/
-		 ModelAndView map = new ModelAndView("houseprice");
-		    map.addObject("housepricesList", housepricesList.toString());
+		/*List<HousePrice> housepricesList = new ArrayList<HousePrice>();
+		housepricesList.add(housePriceObject);*/
+		
+/*		model.addAttribute("houseprice", housePriceAverage2);
+		model.addAttribute("housepricelistsize", housePriceListSize2);*/
+		
+		
+		session.setAttribute("houseprice", housePrice);
+		session.setAttribute("housepricelistsize", number_of_houses);
+		
+		System.out.println(session.getServletContext());
+/*		 ModelAndView map = new ModelAndView("houseprice");
+		    map.addObject("housepricesList", housepricesList.toString());*/
 		
 /*		if(model.containsAttribute("houseprice") && model.containsAttribute("houseprice")) {
 			System.out.println(housePriceObject + "is passing throuogh.");
@@ -194,7 +210,7 @@ public class UserController {
 			System.out.println(model);
 		}*/
 
-		return map;
+		return "NewFile";
 	}
 	
 	
@@ -262,6 +278,29 @@ public class UserController {
 	@RequestMapping(value = "/commuteplanner", method = RequestMethod.GET) 
 	public String CommutePlanner(@Valid Area area, BindingResult bindingResult, Model model) {
 		return "commuteplanner";
+	}
+	
+	@RequestMapping(value = "/savecommutes", method = RequestMethod.POST) 
+	public @ResponseBody String saveCommutesToUser( Commutes commutes, @RequestParam("areaName") String address) {
+		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      commutesRepository.save(commutes);
+	      User user = userRepository.findByUsername(username);
+	      
+	      System.out.println(username + " just saved " +"Area: " + commutes);
+
+		  
+	      user.addCommute(commutes);
+	      userRepository.save(user);
+		
+		return "welcome";
+	}
+	
+	@RequestMapping(value = "/skip", method = RequestMethod.GET) 
+	public String Skip() {
+		return "welcome";
 	}
 	
 
