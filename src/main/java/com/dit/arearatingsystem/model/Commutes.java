@@ -9,15 +9,17 @@ public class Commutes {
 
 	private Long id;
 	private String address;
+	private String addressnickname;
 	
 	public Commutes() {
 		
 	}
 	
-	public Commutes(Long id, String address) {
+	public Commutes(Long id, String address, String addressnickname) {
 		super();
 		this.id = id;
 		this.address = address;
+		this.addressnickname = addressnickname;
 	}
 	
 	public Commutes(String address) {
@@ -43,7 +45,15 @@ public class Commutes {
 		this.address = address;
 	}
 
+	public String getAddressnickname() {
+		return addressnickname;
+	}
 
+	public void setAddressnickname(String addressnickname) {
+		this.addressnickname = addressnickname;
+	}
+
+    
 
 	 
 }

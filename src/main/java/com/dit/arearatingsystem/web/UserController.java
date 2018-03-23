@@ -9,6 +9,7 @@ import com.dit.arearatingsystem.parser.ParseCrimeStatistics;
 import com.dit.arearatingsystem.repository.AreaRepository;
 import com.dit.arearatingsystem.repository.CommutesRepository;
 import com.dit.arearatingsystem.repository.GardaStationRepository;
+import com.dit.arearatingsystem.repository.HousePriceRepository;
 import com.dit.arearatingsystem.repository.UserRepository;
 import com.dit.arearatingsystem.service.SecurityService;
 import com.dit.arearatingsystem.service.UserService;
@@ -59,6 +60,9 @@ public class UserController {
 	
 	@Autowired
 	CommutesRepository commutesRepository;
+	
+	@Autowired
+	HousePriceRepository housePriceRepository;
 	
 
 	ParseCrimeStatistics parseCrime = new ParseCrimeStatistics();
@@ -131,7 +135,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/savedAreasMap", method = RequestMethod.GET)
-	public String savedAreas(@Valid Area area, BindingResult bindingResult, Model model) {
+	public String savedAreas(@Valid Area area, BindingResult bindingResult, Model model) { 
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
 
@@ -165,10 +169,11 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.POST)
-	public String housePricePage(/*@Valid HousePrice housePriceObject,*/ @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, HttpSession session) {
+	public String housePricePage(@Valid HousePrice housePriceObject/*, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude*/,BindingResult bindingResult, Model model) {
 		
-		/*housePriceObject = new HousePrice();*/
-		
+/*		housePriceObject = new HousePrice();
+		double latitude = 53.3498053;
+		double longitude = -6.260309699999993;
 		// Pass this value
 		double housePrice = parseHousePrice.ParseHousePrice(latitude, longitude);
 		
@@ -176,39 +181,23 @@ public class UserController {
 		//Pass this value
 		int number_of_houses = housePriceList.size();
 		
-/*		String housePriceAverage2 = String.valueOf(housePrice);
-		String housePriceListSize2 = Integer.toString(number_of_houses);*/
-/*		housePriceObject.setHousePrice(housePrice);
-		housePriceObject.setNumber_of_houses(number_of_houses);*/
+
+		housePriceObject.setHousePrice(housePrice);
+		housePriceObject.setNumber_of_houses(number_of_houses);
 		
 		System.out.println("The average house price for this area is: " + housePrice + " based on " + number_of_houses + " property prices in this area");
 		
-		/*model.addAttribute("housePriceObject", housePriceObject);
-		*/
-		/*List<HousePrice> housepricesList = new ArrayList<HousePrice>();
-		housepricesList.add(housePriceObject);*/
+
+		List<HousePrice> housepricesList = new ArrayList<HousePrice>();
+		housepricesList.add(housePriceObject);
+        
+		housePriceRepository.save(housePriceObject);
 		
-/*		model.addAttribute("houseprice", housePriceAverage2);
-		model.addAttribute("housepricelistsize", housePriceListSize2);*/
-		
-		
-		session.setAttribute("houseprice", housePrice);
-		session.setAttribute("housepricelistsize", number_of_houses);
-		
-		System.out.println(session.getServletContext());
-/*		 ModelAndView map = new ModelAndView("houseprice");
-		    map.addObject("housepricesList", housepricesList.toString());*/
-		
-/*		if(model.containsAttribute("houseprice") && model.containsAttribute("houseprice")) {
-			System.out.println(housePriceObject + "is passing throuogh.");
-			System.out.println(housePriceObject.getHousePrice());
-			System.out.println(housePriceObject.getNumber_of_houses());
-			
-			
-			System.out.println(housePriceAverage);
-			System.out.println(housePriceListSize);
-			System.out.println(model);
-		}*/
+		 
+	      for (int i = 0; i < housepricesList.size(); i++) {
+	    	  	model.addAttribute("housepricesList", housepricesList);
+	    	  	//model.addAttribute("housepricelistsize", number_of_houses);
+	      }*/
 
 		return "NewFile";
 	}
@@ -216,8 +205,22 @@ public class UserController {
 	
 	
 	
+	
+	
 	@RequestMapping(value = "/parseHousePrice2", method = RequestMethod.GET) 
-	public String housePricePage(@Valid Area area, BindingResult bindingResult, Model model) {
+    public String printHousePricePage(@Valid HousePrice housePriceObject, BindingResult bindingResult, Model model) { 
+		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      housePriceRepository.save(housePriceObject);
+	      User user = userRepository.findByUsername(username);
+	      
+	      List<Area> savedAreas = user.getSavedAreas();
+	      for (int i = 0; i < savedAreas.size(); i++) {
+	    	  model.addAttribute("savedAreas", savedAreas);
+	      }
+	      
 		return "houseprice";
 	}
 	
@@ -239,7 +242,19 @@ public class UserController {
 	 }
 	
 	@RequestMapping(value = "/commuteCheckerPage", method = RequestMethod.GET)
-	public String commuteChecker(@Valid Area area, BindingResult bindingResult, Model model) {
+	public String commuteChecker(@Valid Commutes commutes, BindingResult bindingResult, Model model) {
+		
+		 Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      commutesRepository.save(commutes);
+	      User user = userRepository.findByUsername(username);
+	      
+	      List<Commutes> savedCommutes = user.getSavedCommutes();
+	      for (int i = 0; i < savedCommutes.size(); i++) {
+	    	  model.addAttribute("savedCommutes", savedCommutes);
+	      }
+	      
 		return "commuteChecker";
 	}
 	
@@ -276,12 +291,24 @@ public class UserController {
 	}*/
 	
 	@RequestMapping(value = "/commuteplanner", method = RequestMethod.GET) 
-	public String CommutePlanner(@Valid Area area, BindingResult bindingResult, Model model) {
+	public String CommutePlanner(@Valid Commutes commutes, BindingResult bindingResult, Model model) {
+		
+		/* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      commutesRepository.save(commutes);
+	      User user = userRepository.findByUsername(username);
+	      
+	      List<Commutes> savedCommutes = user.getSavedCommutes();
+	      for (int i = 0; i < savedCommutes.size(); i++) {
+	    	  model.addAttribute("savedCommutes", savedCommutes);
+	      }*/
+	      
 		return "commuteplanner";
 	}
 	
 	@RequestMapping(value = "/savecommutes", method = RequestMethod.POST) 
-	public @ResponseBody String saveCommutesToUser( Commutes commutes, @RequestParam("areaName") String address) {
+	public @ResponseBody String saveCommutesToUser(Commutes commutes, @RequestParam("address") String address, @RequestParam("addressnickname") String addressnickname) {
 		
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
@@ -289,7 +316,7 @@ public class UserController {
 	      commutesRepository.save(commutes);
 	      User user = userRepository.findByUsername(username);
 	      
-	      System.out.println(username + " just saved " +"Area: " + commutes);
+	      System.out.println(username + " just saved | Area: " + commutes + "|called: " + address + "|nickname: " + addressnickname);
 
 		  
 	      user.addCommute(commutes);

@@ -587,8 +587,25 @@
 <br>
 <div id = "inputbox">
 	<form id="myForm">
- <input type="text" id="addressFrom" class="forminput1" value = "${areaName}" placeholder="Set Starting Location" style ="width: 35%"/>
- <input type="text" id="addressTo" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/> 
+ <input type="text" id="addressFrom" class="forminput1" value = "${areaName}" placeholder="Set Starting Location" style ="width: 50%"/>
+ <!-- <input type="text" id="addressTo" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/>  -->
+ <input list="places" id="addressTo" class="forminput2" placeholder="Set Destination" style ="width: 50%"/>
+<datalist id="places">
+  <!--  <option value = "123 Fake St, Dublin, Ireland">Home</option> -->
+   <c:forEach var="o" items="${savedCommutes}">
+					<option value="${o.address}"><c:out value="${o.addressnickname}" /></option>
+   </c:forEach>
+</datalist>
+ 
+<%--    <select>
+   <c:forEach var="o" items="${savedCommutes}">
+					<option value="${o.address}"><c:out value="${o.address}" /></option>
+   </c:forEach>
+   </select> --%>
+   
+ 
+
+ 
   <select>
 					<option value="walking">Walking</option>
 					<option value="cycling">Cycling</option>
@@ -604,6 +621,8 @@
 
 <!-- display google map -->
 <div id="geomap"></div>
+
+
 
 
 

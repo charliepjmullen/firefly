@@ -199,7 +199,7 @@
 <script>
 var geocoder = new google.maps.Geocoder();
 
-var PostCodeid1 = '#address1';
+var PostCodeid1 = '#address';
 $(function() {
 	$(PostCodeid1).autocomplete({
 		source : function(request, response) {
@@ -270,15 +270,16 @@ $(function() {
 
 function saveCommuteAddresses(){
 
-	var address1 = document.getElementById("address1").value;
-	var address2 = document.getElementById("address2").value;
-	var address3 = document.getElementById("address3").value;
+	var address = document.getElementById("address").value;
+	var addressnickname = document.getElementById("addressnickname").value;
+/* 	var address3 = document.getElementById("address3").value; */
 
 	
 	$.ajax({
  	type: "POST",
  	url: "/savecommutes",
- 	data: { address1: address1
+ 	data: { address: address,
+ 		    addressnickname: addressnickname
           }, // parameters
     datatype: 'json'
 });
@@ -327,9 +328,9 @@ function saveCommuteAddresses(){
 	<br>
 	<br>
 	<br>
- <input type="text" id="address1" class="forminput1"  placeholder="Set Starting Location" style ="width: 35%"/><br>
- <input type="text" id="address2" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/> 		<br>
- <input type="text" id="address3" class="forminput3"placeholder="Set Destination" width="35%" style ="width: 35%"/> 	<br>	
+ <input type="text" id="address" class="forminput1"  placeholder="Commute address one" style ="width: 35%"/><br>
+ <input type="text" id="addressnickname"  placeholder="Pick a nickname for this address e.g Home, Work, Birds Gaf" width="35%" style ="width: 35%"/>
+	
  
   
   <input type="button" id="routebtn" value="Save Commute locations" onclick="saveCommuteAddresses()"/><br> 

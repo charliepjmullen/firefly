@@ -406,8 +406,8 @@ function loginAlert(){
                  bar: bar,
                  gym: gym,
                  restaurant: restaurant
-		}, // parameters
-     datatype: 'json'
+		        }, // parameters
+          datatype: 'json'
 });
 	}
 
@@ -427,7 +427,19 @@ function loginAlert(){
 	     data: { latitude: Lat, 
                  longitude: Long  
 		       }, // parameters
-         datatype: 'json'
+         datatype: 'json',
+         success: function(data){
+             if(data === "NewFile"){
+                  //Open new page
+                  // /ControllerName/ActionMethodName
+            	 window.open("/parseHousePrice/NewFile");
+             }      
+         },
+         error: function(data){
+             if(data != "NewFile"){
+            	 console.log('error!');
+        	  }
+         }
         });
 
 		}
@@ -716,7 +728,7 @@ function loginAlert(){
   	    var averageRatingTB = document.getElementById('restaurantAvgRating');
   	    averageRatingTB.value = averageRatingRounded;
 
-		 var a = document.querySelector('li[data-target="#food"] > a'); //get the a in the menu
+		var a = document.querySelector('li[data-target="#food"] > a'); //get the a in the menu
   	    var foodScore = document.createElement("span"); //create a new span
   	    a.appendChild(foodScore); // add the span to the a
 
@@ -1137,9 +1149,10 @@ function loginAlert(){
 					<li>Cinema</li>
 				</ul>
 				
-				<li data-toggle="collapse" data-target="commute" class="collapsed">
-					<a   href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+				<li data-toggle="collapse" data-target="#commute" class="collapsed">
+					<a href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
+
 				
 				<li data-toggle="collapse" data-target="savedareas" class="collapsed">
 					<a href="savedAreasMap"><i class="fa fa-home fa-lg"></i> My Saved Areas </a>
