@@ -20,6 +20,7 @@ public class GardaStation {
 	private String gardaStation_name;
 	private double gardaStation_latitude;
 	private double gardaStation_longitude;
+	private double crime_rating;
 	
 	
 	public GardaStation() {
@@ -34,6 +35,12 @@ public class GardaStation {
 		this.gardaStation_name = gardaStation_name;
 		this.gardaStation_latitude = gardaStation_latitude;
 		this.gardaStation_longitude = gardaStation_longitude;
+	}
+	
+	public GardaStation(int gardaStation_id, double crime_rating) {
+		super();
+		this.gardaStation_id = gardaStation_id;
+		this.crime_rating = crime_rating;
 	}
 	
 	public GardaStation(String gardaStation_name) {
@@ -82,6 +89,16 @@ public class GardaStation {
 	}
 
 
+	public double getCrime_rating() {
+		return crime_rating;
+	}
+
+
+	public void setCrime_rating(double crime_rating) {
+		this.crime_rating = crime_rating;
+	}
+
+    
 
 
 }

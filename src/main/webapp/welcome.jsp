@@ -1009,7 +1009,7 @@ function loginAlert(){
 
 					$.ajax({
 					     type: "POST",
-					     url: "/gardaStation",
+					     url: "/crimestats",
 					     data: { gardastationname: gardastation
 						}, // parameters
 				     datatype: 'json'
@@ -1090,8 +1090,8 @@ function loginAlert(){
 					<li><a >Address</a></li>
 					<li><a >Latitude</a></li>
 					<li><a >Longitude</a></li>
-					<li><a href= "javascript:parseHousePrice();" >House Price</a></li> 
-					<li><a onclick="gardaStationReport();" >Crime Rating</a></li>
+					<li><a onclick="parseHousePrice();" href = "parseHousePrice2">House Price</a></li> 
+					<li><a onclick="gardaStationReport();" href = "crimeStats" >Crime Rating</a></li>
 				</ul>
 
 
@@ -1156,6 +1156,10 @@ function loginAlert(){
 				
 				<li data-toggle="collapse" data-target="savedareas" class="collapsed">
 					<a href="savedAreasMap"><i class="fa fa-home fa-lg"></i> My Saved Areas </a>
+				</li>
+				
+				<li data-toggle="collapse" data-target="reviews" class="collapsed">
+					<a href="#"><i class="fa fa-book fa-lg"></i> Reviews </a>
 				</li>
 			</ul>
 		</div>

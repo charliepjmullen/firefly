@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -9,12 +14,16 @@
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 <head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Crime Stats</title>
+<title>House Price</title>
 
    <style>
-#geomap {
+ #geomap {
 	width: 80%;
 	height: 700px;
 	float: right;
@@ -36,7 +45,7 @@
 	float: left;
 }
 
-/* Nav Side Bar  */
+/* Nav Side Bar  
 .nav-side-menu {
 	overflow: auto;
 	font-family: verdana;
@@ -80,7 +89,7 @@
                  float:right;
             }
      }
-*/
+
 }
 
 .nav-side-menu ul :not(collapsed) .arrow:before, .nav-side-menu li :not(collapsed) .arrow:before
@@ -190,27 +199,29 @@
 	.nav-side-menu .menu-list .menu-content {
 		display: block;
 	}
-}
+} 
+
 
 </style>
+
 <script>
 
 function goBack() {
 	window.history.back();
 }
 
+
+
 </script>
+
 </head>
-
-
 <body>
-  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
+ <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
         <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
     <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
  </a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
+
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-right">
@@ -219,12 +230,27 @@ function goBack() {
                 <li><a href="#">Log Out</a>
                 </li>
             </ul>
-        </div>
-    </div>
+        </div> 
+    </div> -
 </div>
+        
+    
+    
+    
 
-  <h1>${rating} </h1>
-  
+    <h3>Crime Statistics Information Hub</h3>
+	
+	<table>
+	
+		
+		<c:forEach var="o" items="${gardaStationList}">
+			<tr>
+				<td width="10%" height="50"><h3>Based on <c:out value="${o.gardaStation_name}" />'s statitics the crime rating for this area is: <c:out value="${o.crime_rating}" /> </h3></td>  
+             </tr>
+		</c:forEach>
+		
+</table>
+<br>
 
 </body>
 </html>

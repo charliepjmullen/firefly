@@ -169,11 +169,9 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/parseHousePrice", method = RequestMethod.POST)
-	public String housePricePage(@Valid HousePrice housePriceObject/*, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude*/,BindingResult bindingResult, Model model) {
+	public String housePricePage(@Valid HousePrice housePriceObject, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude,BindingResult bindingResult, Model model) {
 		
-/*		housePriceObject = new HousePrice();
-		double latitude = 53.3498053;
-		double longitude = -6.260309699999993;
+		housePriceObject = new HousePrice();
 		// Pass this value
 		double housePrice = parseHousePrice.ParseHousePrice(latitude, longitude);
 		
@@ -187,60 +185,27 @@ public class UserController {
 		
 		System.out.println("The average house price for this area is: " + housePrice + " based on " + number_of_houses + " property prices in this area");
 		
-
-		List<HousePrice> housepricesList = new ArrayList<HousePrice>();
-		housepricesList.add(housePriceObject);
-        
+		housePriceRepository.deleteAll();
 		housePriceRepository.save(housePriceObject);
 		
-		 
-	      for (int i = 0; i < housepricesList.size(); i++) {
-	    	  	model.addAttribute("housepricesList", housepricesList);
-	    	  	//model.addAttribute("housepricelistsize", number_of_houses);
-	      }*/
-
 		return "NewFile";
 	}
 	
 	
 	
-	
-	
-	
 	@RequestMapping(value = "/parseHousePrice2", method = RequestMethod.GET) 
     public String printHousePricePage(@Valid HousePrice housePriceObject, BindingResult bindingResult, Model model) { 
-		
-		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for 
 
-	      housePriceRepository.save(housePriceObject);
-	      User user = userRepository.findByUsername(username);
-	      
-	      List<Area> savedAreas = user.getSavedAreas();
-	      for (int i = 0; i < savedAreas.size(); i++) {
-	    	  model.addAttribute("savedAreas", savedAreas);
-	      }
+	      List<HousePrice> housePrice = new ArrayList<>();
+	     
+	      housePrice = housePriceRepository.findAll();
+
+	      model.addAttribute("housePrice", housePrice);
 	      
 		return "houseprice";
 	}
 	
-	@RequestMapping(value = "/gardaStation", method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody String Submit(@RequestBody @RequestParam("gardastationname") String gardaStation_name, Model model) {
 
-		System.out.println(" ");
-	    System.out.println("Garda Station: " + gardaStation_name);
-	    
-	    System.out.println("About to parse....");
-	    double rating =  parseCrime.ParseCrime(gardaStation_name);
-	    System.out.println("Parsed");
-	    
-	    System.out.println("Crime Rating: " + rating);
-	    
-	    model.addAttribute("rating", rating);
-	    
-		return "/";
-	 }
-	
 	@RequestMapping(value = "/commuteCheckerPage", method = RequestMethod.GET)
 	public String commuteChecker(@Valid Commutes commutes, BindingResult bindingResult, Model model) {
 		
@@ -258,37 +223,41 @@ public class UserController {
 		return "commuteChecker";
 	}
 	
-/*	@RequestMapping(value = "/crimestats", method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody String crimeStatistics(@ModelAttribute GardaStation gardaStation, @RequestParam("gardastationname") String gardaStation_name, Model model) throws IOException {
+	@RequestMapping(value = "/crimestats", method=RequestMethod.POST)
+	public String crimeStatistics(@Valid GardaStation gardaStationObject, @RequestParam("gardastationname") String gardaStation_name, BindingResult bindingResult,Model model) {
 
+		gardaStationObject = new GardaStation();
+		
 		System.out.println(" ");
 	    System.out.println("Garda Station: " + gardaStation_name);
+	    double crime_rating =  parseCrime.ParseCrime(gardaStation_name);
+	    System.out.println("Crime Rating: " + crime_rating);
 	    
-	    System.out.println("About to parse....");
-	    double rating =  parseCrime.ParseCrime(gardaStation_name);
-	    System.out.println("Parsed");
+	    gardaStationObject.setGardaStation_name(gardaStation_name);
+	    gardaStationObject.setCrime_rating(crime_rating);
 	    
-	    System.out.println("Crime Rating: " + rating);
+	    gardaStationRepository.deleteAll();
+		gardaStationRepository.save(gardaStationObject);
 	    
-	    model.addAttribute("rating", rating);
 	    
 		return "crimestats";
 	}
 	
-	@RequestMapping(value = "/houseprice", method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody String housePrice(HousePrice housePrice, @RequestParam("latitude") double latitude,@RequestParam("longitude") double longitude, Model model) {
-		
-		double housePriceAverage = parseHousePrice.ParseHousePrice(latitude, longitude);
-		
-		List<Double> housePriceList = parseHousePrice.getList();
-		int housePriceListSize = housePriceList.size();
-		
-		System.out.println("The average house price for this area is: " + housePriceAverage + " based on " + housePriceListSize + " property prices in this area");
-		
-		model.addAttribute("houseprice", housePriceAverage);
-		model.addAttribute("housepricelistsize", housePriceListSize);
-		return "houseprice";
-	}*/
+	@RequestMapping(value = "/crimeStats", method = RequestMethod.GET) 
+    public String printCrimeStatsPage(@Valid GardaStation gardaStationObject, BindingResult bindingResult, Model model) { 
+
+		  
+	     
+	      List<GardaStation> gardaStationList = new ArrayList<>();
+	     
+          gardaStationList = gardaStationRepository.findAll();
+
+	      
+	      model.addAttribute("gardaStationList", gardaStationList);
+	      
+		return "crimestats";
+	}
+	
 	
 	@RequestMapping(value = "/commuteplanner", method = RequestMethod.GET) 
 	public String CommutePlanner(@Valid Commutes commutes, BindingResult bindingResult, Model model) {
@@ -329,6 +298,8 @@ public class UserController {
 	public String Skip() {
 		return "welcome";
 	}
+	
+	
 	
 
 	

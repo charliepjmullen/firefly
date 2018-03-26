@@ -23,7 +23,7 @@
 <title>House Price</title>
 
    <style>
-/* #geomap {
+ #geomap {
 	width: 80%;
 	height: 700px;
 	float: right;
@@ -199,7 +199,9 @@
 	.nav-side-menu .menu-list .menu-content {
 		display: block;
 	}
-} */
+} 
+
+
 </style>
 
 <script>
@@ -208,7 +210,7 @@ function goBack() {
 	window.history.back();
 }
 
-/* $.ajax({
+/* /* $.ajax({
     type: "POST",
     url: "/parseHousePrice",
     data: { latitude: Lat, 
@@ -220,13 +222,13 @@ function goBack() {
 $("#housepriceID").val(data.houseprice);
 $("#housepricesize").val(data.housepricelistsize);
 
-}); */
+});  */
 
 </script>
 
 </head>
 <body>
- <%--  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
+ <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
         <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
     <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
@@ -241,8 +243,8 @@ $("#housepricesize").val(data.housepricelistsize);
                 </li>
             </ul>
         </div> 
-    </div> --%>
-
+    </div> -
+</div>
         
     
     
@@ -255,8 +257,31 @@ $("#housepricesize").val(data.housepricelistsize);
         </tr>
     </c:forEach>
 </table>  --%>
- <p th:text="${session.houseprice}" th:unless="${session == null}">[...]</p>
-  <p th:text="${session.housepricelistsize}" th:unless="${session == null}">[...]</p>
+ <h3>House Price Information Hub</h3>
+	
+	<table>
+	
+		
+		<c:forEach var="o" items="${housePrice}">
+			<tr>
+				<td width="10%" height="50"><h3>The average house price for this area is <c:out value="${o.housePrice}" /> based on <c:out value="${o.number_of_houses}" /> houses in this area</h3></td>  
+             </tr>
+		</c:forEach>
+		
+		<tr><p>Based on Dublin's average property price (380579.4) this house is </p></tr>
+</table>
+<br>
+<h4>How is the average price calculated?</h4>
+<p>The house prices are provided by The Property Services Regulatory Authority. Over 30,000 (33,183) records of Dublin based property prices</p>
+<p> are stored locally in a PostgreSQL database with a PostGIS extension, which when queried will return the average house prices of all</p>
+<p>the properties within a 1 kilometre radius of the searched area. This current dataset is up to date of of 21/03/2018</p>
+<br>
+<br>
+<br>
 
+<p>Here is a visular representation of the Property Price Register. The large yellow and green markers represent properties worth </p>
+<p>over 1,000,000 Euro in value.</p>
+
+<img src="${pageContext.request.contextPath}/resources/images/HousePriceMarkers.PNG" alt="House Price Markers" >
 </body>
 </html>
