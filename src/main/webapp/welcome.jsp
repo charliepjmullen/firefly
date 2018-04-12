@@ -983,7 +983,7 @@ function loginAlert(){
 
  //<![CDATA[
  	
-	function callback(results, status) {
+	 function callback(results, status) {
 		
 	  if (status === google.maps.places.PlacesServiceStatus.OK) {
 		  if(marker)
@@ -992,7 +992,19 @@ function loginAlert(){
 		      createMarker(results[i]);
 		    }
 	  }
-	}
+	} 
+
+/* 	function callback(results, status) {
+		  if (status === google.maps.places.PlacesServiceStatus.OK) {
+		    var service = new google.maps.places.PlacesService(map);
+		    for (var i = 0; i < results.length; i++) {
+		      var request = {
+		        placeId: results[i].place_id
+		      }
+		      service.getDetails(request, createMarker)
+		    }
+		  } else console.log("nearbySearch:"+status);
+		} */
 
 	function gardaStationReportcallback(results, status){
 		
@@ -1033,7 +1045,7 @@ function loginAlert(){
 
 	  markers.push(reportmarker);
 	  google.maps.event.addListener(reportmarker, 'click', function() {
-	    infowindow.setContent( place.name + ": " + place.rating);
+	    infowindow.setContent("<p>" + place.name + "<br />" + place.rating + "<br />" + place.vicinity + "<br />" + "<br />" + place.types + "<br />" +"</p>");
 	    infowindow.open(map, this);
 	  });
 	}
@@ -1047,17 +1059,19 @@ function loginAlert(){
     //]]>
 
  function sendAddressToCommutePage(){
-		var areaName = document.getElementById("addressBox").value;
+		var address = document.getElementById("addressBox").value;
  
 	  
 	$.ajax({
-       type: "POST",
-       url: "/saveAreaToProfile",
-       data: {  areaName: areaName,
+       type: "GET",
+       url: "/commuteplanner2",
+       data: {  address: address
 	   }, 
        datatype: 'json'
      });
 	 }
+
+
 
 
  
@@ -1095,11 +1109,11 @@ function loginAlert(){
 				</ul>
 
 
-				<li data-toggle="collapse" data-target="#service" class="collapsed">
+				<li data-toggle="collapse" data-target="#education" class="collapsed">
 					<a onclick="clearMarkers();SchoolsReport();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
-						Education  <span class="arrow"></span></a>
+						Education : <span class="arrow"></span></a>
 				</li>
-				<ul class="sub-menu collapse" id="service">
+				<ul class="sub-menu collapse" id="#education">
 					<li>Creche</li>
 					<li>Primary Schoool</li>
 					<li>Secondary School</li>
@@ -1110,7 +1124,7 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#food" class="collapsed">
-					<a onclick="clearMarkers();RestaurantReport();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food - <span
+					<a onclick="clearMarkers();RestaurantReport();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food : <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="food">
@@ -1119,11 +1133,11 @@ function loginAlert(){
 				</ul>
 
 
-				<li data-toggle="collapse" data-target="#new" class="collapsed">
-					<a onclick="clearMarkers();BarReport();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars - <span
+				<li data-toggle="collapse" data-target="#bars" class="collapsed">
+					<a onclick="clearMarkers();BarReport();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars : <span
 						class="arrow"></span></a>
 				</li>
-				<ul class="sub-menu collapse" id="new">
+				<ul class="sub-menu collapse" id="bars">
 					<li>Pubs</li>
 					<li>Cocktails</li>
 					<li>Cheap</li>
@@ -1131,7 +1145,7 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#fitness" class="collapsed">
-					<a onclick="clearMarkers();GymReport();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness - <span
+					<a onclick="clearMarkers();GymReport();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness : <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="fitness">
@@ -1141,7 +1155,7 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#leisure" class="collapsed">
-					<a href="#"><i class="fa fa-gift fa-lg"></i> Leisure - <span
+					<a href="#"><i class="fa fa-gift fa-lg"></i> Leisure : <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="leisure">
@@ -1150,7 +1164,7 @@ function loginAlert(){
 				</ul>
 				
 				<li data-toggle="collapse" data-target="#commute" class="collapsed">
-					<a href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+					<a href="commuteCheckerPage" onclick="sendAddressToCommutePage()"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
 
 				

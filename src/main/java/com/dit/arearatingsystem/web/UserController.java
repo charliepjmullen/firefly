@@ -1,6 +1,6 @@
 package com.dit.arearatingsystem.web;
 
-import com.dit.arearatingsystem.model.Area;
+import com.dit.arearatingsystem.model.Area;  
 import com.dit.arearatingsystem.model.Commutes;
 import com.dit.arearatingsystem.model.GardaStation;
 import com.dit.arearatingsystem.model.HousePrice;
@@ -31,6 +31,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -151,19 +152,30 @@ public class UserController {
 		return "savedAreas";
 	}
 	
-	@RequestMapping(value = "/deletearea", method = RequestMethod.POST)
-	public String deleteArea(@Valid Area area, BindingResult bindingResult, Model model) {
+	@RequestMapping(value = "/deletearea/{areaId}", method = RequestMethod.GET)
+	public String deleteArea(@PathVariable("areaId") Long areaId) {
 		 
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
 
 	      User user = userRepository.findByUsername(username);
-	      System.out.println("User: " + user + "Area:" + area);
+	      Area area = areaRepository.findByAreaId(areaId);
+	      
+	      System.out.println(username + " just deleted " + area.getAreaName());
+	      
 	      user.deleteArea(area);
 	      userRepository.save(user);
 	      
-	      System.out.println(user + " deleted " + area);
-		  return "savedAreas";
+	      System.out.println(areaId);
+	     /* System.out.println("User: " + user + "Area:" + area);
+	      user.deleteArea(area);
+	      userRepository.save(user);
+	      
+	      System.out.println(user + " deleted " + area);*/
+	      
+	      
+	      
+		  return "areadeleted";
 	}
 	
 	
@@ -260,8 +272,10 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/commuteplanner", method = RequestMethod.GET) 
-	public String CommutePlanner(@Valid Commutes commutes, BindingResult bindingResult, Model model) {
+	public String CommutePlanner(@Valid Commutes commutes,  BindingResult bindingResult, Model model) {
 		
+		
+	
 		/* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
 
@@ -274,6 +288,28 @@ public class UserController {
 	      }*/
 	      
 		return "commuteplanner";
+	}
+	
+	@RequestMapping(value = "/commuteplanner2", method = RequestMethod.GET) 
+	public String CommutePlanner2(@Valid Commutes commutes, @RequestParam("address")String address, BindingResult bindingResult, Model model) {
+		
+		
+		System.out.println(address);
+		/* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      commutesRepository.save(commutes);
+	      User user = userRepository.findByUsername(username);
+	      
+	      List<Commutes> savedCommutes = user.getSavedCommutes();
+	      for (int i = 0; i < savedCommutes.size(); i++) {
+	    	  model.addAttribute("savedCommutes", savedCommutes);
+	      }*/
+		String address2 = address;
+		
+		model.addAttribute("address2", address2);
+	      
+		return "commuteChecker";
 	}
 	
 	@RequestMapping(value = "/savecommutes", method = RequestMethod.POST) 
@@ -298,6 +334,46 @@ public class UserController {
 	public String Skip() {
 		return "welcome";
 	}
+	
+	@RequestMapping(value = "/login2", method = RequestMethod.GET) 
+	public String Login2() {
+		return "login2";
+	}
+	
+	
+	@RequestMapping(value = "/map/{areaId}", method = RequestMethod.GET)
+	public String viewonmap(@PathVariable("areaId") Long areaId, Model model) {
+		 
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+
+	      User user = userRepository.findByUsername(username);
+	      Area area = areaRepository.findByAreaId(areaId);
+	      
+	      double latitude = area.getLatitude();
+	      double longitude = area.getLongitude();
+	      String address = area.getAreaName();
+	      
+	     
+	      
+	      System.out.println("Latitude: " + latitude + " Longitude: " + longitude + " Address: " + address);
+	      
+	      model.addAttribute("address", address);
+	      model.addAttribute("latitude", latitude);
+	      model.addAttribute("longitude", longitude);
+	     /* System.out.println("User: " + user + "Area:" + area);
+	      user.deleteArea(area);
+	      userRepository.save(user);
+	      
+	      System.out.println(user + " deleted " + area);*/
+	      
+	      
+	      
+		  return "viewaddress";
+	}
+	
+	
+	
 	
 	
 	

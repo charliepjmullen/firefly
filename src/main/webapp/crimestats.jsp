@@ -245,7 +245,9 @@ function goBack() {
 		
 		<c:forEach var="o" items="${gardaStationList}">
 			<tr>
-				<td width="10%" height="50"><h3>Based on <c:out value="${o.gardaStation_name}" />'s statitics the crime rating for this area is: <c:out value="${o.crime_rating}" /> </h3></td>  
+				<td width="10%" height="50"><h3>Based on <c:out value="${o.gardaStation_name}" /> and their statistics
+				                                the rating for this area is:  <c:out value="${o.crime_rating}" /></h3></td>  
+				
              </tr>
 		</c:forEach>
 		

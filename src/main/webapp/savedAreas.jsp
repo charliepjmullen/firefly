@@ -107,18 +107,23 @@ function goBack() {
 				 
 				<td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.restaurant}" /></td>
 				 
-				<td width="5%" height="50"  class="tg-yw4l"><a href = "welcome"> View on the map</a></td>
+				 <td width="3.5%" height="50">
+ 				 <a href="<c:url value='/map/${o.areaId}' />">
+   				View on Map
+  				</a>
+                </td>
 				
 			   <!--  <td width="3%" height="50"  class="tg-yw4l">  <button type="button" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-remove"></span> Remove 
                 </button></td> -->
                 
-                <td width="3%" height="50"  class="tg-yw4l">      
-			    	 <form th:action="@{deletearea}" method="post" th:object="${area}">
-			    	 <!--  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> -->
-              		<button type="submit" value="Submit" class="btn btn-danger">Delete</button>
-                  </form>
+                <td width="3.5%" height="50">
+ 				 <a href="<c:url value='/deletearea/${o.areaId}' />">
+   				Delete
+  				</a>
                 </td>
+                
+                
              </tr>
 		</c:forEach>
 		

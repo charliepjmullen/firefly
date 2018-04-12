@@ -1,6 +1,6 @@
 package com.dit.arearatingsystem.model;
 
-import javax.persistence.Entity;   
+import javax.persistence.Entity;    
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,7 +14,7 @@ public class Area {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int area_id;
+	private Long areaId;
 	private String areaName;
 	private double longitude;
 	private double latitude;
@@ -33,9 +33,9 @@ public class Area {
 		
 	}
 	
-	public Area(int area_id) {
+	public Area(Long areaId) {
 		super();
-		this.area_id = area_id;
+		this.areaId = areaId;
 	}
 	
 	public Area(String areaName) {
@@ -43,23 +43,23 @@ public class Area {
 		this.areaName = areaName;
 	}
 	
-	public Area(int area_id, String areaName) {
+	public Area(Long areaId, String areaName) {
 		super();
-		this.area_id = area_id;
+		this.areaId = areaId;
 		this.areaName = areaName;
 	}
 	
-	public Area(int area_id, String areaName, double longitude, double latitude) {
+	public Area(Long areaId, String areaName, double longitude, double latitude) {
 		super();
-		this.area_id = area_id;
+		this.areaId = areaId;
 		this.areaName = areaName;
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}
 	
-	public Area(int area_id, String areaName, double longitude, double latitude, double schools, double university, double bars, double gym, double restaurant) {
+	public Area(Long areaId, String areaName, double longitude, double latitude, double schools, double university, double bars, double gym, double restaurant) {
 		super();
-		this.area_id = area_id;
+		this.areaId = areaId;
 		this.areaName = areaName;
 		this.longitude = longitude;
 		this.latitude = latitude;
@@ -70,9 +70,9 @@ public class Area {
 		this.restaurant = restaurant;
 	}
 
-	public Area(int area_id, String areaName, double longitude, double latitude, double house_price, double crime_rating, double schools, double university, double bars, double restaurant) {
+	public Area(Long areaId, String areaName, double longitude, double latitude, double house_price, double crime_rating, double schools, double university, double bars, double restaurant) {
 		super();
-		this.area_id = area_id;
+		this.areaId = areaId;
 		this.areaName = areaName;
 		this.longitude = longitude;
 		this.latitude = latitude;
@@ -84,12 +84,12 @@ public class Area {
 		this.restaurant = restaurant;
 	}
 	
-	public int getArea_id() {
-		return area_id;
+	public Long getAreaId() {
+		return areaId;
 	}
 
-	public void setArea_id(int area_id) {
-		this.area_id = area_id;
+	public void setAreaId(Long areaId) {
+		this.areaId = areaId;
 	}
 
 	public String getAreaName() {

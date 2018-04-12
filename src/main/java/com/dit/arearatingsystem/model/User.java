@@ -1,6 +1,6 @@
 package com.dit.arearatingsystem.model;
 
-import javax.persistence.*; 
+import javax.persistence.*;  
 
 import com.dit.arearatingsystem.model.Area;
 import com.dit.arearatingsystem.model.Commutes;
@@ -93,8 +93,8 @@ public class User {
 	}
 	
 	public void deleteArea(Area area) {
-		if (!savedAreas.isEmpty()){
+		
 			savedAreas.remove(area);
-		}
+		
 	}
 }

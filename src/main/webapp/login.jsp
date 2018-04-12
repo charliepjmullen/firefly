@@ -17,19 +17,15 @@
 
     <title>Area Rating System</title>
     
-   <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> 
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<link rel="stylesheet"
-	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet"href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=places"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=places"></script>
     
 
      <!--  <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -42,29 +38,209 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <style>
+<style>
 #geomap {
-	width: 100%;
-	height: 400px;
+	width: 80%;
+	height: 700px;
+	float: right;
 }
 
 #forminputs .p {
 	display: inline-block;
 	float: left;
 	clear: left;
-	width: 250px;
+	width: 80%;
 	text-align: right;
 }
 
 #forminputs .input {
 	display: inline-block;
 	float: left;
+	width: 80%;
+}
+
+#addressbartable{float:right;}
+#topnavbar{float: right;}
+
+/* Nav Side Bar  */
+.nav-side-menu {
+	overflow: auto;
+	font-family: verdana;
+	font-size: 12px;
+	font-weight: 200;
+	background-color: #2e353d;
+	position: fixed;
+	top: 0px;
+	width: 300px;
+	height: 100%;
+	color: #e1ffff;
+}
+
+.nav-side-menu .brand {
+	background-color: #23282e;
+	line-height: 50px;
+	display: block;
+	text-align: center;
+	font-size: 14px;
+}
+
+.nav-side-menu .toggle-btn {
+	display: none;
+}
+
+.nav-side-menu ul, .nav-side-menu li {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	line-height: 35px;
+	cursor: pointer;
+	/*    
+    .collapsed{
+       .arrow:before{
+                 font-family: FontAwesome;
+                 content: "\f053";
+                 display: inline-block;
+                 padding-left:10px;
+                 padding-right: 10px;
+                 vertical-align: middle;
+                 float:right;
+            }
+     }
+*/
+}
+
+.nav-side-menu ul :not(collapsed) .arrow:before, .nav-side-menu li :not(collapsed) .arrow:before
+	{
+	font-family: FontAwesome;
+	content: "\f078";
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+	vertical-align: middle;
+	float: right;
+}
+
+.nav-side-menu ul .active, .nav-side-menu li .active {
+	border-left: 3px solid #d19b3d;
+	background-color: #4f5b69;
+}
+
+.nav-side-menu ul .sub-menu li.active, .nav-side-menu li .sub-menu li.active
+	{
+	color: #d19b3d;
+}
+
+.nav-side-menu ul .sub-menu li.active a, .nav-side-menu li .sub-menu li.active a
+	{
+	color: #d19b3d;
+}
+
+.nav-side-menu ul .sub-menu li, .nav-side-menu li .sub-menu li {
+	background-color: #181c20;
+	border: none;
+	line-height: 28px;
+	border-bottom: 1px solid #23282e;
+	margin-left: 0px;
+}
+
+.nav-side-menu ul .sub-menu li:hover, .nav-side-menu li .sub-menu li:hover
+	{
+	background-color: #020203;
+}
+
+.nav-side-menu ul .sub-menu li:before, .nav-side-menu li .sub-menu li:before
+	{
+	font-family: FontAwesome;
+	content: "\f105";
+	display: inline-block;
+	padding-left: 10px;
+	padding-right: 10px;
+	vertical-align: middle;
+}
+
+.nav-side-menu li {
+	padding-left: 0px;
+	border-left: 3px solid #2e353d;
+	border-bottom: 1px solid #23282e;
+}
+
+.nav-side-menu li a {
+	text-decoration: none;
+	color: #e1ffff;
+}
+
+.nav-side-menu li a i {
+	padding-left: 10px;
+	width: 20px;
+	padding-right: 20px;
+}
+
+.nav-side-menu li:hover {
+	border-left: 3px solid #d19b3d;
+	background-color: #4f5b69;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	-ms-transition: all 1s ease;
+	transition: all 1s ease;
+}
+
+@media ( max-width : 767px) {
+	.nav-side-menu {
+		position: relative;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	.nav-side-menu .toggle-btn {
+		display: block;
+		cursor: pointer;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		z-index: 10 !important;
+		padding: 3px;
+		background-color: #ffffff;
+		color: #000;
+		width: 40px;
+		text-align: center;
+	}
+	.brand {
+		text-align: left !important;
+		font-size: 22px;
+		padding-left: 20px;
+		line-height: 50px !important;
+	}
+}
+
+@media ( min-width : 767px) {
+	.nav-side-menu .menu-list .menu-content {
+		display: block;
+	}
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.form-group {
+	width: 80%;
+	float: right;
+}
+
+ .map {
+	margin: 5px;
+	padding: 5px;
+}
+
+.inputboxes{
+	float: right;
+		margin: 10px;
+	   padding: 10px;
 }
 </style>
 
 <script>
-
-
 var geocoder = new google.maps.Geocoder();
 var map;
 var marker;
@@ -450,28 +626,55 @@ function loginAlert(){
 </head>
 
 <body>
-<div id="custom-bootstrap-menu-home" class="navbar navbar-default " role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
-    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
- </a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="${contextPath}/registration">Register</a>
-                </li>
-                <li><a href="#">About Us</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+<div id="custom-bootstrap-menu" class="navbar navbar-default "
+		role="navigation">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"
+					style="max-width: 30%; max-height: 30%;"> <img
+					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-menubuilder">
+					<span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="container">
+
+
+
+
+				<div class="collapse navbar-collapse navbar-menubuilder">
+
+					<div id ="topnavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><c:if
+								test="${pageContext.request.userPrincipal.name != null}">
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
+
+								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
+
+							</c:if></li>
+							<li><a href="login2">Log In</a></li>
+						<li><a href="registration">Register</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <div class="container" id = "homelogin">
 
     <form method="POST" action="${contextPath}/login" class="form-signin">
-        <h2 class="form-heading">Log in</h2>
+        <h2 class="form-heading1">Log in</h2>
 
         <div class="form-group ${error != null ? 'has-error' : ''}">
             <span>${message}</span>
@@ -487,91 +690,225 @@ function loginAlert(){
 
     </form>
 </div>
-	<form>
+	<div class="nav-side-menu">
+		<div class="brand">Brand Logo</div>
+		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
+			data-target="#menu-content"></i>
+
+		<div class="menu-list">
+
+			<ul id="menu-content" class="menu-content collapse out">
+				<li><a href="/"> <i class="fa fa-bar-chart fa-lg"></i> Area
+						Stats
+				</a></li>
+
+				<li data-toggle="collapse" data-target="#products"
+					class="collapsed active"><a ><i
+						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="products">
+					<li><a >Address</a></li>
+					<li><a >Latitude</a></li>
+					<li><a >Longitude</a></li>
+					<li><a onclick="parseHousePrice();" href = "parseHousePrice2">House Price</a></li> 
+					<li><a onclick="gardaStationReport();" href = "crimeStats" >Crime Rating</a></li>
+				</ul>
+
+
+				<li data-toggle="collapse" data-target="#service" class="collapsed">
+					<a onclick="clearMarkers();SchoolsReport();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
+						Education  <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="service">
+					<li>Creche</li>
+					<li>Primary Schoool</li>
+					<li>Secondary School</li>
+					<li><div class="slidecontainer">
+ 						 <input type="range" min="1" max="100" value="50">
+ 						 </div>
+ 					</li>	 
+				</ul>
+
+				<li data-toggle="collapse" data-target="#food" class="collapsed">
+					<a onclick="clearMarkers();RestaurantReport();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food - <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="food">
+					<li>Cafe</li>
+					<li>Restaurant</li>
+				</ul>
+
+
+				<li data-toggle="collapse" data-target="#new" class="collapsed">
+					<a onclick="clearMarkers();BarReport();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars - <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="new">
+					<li>Pubs</li>
+					<li>Cocktails</li>
+					<li>Cheap</li>
+					<li>Expensive</li>
+				</ul>
+
+				<li data-toggle="collapse" data-target="#fitness" class="collapsed">
+					<a onclick="clearMarkers();GymReport();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness - <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="fitness">
+					<li>Gym</li>
+					<li>Yoga</li>
+					<li>Pilates</li>
+				</ul>
+
+				<li data-toggle="collapse" data-target="#leisure" class="collapsed">
+					<a href="#"><i class="fa fa-gift fa-lg"></i> Leisure - <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="leisure">
+					<li>Parks</li>
+					<li>Cinema</li>
+				</ul>
+				
+			</ul>
+		</div>
+	</div>
+	
+
+
+
+
+	<div class = map>	
+	<!-- display google map -->
+		<form>
 		<div class="form-group input-group">
 			<input type="text" id="search_location" class="form-control"
-				placeholder="Search location" />
+				placeholder="Search an area or put in an address " />
 			<div class="input-group-btn">
 				<button class="btn btn-default get_map" type="submit"
 					onclick="callAllFunctions();">Locate</button>
 			</div>
 		</div>
-	</form>	
-<!-- display google map -->
-	<div id="geomap"></div>
+	</form>
+			<form>
+		<div class="form-group input-group">
+			<input type="text" name="addressBox"
+							id="addressBox" class="search_addr" size="45" class="form-control"
+				placeholder="Address" />
+			<div class="input-group-btn">
+				<button class="btn btn-default " type="submit"
+					onclick="saveAreaToUser();">Save
+						Area</button>
+			</div>
+		</div>
+	</form>
+		<!-- <div id="addressbartable">
+		<table style="width: 100%">
+			<tr>
+				<td>
+					<p>
+						Address: &nbsp; &nbsp;<input type="text" name="addressBox"
+							id="addressBox" class="search_addr" size="45" />
+					</p>
+				</td>
+				<td></td>
+				<td><button type="submit" onclick="saveAreaToUser();">Save
+						Area</button></td>
 
-	<div id="forminputs">
+			</tr>
+
+		</table>
+		</div> -->
+		<div id="geomap"></div>
+
+	<div class = inputboxes>
+	<div id="forminputs"></div>
+
 		<table>
+			<tr style="width: 50%">
+			</tr>
 			<tr>
 				<!-- display selected location information -->
 				<th>
-					<h4>Location Details</h4>
+					
 					<p>
-						Address: &nbsp; &nbsp;<input type="text" class="search_addr"
-							size="45" />
+						<!-- Address: &nbsp; &nbsp; --><input type="hidden" name="addressBox"
+							id="addressBox" class="search_addr" size="45" />
 					</p>
 					<p>
-						Latitude: &nbsp; &nbsp;<input type="text" class="search_latitude"
+						<!-- Latitude: --> <input type="hidden" class="search_latitude"
 							size="30" />
 					</p>
-
 					<p>
-						Longitude: <input type="text" class="search_longitude" size="30" />
+						<!-- Longitude: --> <input type="hidden" class="search_longitude" size="30" />
 					</p>
 					<p style="height: 120px"></p>
 
 				</th>
-				<th style="width: 100px"></th>
+				<th style="width: 50px"></th>
 				<th>
-					<h4>Area Rating</h4>
+					<h4><!-- Area Rating --></h4>
+			
+
+
 					<p>
-						Average House Price: <input type="text" size="10" />&nbsp; &nbsp;
-						&nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="loginAlert();">Full Report</button>
+						<!-- Average House Price: --> <input type="hidden" size="10"
+							value="${houseprice}" />&nbsp; &nbsp; &nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();parseHousePrice();">Full Report</button>
 					</p>
 					<p>
-						Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input
-							type="text" class="getCafe()" size="10" />&nbsp; &nbsp; &nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="loginAlert();">Full Report</button>
+						<!-- Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input
+							type="hidden" size="10" value="${rating}" />&nbsp; &nbsp; &nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();gardaStationReport();">Full
+							Report</button>
 					</p>
 					<p>
-						Schools:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; <input type="text" size="10"
+						<!-- Schools:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
 							name="schoolAvgRating" id="schoolAvgRating" />&nbsp; &nbsp;
-						&nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="loginAlert();">Full Report</button>
+						&nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();SchoolsReport();">Full Report</button>
 					</p>
-					<p>Parks: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"  size="10" name="parkAvgRating" id="parkAvgRating"/>&nbsp; &nbsp; &nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="clearMarkers();UniversityReport();">Full Report</button></p>
 					<p>
-						Bars: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text"
+						<!-- Parks: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
+							name="parkAvgRating" id="parkAvgRating" />&nbsp; &nbsp; &nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();UniversityReport();">Full Report</button>
+					</p>
+					<p>
+						<!-- Bars: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden"
 							size="10" name="barAvgRating" id="barAvgRating" />&nbsp; &nbsp;
-						&nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="loginAlert();">Full Report</button>
+						&nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();BarReport();">Full Report</button>
 					</p>
 					<p>
-						Restaurants: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp;<input type="text" size="10" name="restaurantAvgRating"
-							id="restaurantAvgRating" />&nbsp; &nbsp; &nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="loginAlert();">Full Report</button>
+						<!-- Restaurants: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+						&nbsp; --><input type="hidden" size="10" name="restaurantAvgRating"
+							id="restaurantAvgRating" />&nbsp; &nbsp; &nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();RestaurantReport();">Full Report</button>
 					</p>
 					<p>
-						Gyms: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" size="10"
-							name="gymAvgRating" id="gymAvgRating" />&nbsp; &nbsp; &nbsp;<button class="btn btn-default get_map" type="submit"
-					onclick="loginAlert();">Full Report</button>
+						<!-- Gyms: --><input type="hidden" size="10"
+							name="gymAvgRating" id="gymAvgRating" />&nbsp; &nbsp; &nbsp;
+						<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();GymReport();">Full Report</button>
 					</p>
 				</th>
-				<th style="width: 100px"></th>
-				<th style="width: 100px">Log In To View Tweets and Save Areas</th>
 
-
-
+				<th style="width: 50px"></th>
+				<th></th>
+			<tr>
+				<td></td>
 			</tr>
-		</table>
-	</div><!-- /container -->
 
-<!--   <script src="${contextPath}/resources/js/bootstrap.min.js"></script> -->
+		</table>
+	</div>
+	</div>
 </body>
 </html>

@@ -232,7 +232,7 @@
 	var loc1 = new google.maps.LatLng(53.334828, -6.269547);
 	var loc2 = new google.maps.LatLng(53.339980, -6.235837);
 	var map;
-
+	
 
 	
 
@@ -396,48 +396,17 @@
 		});
 	});
 
-
-
-/* 	 function convertAddress1() {
-			var geocoder,location1;
-			var address = document.getElementById("forminput1").value;
-			geocoder = new google.maps.Geocoder();
-		    geocoder.geocode( { 'address': address}, function(results, status) {
-		      if (status == google.maps.GeocoderStatus.OK) {
-		    	   location1 = (results[0].geometry.location);
-		    	   alert("Location : "+ location1);
-		      }
-		      else {
-		        alert("Geocode was not successful for the following reason: " + status);
-		      }
-		    });
-		    return location1;
-	 } 
-	 
-	 	 function convertAddress2() {
-		      var geocoder, location2;
-		      var address = document.getElementById("forminput2").value;
-		      geocoder = new google.maps.Geocoder();
-		      geocoder.geocode( { 'address': address}, function(results, status) {
-		         if (status == google.maps.GeocoderStatus.OK) {
-		           
-		        	  location2 = (results[0].geometry.location);
-					   
-				    alert("Location : "+ location2);
-		         }
-		         else {
-		           alert("Geocode was not successful for the following reason: " + status);
-	             }
-	          });
-
-	          return location2;
-	} */
+	
 
 	function calculateAndDisplayRoute(directionsService, directionsDisplay, pointA, pointB) {
+
+		var mySelect = document.getElementById('travelselect').value;
+
+		
 	 		  directionsService.route({
 	 		    origin: pointA,
 	 		    destination: pointB,
-	 		    travelMode: google.maps.TravelMode.WALKING
+	 		    travelMode: google.maps.TravelMode[mySelect]
 	 		  }, function(response, status) {
 	 		    if (status == google.maps.DirectionsStatus.OK) {
 	 		      directionsDisplay.setDirections(response);
@@ -468,7 +437,10 @@
 		  /* document.getElementById('from').innerHTML = from + '-'+to;
 		  document.getElementById('duration').innerHTML = time ;*/
 		  total2 =Math.round( total); 
-		  alert(time + " " + total2 +"KM" );
+		  /* alert(time + " " + total2 +"KM" ); */
+
+		  document.getElementById('time').innerHTML = time;
+		  document.getElementById('distance').innerHTML = total2 ;
 		}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
@@ -586,8 +558,9 @@
 
 <br>
 <div id = "inputbox">
+<h3>Time: </h3> <p id = "time"></p> <p id = "distance"></p>
 	<form id="myForm">
- <input type="text" id="addressFrom" class="forminput1" value = "${areaName}" placeholder="Set Starting Location" style ="width: 50%"/>
+ <input type="text" id="addressFrom" class="forminput1" z placeholder="Set Starting Location" style ="width: 50%"/>
  <!-- <input type="text" id="addressTo" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/>  -->
  <input list="places" id="addressTo" class="forminput2" placeholder="Set Destination" style ="width: 50%"/>
 <datalist id="places">
@@ -606,11 +579,11 @@
  
 
  
-  <select>
-					<option value="walking">Walking</option>
-					<option value="cycling">Cycling</option>
-					<option value="driving">Driving</option>
-					<option value="publictransport">Public Transport</option>
+              <select id ="travelselect">
+					<option value="WALKING">Walking</option>
+					<option value="BICYCLING">Cycling</option>
+					<option value="DRIVING">Driving</option>
+					<option value="TRANSIT">Public Transport</option>
 			   </select>
  <!--  <input type="button" onclick="calculateAndDisplayRoute();" value="Calculate Commute"><br> -->
   <input type="button" id="routebtn" value="Calculate Commute" onclick="initialize()"/><br> 

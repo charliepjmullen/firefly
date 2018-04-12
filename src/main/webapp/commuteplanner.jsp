@@ -328,7 +328,7 @@ function saveCommuteAddresses(){
 	<br>
 	<br>
 	<br>
- <input type="text" id="address" class="forminput1"  placeholder="Commute address one" style ="width: 35%"/><br>
+ <input type="text" id="address" class="forminput1"   placeholder="Commute address one" style ="width: 35%"/><br>
  <input type="text" id="addressnickname"  placeholder="Pick a nickname for this address e.g Home, Work, Birds Gaf" width="35%" style ="width: 35%"/>
 	
  
