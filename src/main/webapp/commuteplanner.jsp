@@ -333,7 +333,7 @@ function saveCommuteAddresses(){
 	
  
   
-  <input type="button" id="routebtn" value="Save Commute locations" onclick="saveCommuteAddresses()"/><br> 
+  <input type="button" id="routebtn" value="Save Commute locations" onclick="saveCommuteAddresses(), location.href = '/'" /><br> 
 
 </div>
 <br>

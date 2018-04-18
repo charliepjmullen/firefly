@@ -391,7 +391,7 @@ function loginAlert(){
 			var areaName = document.getElementById("addressBox").value;
 			var schools = document.getElementById("schoolAvgRating").value;
 			var university = document.getElementById("parkAvgRating").value;
-			var bar = document.getElementById("barAvgRating").value;
+			var bars = document.getElementById("barAvgRating").value;
 			var gym = document.getElementById("gymAvgRating").value;
 			var restaurant = document.getElementById("restaurantAvgRating").value;  
 		  
@@ -403,7 +403,7 @@ function loginAlert(){
                  areaName: areaName,
                  schools: schools,
                  parks: university,
-                 bar: bar,
+                 bars: bars,
                  gym: gym,
                  restaurant: restaurant
 		        }, // parameters
@@ -555,13 +555,13 @@ function loginAlert(){
         }
    	
 
-  	function callAllFunctions(){
+  	/* function callAllFunctions(){
   		getCafe();
 		getBars();
 		getActivities();
 		getSchools();	
 		getUniversity();
-  	  	}
+  	  	} */
 
 
   	
@@ -703,7 +703,8 @@ function loginAlert(){
   		    getActivities();
   		    getSchools();	
   		    getUniversity();
-  		    getNearestGardaStation()
+  		    getNearestGardaStation();
+  		    clearRatings();
     	}
 
 
@@ -926,7 +927,7 @@ function loginAlert(){
          var Lat = marker.getPosition().lat();
          console.log(Lat);
 
-         var Long = marker.getPosition().lng();
+         var Lgong = marker.getPosition().lng();
          console.log(Long);
 
          var location = {lat: Lat, lng: Long};
@@ -1059,17 +1060,24 @@ function loginAlert(){
     //]]>
 
  function sendAddressToCommutePage(){
-		var address = document.getElementById("addressBox").value;
+	
+	 $('.search_latitude').val(marker.getPosition().lat());
+     $('.search_longitude').val(marker.getPosition().lng());
+
+    var latitude = marker.getPosition().lat();
+
+
+    var longitude = marker.getPosition().lng();
+   
+	 var address = document.getElementById("addressBox").value;
  
-	  
-	$.ajax({
-       type: "GET",
-       url: "/commuteplanner2",
-       data: {  address: address
-	   }, 
-       datatype: 'json'
-     });
+	window.location.href = "/commuteCheckerPage/"+latitude+"/"+longitude+"/"+address ;
+	
 	 }
+
+ function clearRatings() {
+	 document.querySelectorAll("span").forEach(span => span.parentNode.removeChild(span));  
+	}
 
 
 
@@ -1113,14 +1121,11 @@ function loginAlert(){
 					<a onclick="clearMarkers();SchoolsReport();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
 						Education : <span class="arrow"></span></a>
 				</li>
-				<ul class="sub-menu collapse" id="#education">
+				<ul class="sub-menu collapse" id="education">
 					<li>Creche</li>
 					<li>Primary Schoool</li>
 					<li>Secondary School</li>
-					<li><div class="slidecontainer">
- 						 <input type="range" min="1" max="100" value="50">
- 						 </div>
- 					</li>	 
+						 
 				</ul>
 
 				<li data-toggle="collapse" data-target="#food" class="collapsed">
@@ -1159,12 +1164,12 @@ function loginAlert(){
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="leisure">
-					<li>Parks</li>
+					<li>Parks <a href="javascript:clearMarkers();UniversityReport();"></a></li>
 					<li>Cinema</li>
 				</ul>
 				
 				<li data-toggle="collapse" data-target="#commute" class="collapsed">
-					<a href="commuteCheckerPage" onclick="sendAddressToCommutePage()"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+					<a href="#" onclick="sendAddressToCommutePage()"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
 
 				

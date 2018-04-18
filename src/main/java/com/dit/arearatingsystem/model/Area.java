@@ -69,6 +69,7 @@ public class Area {
 		this.gym = gym;
 		this.restaurant = restaurant;
 	}
+	
 
 	public Area(Long areaId, String areaName, double longitude, double latitude, double house_price, double crime_rating, double schools, double university, double bars, double restaurant) {
 		super();

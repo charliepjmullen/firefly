@@ -252,6 +252,11 @@ var markers = [];
 var infowindow;
 var request
 
+var address = "${address}";
+var latitude = "${latitude}";
+var longitude = "${longitude}";
+
+
 /*
  * Google Map with marker
  */
@@ -261,7 +266,11 @@ function initialize() {
     initialLat = initialLat?initialLat:53.350140;
     initialLong = initialLong?initialLong:-6.266155;
 
-    var latlng = new google.maps.LatLng(initialLat, initialLong);
+    document.getElementById("search_location").value = address;
+    document.getElementById("addressBox").value = address;
+    
+    var latlng = new google.maps.LatLng(latitude, longitude);
+
     var options = {
         zoom: 11,
         center: latlng,
@@ -393,7 +402,7 @@ function loginAlert(){
 			var areaName = document.getElementById("addressBox").value;
 			var schools = document.getElementById("schoolAvgRating").value;
 			var university = document.getElementById("parkAvgRating").value;
-			var bar = document.getElementById("barAvgRating").value;
+			var bars = document.getElementById("barAvgRating").value;
 			var gym = document.getElementById("gymAvgRating").value;
 			var restaurant = document.getElementById("restaurantAvgRating").value;  
 		  
@@ -405,7 +414,7 @@ function loginAlert(){
                  areaName: areaName,
                  schools: schools,
                  parks: university,
-                 bar: bar,
+                 bars: bars,
                  gym: gym,
                  restaurant: restaurant
 		        }, // parameters
@@ -557,13 +566,13 @@ function loginAlert(){
         }
    	
 
-  	function callAllFunctions(){
+  	/* function callAllFunctions(){
   		getCafe();
 		getBars();
 		getActivities();
 		getSchools();	
 		getUniversity();
-  	  	}
+  	  	} */
 
 
   	
@@ -705,7 +714,8 @@ function loginAlert(){
   		    getActivities();
   		    getSchools();	
   		    getUniversity();
-  		    getNearestGardaStation()
+  		    getNearestGardaStation();
+  		    clearRatings();
     	}
 
 
@@ -928,7 +938,7 @@ function loginAlert(){
          var Lat = marker.getPosition().lat();
          console.log(Lat);
 
-         var Long = marker.getPosition().lng();
+         var Lgong = marker.getPosition().lng();
          console.log(Long);
 
          var location = {lat: Lat, lng: Long};
@@ -985,7 +995,7 @@ function loginAlert(){
 
  //<![CDATA[
  	
-	function callback(results, status) {
+	 function callback(results, status) {
 		
 	  if (status === google.maps.places.PlacesServiceStatus.OK) {
 		  if(marker)
@@ -994,7 +1004,19 @@ function loginAlert(){
 		      createMarker(results[i]);
 		    }
 	  }
-	}
+	} 
+
+/* 	function callback(results, status) {
+		  if (status === google.maps.places.PlacesServiceStatus.OK) {
+		    var service = new google.maps.places.PlacesService(map);
+		    for (var i = 0; i < results.length; i++) {
+		      var request = {
+		        placeId: results[i].place_id
+		      }
+		      service.getDetails(request, createMarker)
+		    }
+		  } else console.log("nearbySearch:"+status);
+		} */
 
 	function gardaStationReportcallback(results, status){
 		
@@ -1035,7 +1057,7 @@ function loginAlert(){
 
 	  markers.push(reportmarker);
 	  google.maps.event.addListener(reportmarker, 'click', function() {
-	    infowindow.setContent( place.name + ": " + place.rating);
+	    infowindow.setContent("<p>" + place.name + "<br />" + place.rating + "<br />" + place.vicinity + "<br />" + "<br />" + place.types + "<br />" +"</p>");
 	    infowindow.open(map, this);
 	  });
 	}
@@ -1049,17 +1071,26 @@ function loginAlert(){
     //]]>
 
  function sendAddressToCommutePage(){
-		var areaName = document.getElementById("addressBox").value;
+	
+	 $('.search_latitude').val(marker.getPosition().lat());
+     $('.search_longitude').val(marker.getPosition().lng());
+
+    var latitude = marker.getPosition().lat();
+
+
+    var longitude = marker.getPosition().lng();
+   
+	 var address = document.getElementById("addressBox").value;
  
-	  
-	$.ajax({
-       type: "POST",
-       url: "/saveAreaToProfile",
-       data: {  areaName: areaName,
-	   }, 
-       datatype: 'json'
-     });
+	window.location.href = "/commuteCheckerPage/"+latitude+"/"+longitude+"/"+address ;
+	
 	 }
+
+ function clearRatings() {
+	 document.querySelectorAll("span").forEach(span => span.parentNode.removeChild(span));  
+	}
+
+
 
 
  
@@ -1101,14 +1132,11 @@ function loginAlert(){
 					<a onclick="clearMarkers();SchoolsReport();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
 						Education : <span class="arrow"></span></a>
 				</li>
-				<ul class="sub-menu collapse" id="#education">
+				<ul class="sub-menu collapse" id="education">
 					<li>Creche</li>
 					<li>Primary Schoool</li>
 					<li>Secondary School</li>
-					<li><div class="slidecontainer">
- 						 <input type="range" min="1" max="100" value="50">
- 						 </div>
- 					</li>	 
+						 
 				</ul>
 
 				<li data-toggle="collapse" data-target="#food" class="collapsed">
@@ -1147,12 +1175,12 @@ function loginAlert(){
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="leisure">
-					<li>Parks</li>
+					<li>Parks <a href="javascript:clearMarkers();UniversityReport();"></a></li>
 					<li>Cinema</li>
 				</ul>
 				
 				<li data-toggle="collapse" data-target="#commute" class="collapsed">
-					<a href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+					<a href="#" onclick="sendAddressToCommutePage()"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
 
 				

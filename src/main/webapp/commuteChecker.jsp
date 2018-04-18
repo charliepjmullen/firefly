@@ -232,7 +232,11 @@
 	var loc1 = new google.maps.LatLng(53.334828, -6.269547);
 	var loc2 = new google.maps.LatLng(53.339980, -6.235837);
 	var map;
-	
+
+		
+	var address = "${address}";
+	var latitude = "${latitude}";
+	var longitude = "${longitude}";
 
 	
 
@@ -245,8 +249,10 @@
 
 			directionsDisplay = new google.maps.DirectionsRenderer();
 
+			document.getElementById("addressFrom").value = address;
+			
 			var myOptions = {
-				center : new google.maps.LatLng(53.349805, -6.260310),
+				center : new google.maps.LatLng(latitude, longitude),
 				zoom : 12,
 				mapTypeId : google.maps.MapTypeId.ROADMAP
 			};
@@ -560,7 +566,7 @@
 <div id = "inputbox">
 <h3>Time: </h3> <p id = "time"></p> <p id = "distance"></p>
 	<form id="myForm">
- <input type="text" id="addressFrom" class="forminput1" z placeholder="Set Starting Location" style ="width: 50%"/>
+ <input type="text" id="addressFrom" class="forminput1"  placeholder="Set Starting Location" style ="width: 50%"/>
  <!-- <input type="text" id="addressTo" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/>  -->
  <input list="places" id="addressTo" class="forminput2" placeholder="Set Destination" style ="width: 50%"/>
 <datalist id="places">
