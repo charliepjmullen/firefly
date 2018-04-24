@@ -82,7 +82,7 @@ public class ParseCrimeStatistics {
 			crimeReport = "Raheny.html";
 	    } else if(gardaStation_name.equals("Rathcoole Garda Station")) {
 			crimeReport = "Rathcoole.html";
-	    } else if(gardaStation_name.equals("Rathfarnam Garda Station")) {
+	    } else if(gardaStation_name.equals("Rathfarnham Garda Station")) {
 			crimeReport = "Rathfarnam.html";
 	    } else if(gardaStation_name.equals("Rathmines Garda Station")) {
 			crimeReport = "Rathmines.html";
@@ -137,7 +137,7 @@ public class ParseCrimeStatistics {
 			double sum2 = sum/6;
 	        double result = Math.round(sum2 * 100.0) / 100.0;
 
-	        double rating2 = 1 + (result - 70.00)*(10-1)/(1000.00- 70.00);
+	        double rating2 = 1 + (result - 70.00)*(10-1)/(10000.00- 70.00);
 	        rating =  Math.round(rating2 * 100.0) / 100.0;
 
 

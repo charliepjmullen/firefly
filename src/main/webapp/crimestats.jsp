@@ -231,7 +231,7 @@ function goBack() {
                 </li>
             </ul>
         </div> 
-    </div> -
+    </div> 
 </div>
         
     

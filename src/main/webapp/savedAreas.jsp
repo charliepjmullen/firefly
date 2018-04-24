@@ -93,7 +93,7 @@ function goBack() {
 			<tr>
 				<td width="10%" height="50"><c:out value="${o.areaName}" /></td>
 				 
-                <td width="5%" height="50" class="tg-yw4l"></td>
+                <td width="5%" height="50" class="tg-yw4l"><c:out value="${o.house_price}" /></td>
                  
                 <td width="3.5%" height="50"  class="tg-yw4l"></td>
                  

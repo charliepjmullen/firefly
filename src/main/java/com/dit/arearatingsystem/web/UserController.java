@@ -123,6 +123,10 @@ public class UserController {
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
 
+	     /* System.out.println(gardaStation_name);*/
+	      double house_price = parseHousePrice.ParseHousePrice(latitude, longitude);
+	      System.out.println(house_price);
+	      area.setHouse_price(house_price);
 	      areaRepository.save(area);
 	      User user = userRepository.findByUsername(username);
 	      
@@ -263,8 +267,8 @@ public class UserController {
 	@RequestMapping(value = "/crimestats", method=RequestMethod.POST)
 	public String crimeStatistics(@Valid GardaStation gardaStationObject, @RequestParam("gardastationname") String gardaStation_name, BindingResult bindingResult,Model model) {
 
-		gardaStationObject = new GardaStation();
-		
+		//gardaStationObject = new GardaStation();
+		System.out.println("crime stats 1");
 		System.out.println(" ");
 	    System.out.println("Garda Station: " + gardaStation_name);
 	    double crime_rating =  parseCrime.ParseCrime(gardaStation_name);
@@ -275,20 +279,24 @@ public class UserController {
 	    
 	    gardaStationRepository.deleteAll();
 		gardaStationRepository.save(gardaStationObject);
+		
+		
 	    
 	    
 		return "crimestats";
 	}
 	
-	@RequestMapping(value = "/crimeStats", method = RequestMethod.GET) 
+	@RequestMapping(value = "/crimeStats2", method = RequestMethod.GET) 
     public String printCrimeStatsPage(@Valid GardaStation gardaStationObject, BindingResult bindingResult, Model model) { 
 
+		  System.out.println("crime stats 2");
 		  
-	     
 	      List<GardaStation> gardaStationList = new ArrayList<>();
-	     
+	    
           gardaStationList = gardaStationRepository.findAll();
-
+          
+          List<GardaStation> gardaStationList2 = gardaStationList;
+          
 	      
 	      model.addAttribute("gardaStationList", gardaStationList);
 	      
@@ -381,6 +389,7 @@ public class UserController {
 	      }
 		return "savedAreas";
 	}
+	
 	
 	
 	

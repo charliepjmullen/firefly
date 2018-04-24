@@ -553,15 +553,6 @@ function loginAlert(){
 	       type: ['park']
        }, uniCallback);
         }
-   	
-
-  	/* function callAllFunctions(){
-  		getCafe();
-		getBars();
-		getActivities();
-		getSchools();	
-		getUniversity();
-  	  	} */
 
 
   	
@@ -675,7 +666,7 @@ function loginAlert(){
           }
 
 
-      function getNearestGardaStation(){
+ /*      function getNearestGardaStation(){
     	  $('.search_latitude').val(marker.getPosition().lat());
           $('.search_longitude').val(marker.getPosition().lng());
 
@@ -694,7 +685,7 @@ function loginAlert(){
 		   rankBy: google.maps.places.RankBy.DISTANCE,
 	       type: ['police']
        }, gardaStationCallback);
-          }
+          } */
      	
 
     	function callAllFunctions(){
@@ -703,9 +694,14 @@ function loginAlert(){
   		    getActivities();
   		    getSchools();	
   		    getUniversity();
-  		    getNearestGardaStation();
+  		    //getNearestGardaStation();
   		    clearRatings();
+
+  		
     	}
+
+        
+        
 
 
     	
@@ -837,7 +833,7 @@ function loginAlert(){
   		 averageSchoolRatingTB.value = averageRatingRounded;
   	}
 
-   	function gardaStationCallback(results5, status5){
+/*         function gardaStationCallback(results5, status5){
    	    var totalRating = 0,
         ratedCount = 0; 
 
@@ -846,14 +842,16 @@ function loginAlert(){
               ratedCount++; 
               totalRating += place.rating;
             }
-        });
+        }); 
+ */
+
 
     
 /*     	var averageRating = results5.length == 0 ? 0 : totalRating / ratedCount; 
     	var averageRatingRounded = averageRating.toFixed(1);
   		var averageGardaRatingTB = document.getElementById('gardaAvgRating');
-  		averageGardaRatingTB.value = averageRatingRounded; */
-  	}
+  		averageGardaRatingTB.value = averageRatingRounded; 
+  	} */
 
   	function SchoolsReport(){
 	  	 $('.search_latitude').val(marker.getPosition().lat());
@@ -1020,6 +1018,7 @@ function loginAlert(){
 					var gardastation = place.name;
 					console.log(gardastation);
 
+					
 					$.ajax({
 					     type: "POST",
 					     url: "/crimestats",
@@ -1029,6 +1028,7 @@ function loginAlert(){
 				});
 			  });
 		  }
+		  
 		}
 	
   //]]>	
@@ -1079,6 +1079,9 @@ function loginAlert(){
 	 document.querySelectorAll("span").forEach(span => span.parentNode.removeChild(span));  
 	}
 
+ function openCrimeStatistics(){
+	 window.location.href = "/crimeStats2";
+	 }
 
 
 
@@ -1105,7 +1108,7 @@ function loginAlert(){
 				</a></li>
 
 				<li data-toggle="collapse" data-target="#products"
-					class="collapsed active"><a ><i
+					class="collapsed active"><a onclick = "gardaStationReport();"><i
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">
@@ -1113,7 +1116,7 @@ function loginAlert(){
 					<li><a >Latitude</a></li>
 					<li><a >Longitude</a></li>
 					<li><a onclick="parseHousePrice();" href = "parseHousePrice2">House Price</a></li> 
-					<li><a onclick="gardaStationReport();" href = "crimeStats" >Crime Rating</a></li>
+					<li><a onclick="openCrimeStatistics();" href = "#" >Crime Rating</a></li>
 				</ul>
 
 
@@ -1235,19 +1238,21 @@ function loginAlert(){
 
 	<div class = map>	
 	<!-- display google map -->
-		<form>
+		
 		<div class="form-group input-group">
+		<form>
 			<input type="text" id="search_location" class="form-control"
 				placeholder="Search an area or put in an address " />
 			<div class="input-group-btn">
 				<button class="btn btn-default get_map" type="submit"
 					onclick="callAllFunctions();">Locate</button>
 			</div>
+		</form>
 		</div>
-	</form>
+	
 			<form>
 		<div class="form-group input-group">
-			<input type="text" name="addressBox"
+			<input type="hidden" name="addressBox"
 							id="addressBox" class="search_addr" size="45" class="form-control"
 				placeholder="Address" />
 			<div class="input-group-btn">
