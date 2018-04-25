@@ -42,9 +42,11 @@
 
 <style>
 #geomap {
-	width: 80%;
-	height: 700px;
+	width: 77%;
+	height: 500px;
 	float: right;
+	margin: 5px;
+	padding: 5px;
 }
 
 #forminputs .p {
@@ -58,7 +60,7 @@
 #forminputs .input {
 	display: inline-block;
 	float: left;
-	width: 80%;
+	width: 70%;
 }
 
 #addressbartable{float:right;}
@@ -72,7 +74,7 @@
 	font-weight: 200;
 	background-color: #2e353d;
 	position: fixed;
-	top: 0px;
+	top: 10px;
 	width: 300px;
 	height: 100%;
 	color: #e1ffff;
@@ -226,8 +228,15 @@ body {
 }
 
 .form-group {
-	width: 80%;
+	width: 100%;
 	float: right;
+	top: 5px;
+	left: 35px;
+	
+}
+
+.form-group2{
+    float: right;
 }
 
  .map {
@@ -236,10 +245,35 @@ body {
 }
 
 .inputboxes{
-	float: right;
+	float: left;
 		margin: 10px;
 	   padding: 10px;
 }
+
+.logoimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width: 22%;
+}
+
+.location-form-table{
+	width:80%;
+	float: right;
+    right: 0px;
+	
+}
+
+.input-group-btn2{
+	
+	height: 50%;
+	right: 5px;
+}
+
+
+    
+    
 </style>
 
 <script>
@@ -321,15 +355,7 @@ $(document).ready(function () {
                         };
                     }));
                 });
-            }/* ,
-            select: function (event, ui) {
-                $('.search_addr').val(ui.item.value);
-                $('.search_latitude').val(ui.item.lat);
-                $('.search_longitude').val(ui.item.lon);
-                var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
-                marker.setPosition(latlng);
-                initialize();
-            } */
+            }
             
         });
     });
@@ -390,7 +416,7 @@ function loginAlert(){
 
 			var areaName = document.getElementById("addressBox").value;
 			var schools = document.getElementById("schoolAvgRating").value;
-			var university = document.getElementById("parkAvgRating").value;
+		
 			var bars = document.getElementById("barAvgRating").value;
 			var gym = document.getElementById("gymAvgRating").value;
 			var restaurant = document.getElementById("restaurantAvgRating").value;  
@@ -402,7 +428,7 @@ function loginAlert(){
                  longitude: Long,  
                  areaName: areaName,
                  schools: schools,
-                 parks: university,
+            
                  bars: bars,
                  gym: gym,
                  restaurant: restaurant
@@ -624,28 +650,341 @@ function loginAlert(){
          }, schoolCallback);
      	}
 
-    	function getActivities(){
+    	// ALL EXTRA SUB HEADINGS ADDED ON 14:34 24/04/2018 FROM HERE V
+    	  // FITNESS
+    	function getYoga(){
 
-    	   $('.search_latitude').val(marker.getPosition().lat());
-          $('.search_longitude').val(marker.getPosition().lng());
+     	   $('.search_latitude').val(marker.getPosition().lat());
+           $('.search_longitude').val(marker.getPosition().lng());
 
-         var Lat = marker.getPosition().lat();
-         console.log(Lat);
+          var Lat = marker.getPosition().lat();
+          console.log(Lat);
 
-         var Long = marker.getPosition().lng();
-         console.log(Long);
+          var Long = marker.getPosition().lng();
+          console.log(Long);
 
-         var gymLocation = {lat: Lat, lng: Long};
-         
-  	   var service = new google.maps.places.PlacesService(map);
-  	   service.nearbySearch({
-  		   location: gymLocation,
-  		   radius: 1000,
-  	       type: ['gym']
-         }, gymCallback);
-     	}
+          var location = {lat: Lat, lng: Long};
+          
+   	   var service = new google.maps.places.PlacesService(map);
+   	   service.nearbySearch({
+   		   location: location,
+   		   radius: 1000,
+   	       /* type: ['gym'] */
+   	       keyword: ['yoga']
+          }, callback);
+      	}
 
-      function getUniversity(){
+    	function getPilates(){
+
+      	   $('.search_latitude').val(marker.getPosition().lat());
+            $('.search_longitude').val(marker.getPosition().lng());
+
+           var Lat = marker.getPosition().lat();
+           console.log(Lat);
+
+           var Long = marker.getPosition().lng();
+           console.log(Long);
+
+           var location = {lat: Lat, lng: Long};
+           
+    	   var service = new google.maps.places.PlacesService(map);
+    	   service.nearbySearch({
+    		   location: location,
+    		   radius: 1000,
+    	       /* type: ['gym'] */
+    	       keyword: ['pilates']
+           }, callback);
+       	}
+
+    	function getJustGym(){
+
+       	   $('.search_latitude').val(marker.getPosition().lat());
+             $('.search_longitude').val(marker.getPosition().lng());
+
+            var Lat = marker.getPosition().lat();
+            console.log(Lat);
+
+            var Long = marker.getPosition().lng();
+            console.log(Long);
+
+            var location = {lat: Lat, lng: Long};
+            
+     	   var service = new google.maps.places.PlacesService(map);
+     	   service.nearbySearch({
+     		   location: location,
+     		   radius: 1000,
+     	       /* type: ['gym'] */
+     	       keyword: ['gym']
+            }, callback);
+        	}
+
+       	//BARS
+		   function getCocktails(){
+
+       	   $('.search_latitude').val(marker.getPosition().lat());
+             $('.search_longitude').val(marker.getPosition().lng());
+
+            var Lat = marker.getPosition().lat();
+            console.log(Lat);
+
+            var Long = marker.getPosition().lng();
+            console.log(Long);
+
+            var location = {lat: Lat, lng: Long};
+            
+     	   var service = new google.maps.places.PlacesService(map);
+     	   service.nearbySearch({
+     		   location: location,
+     		   radius: 1000,
+     	       /* type: ['gym'] */
+     	       keyword: ['cocktails']
+            }, callback);
+        	}
+
+		   function getPubs(){
+
+	       	   $('.search_latitude').val(marker.getPosition().lat());
+	             $('.search_longitude').val(marker.getPosition().lng());
+
+	            var Lat = marker.getPosition().lat();
+	            console.log(Lat);
+
+	            var Long = marker.getPosition().lng();
+	            console.log(Long);
+
+	            var location = {lat: Lat, lng: Long};
+	            
+	     	   var service = new google.maps.places.PlacesService(map);
+	     	   service.nearbySearch({
+	     		   location: location,
+	     		   radius: 1000,
+	     	       /* type: ['gym'] */
+	     	       keyword: ['pub']
+	            }, callback);
+	        	}
+
+		   function getCheapBars(){
+
+	       	   $('.search_latitude').val(marker.getPosition().lat());
+	             $('.search_longitude').val(marker.getPosition().lng());
+
+	            var Lat = marker.getPosition().lat();
+	            console.log(Lat);
+
+	            var Long = marker.getPosition().lng();
+	            console.log(Long);
+
+	            var location = {lat: Lat, lng: Long};
+	            
+	     	   var service = new google.maps.places.PlacesService(map);
+	     	   service.nearbySearch({
+	     		   location: location,
+	     		   radius: 1000,
+	     	       type: ['bar'],
+	     	       maxprice : 2 
+	            }, callback);
+	        	}
+       	
+		   function getExpensiveBars(){
+
+	       	   $('.search_latitude').val(marker.getPosition().lat());
+	             $('.search_longitude').val(marker.getPosition().lng());
+
+	            var Lat = marker.getPosition().lat();
+	            console.log(Lat);
+
+	            var Long = marker.getPosition().lng();
+	            console.log(Long);
+
+	            var location = {lat: Lat, lng: Long};
+	            
+	     	   var service = new google.maps.places.PlacesService(map);
+	     	   service.nearbySearch({
+	     		   location: location,
+	     		   radius: 1000,
+	     	       type: ['bar'],
+	     	       minprice : 3,
+	     	       maxprice : 4
+	            }, callback);
+	        	}	
+
+	    // EDUCATION
+	    
+	    	   function getCreche(){
+
+	       	   $('.search_latitude').val(marker.getPosition().lat());
+	             $('.search_longitude').val(marker.getPosition().lng());
+
+	            var Lat = marker.getPosition().lat();
+	            console.log(Lat);
+
+	            var Long = marker.getPosition().lng();
+	            console.log(Long);
+
+	            var location = {lat: Lat, lng: Long};
+	            
+	     	   var service = new google.maps.places.PlacesService(map);
+	     	   service.nearbySearch({
+	     		   location: location,
+	     		   radius: 1000,
+	     		  
+	     		   keyword: ['creche','montessori']
+	            }, callback);
+	        	}	
+
+	    	   function getPrimarySchool(){
+
+		       	   $('.search_latitude').val(marker.getPosition().lat());
+		             $('.search_longitude').val(marker.getPosition().lng());
+
+		            var Lat = marker.getPosition().lat();
+		            console.log(Lat);
+
+		            var Long = marker.getPosition().lng();
+		            console.log(Long);
+
+		            var location = {lat: Lat, lng: Long};
+		            
+		     	   var service = new google.maps.places.PlacesService(map);
+		     	   service.nearbySearch({
+		     		   location: location,
+		     		   radius: 1000,
+		     		   keyword: ['primary','national school']
+		            }, callback);
+		        	}	
+
+	    	   function getSecondarySchool(){
+
+		       	   $('.search_latitude').val(marker.getPosition().lat());
+		             $('.search_longitude').val(marker.getPosition().lng());
+
+		            var Lat = marker.getPosition().lat();
+		            console.log(Lat);
+
+		            var Long = marker.getPosition().lng();
+		            console.log(Long);
+
+		            var location = {lat: Lat, lng: Long};
+		            
+		     	   var service = new google.maps.places.PlacesService(map);
+		     	   service.nearbySearch({
+		     		   location: location,
+		     		   radius: 1000,
+		     		   keyword: ['secondary school','high school']
+		            }, callback);
+		        	}	
+
+	    // FOOD
+	    
+	    	    	   function getCafes(){
+
+		       	   $('.search_latitude').val(marker.getPosition().lat());
+		             $('.search_longitude').val(marker.getPosition().lng());
+
+		            var Lat = marker.getPosition().lat();
+		            console.log(Lat);
+
+		            var Long = marker.getPosition().lng();
+		            console.log(Long);
+
+		            var location = {lat: Lat, lng: Long};
+		            
+		     	   var service = new google.maps.places.PlacesService(map);
+		     	   service.nearbySearch({
+		     		   location: location,
+		     		   radius: 1000,
+		     		   keyword: ['cafe']
+		            }, callback);
+		        	}	
+
+	    	    	   function getRestaurants(){
+
+	    		       	   $('.search_latitude').val(marker.getPosition().lat());
+	    		             $('.search_longitude').val(marker.getPosition().lng());
+
+	    		            var Lat = marker.getPosition().lat();
+	    		            console.log(Lat);
+
+	    		            var Long = marker.getPosition().lng();
+	    		            console.log(Long);
+
+	    		            var location = {lat: Lat, lng: Long};
+	    		            
+	    		     	   var service = new google.maps.places.PlacesService(map);
+	    		     	   service.nearbySearch({
+	    		     		   location: location,
+	    		     		   radius: 1000,
+	    		     		   keyword: ['restaurant']
+	    		            }, callback);
+	    		        	}
+
+	    	    	   function getTakeaways(){
+
+	    		       	   $('.search_latitude').val(marker.getPosition().lat());
+	    		             $('.search_longitude').val(marker.getPosition().lng());
+
+	    		            var Lat = marker.getPosition().lat();
+	    		            console.log(Lat);
+
+	    		            var Long = marker.getPosition().lng();
+	    		            console.log(Long);
+
+	    		            var location = {lat: Lat, lng: Long};
+	    		            
+	    		     	   var service = new google.maps.places.PlacesService(map);
+	    		     	   service.nearbySearch({
+	    		     		   location: location,
+	    		     		   radius: 1000,
+	    		     		  keyword: ['takeaway','delivery']
+	    		            }, callback);
+	    		        	}
+	    // LEISURE
+	    
+	    function getCinemas(){
+
+	    	$('.search_latitude').val(marker.getPosition().lat());
+	    	$('.search_longitude').val(marker.getPosition().lng());
+
+	    	var Lat = marker.getPosition().lat();
+	    	console.log(Lat);
+
+	    	var Long = marker.getPosition().lng();
+	    	console.log(Long);
+
+	    	var location = {lat: Lat, lng: Long};
+	    		            
+	    	var service = new google.maps.places.PlacesService(map);
+	    	service.nearbySearch({
+	    		     location: location,
+	    		     radius: 1000,
+	    		     keyword : ['cinema']
+	    	}, callback);
+	    }
+
+	    function getLocalParks(){
+
+	    	$('.search_latitude').val(marker.getPosition().lat());
+	    	$('.search_longitude').val(marker.getPosition().lng());
+
+	    	var Lat = marker.getPosition().lat();
+	    	console.log(Lat);
+
+	    	var Long = marker.getPosition().lng();
+	    	console.log(Long);
+
+	    	var location = {lat: Lat, lng: Long};
+	    	    		            
+	    	var service = new google.maps.places.PlacesService(map);
+	    	service.nearbySearch({
+	    	    	location: location,
+	    	    	radius: 1000,
+	    	    	type : ['park']
+	    	}, callback);
+	    }
+	    
+	    
+     	//^ TO HERE
+      function getLeisureActivities(){
       	  $('.search_latitude').val(marker.getPosition().lat());
             $('.search_longitude').val(marker.getPosition().lng());
 
@@ -661,31 +1000,9 @@ function loginAlert(){
   	   service.nearbySearch({
   		   location: UniLocation,
   		   radius: 1000,
-  	       type: ['park']
-         }, uniCallback);
+  	       keyword: ['park'|'cinema']
+         }, leisureActivitiesCallback);
           }
-
-
- /*      function getNearestGardaStation(){
-    	  $('.search_latitude').val(marker.getPosition().lat());
-          $('.search_longitude').val(marker.getPosition().lng());
-
-         var Lat = marker.getPosition().lat();
-         console.log(Lat);
-
-         var Long = marker.getPosition().lng();
-         console.log(Long);
-
-         var gardaStationLocation = {lat: Lat, lng: Long};
-
-  	   var service = new google.maps.places.PlacesService(map);
-	   service.nearbySearch({
-		   location: gardaStationLocation,
-		   //radius: 1500,
-		   rankBy: google.maps.places.RankBy.DISTANCE,
-	       type: ['police']
-       }, gardaStationCallback);
-          } */
      	
 
     	function callAllFunctions(){
@@ -693,7 +1010,8 @@ function loginAlert(){
   		    getBars();
   		    getActivities();
   		    getSchools();	
-  		    getUniversity();
+  		    //getUniversity();
+  		  getLeisureActivities();
   		    //getNearestGardaStation();
   		    clearRatings();
 
@@ -790,6 +1108,7 @@ function loginAlert(){
     	    fitnessScore.innerText = averageRatingRounded;
     	}
 
+
    	function schoolCallback(results3, status3){
    	    var totalRating = 0,
           ratedCount = 0; 
@@ -815,7 +1134,7 @@ function loginAlert(){
      	educationScore.innerText = averageRatingRounded;
     	}
 
-   	function uniCallback(results4, status4){
+   	function leisureActivitiesCallback(results4, status4){
    	    var totalRating = 0,
         ratedCount = 0; 
 
@@ -829,29 +1148,15 @@ function loginAlert(){
     
     	var averageRating = results4.length == 0 ? 0 : totalRating / ratedCount; 
     	var averageRatingRounded = averageRating.toFixed(1);
-  		 var averageSchoolRatingTB = document.getElementById('parkAvgRating');
-  		 averageSchoolRatingTB.value = averageRatingRounded;
+  		/*  var averageSchoolRatingTB = document.getElementById('parkAvgRating');
+  		 averageSchoolRatingTB.value = averageRatingRounded; */
+
+  		var a = document.querySelector('li[data-target="#leisure"] > a'); //get the a in the menu
+     	var leisureScore = document.createElement("span"); //create a new span
+     	a.appendChild(leisureScore); // add the span to the a
+
+     	leisureScore.innerText = averageRatingRounded;
   	}
-
-/*         function gardaStationCallback(results5, status5){
-   	    var totalRating = 0,
-        ratedCount = 0; 
-
-    	results5.forEach(function( place ) {
-       		  if (place.rating !== undefined) {
-              ratedCount++; 
-              totalRating += place.rating;
-            }
-        }); 
- */
-
-
-    
-/*     	var averageRating = results5.length == 0 ? 0 : totalRating / ratedCount; 
-    	var averageRatingRounded = averageRating.toFixed(1);
-  		var averageGardaRatingTB = document.getElementById('gardaAvgRating');
-  		averageGardaRatingTB.value = averageRatingRounded; 
-  	} */
 
   	function SchoolsReport(){
 	  	 $('.search_latitude').val(marker.getPosition().lat());
@@ -925,7 +1230,7 @@ function loginAlert(){
          var Lat = marker.getPosition().lat();
          console.log(Lat);
 
-         var Lgong = marker.getPosition().lng();
+         var Long = marker.getPosition().lng();
          console.log(Long);
 
          var location = {lat: Lat, lng: Long};
@@ -938,7 +1243,7 @@ function loginAlert(){
          }, callback);
      	}
 
-      function UniversityReport(){
+      function leisureActivityReport(){
       	  $('.search_latitude').val(marker.getPosition().lat());
             $('.search_longitude').val(marker.getPosition().lng());
 
@@ -954,7 +1259,8 @@ function loginAlert(){
   	   service.nearbySearch({
   		   location: location,
   		   radius: 1000,
-  	       type: ['park']
+  		    type: ['park'],
+   	        keyword: ['cinema']
          }, callback);
           }
 
@@ -1075,6 +1381,7 @@ function loginAlert(){
 	
 	 }
 
+ // An error is prompted here at times with red underline but the project still runs regardless
  function clearRatings() {
 	 document.querySelectorAll("span").forEach(span => span.parentNode.removeChild(span));  
 	}
@@ -1083,6 +1390,53 @@ function loginAlert(){
 	 window.location.href = "/crimeStats2";
 	 }
 
+ function leaveReview(){
+	    /* window.location.href = "/review"; */	
+
+	     $('.search_latitude').val(marker.getPosition().lat());
+	     $('.search_longitude').val(marker.getPosition().lng());
+
+	     var latitude = marker.getPosition().lat();
+	     var longitude = marker.getPosition().lng();
+		 var address = document.getElementById("addressBox").value;
+
+	/* 		$.ajax({
+			     type: "GET",
+			     url: "/review",
+			     data: { 
+			    	     address: address,
+			    	     latitude: latitude,
+				         longitude: longitude				         
+				}, // parameters
+		     datatype: 'json'
+		}); */
+
+		 window.location.href = "/review/"+latitude+"/"+longitude+"/"+address ;
+	 }
+
+ function seeallReviews(){
+	   /*  window.location.href = "/review"; */	
+
+	     $('.search_latitude').val(marker.getPosition().lat());
+	     $('.search_longitude').val(marker.getPosition().lng());
+
+	     var latitude = marker.getPosition().lat();
+	     var longitude = marker.getPosition().lng();
+		 //var address = document.getElementById("addressBox").value;
+
+	/* 		$.ajax({
+			     type: "GET",
+			     url: "/review",
+			     data: { 
+			    	     address: address,
+			    	     latitude: latitude,
+				         longitude: longitude				         
+				}, // parameters
+		     datatype: 'json'
+		}); */
+
+		 window.location.href = "/readreview/"+latitude+"/"+longitude;
+	 }
 
 
  
@@ -1096,7 +1450,7 @@ function loginAlert(){
 	
 
 	<div class="nav-side-menu">
-		<div class="brand">Brand Logo</div>
+		<div class="brand"> Brand Logo </div>
 		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 			data-target="#menu-content"></i>
 
@@ -1125,9 +1479,9 @@ function loginAlert(){
 						Education : <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="education">
-					<li>Creche</li>
-					<li>Primary Schoool</li>
-					<li>Secondary School</li>
+					<li><a onclick="clearMarkers();getCreche();">Creche</a></li>
+					<li><a onclick="clearMarkers();getPrimarySchool();">Primary Schoool</a></li>
+					<li><a onclick="clearMarkers();getSecondarySchool();">Secondary School</a></li>
 						 
 				</ul>
 
@@ -1136,8 +1490,9 @@ function loginAlert(){
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="food">
-					<li>Cafe</li>
-					<li>Restaurant</li>
+					<li><a onclick="clearMarkers();getCafes();">Cafe</a></li>
+					<li><a onclick="clearMarkers();getRestaurants();">Restaurant</a></li>
+					<li><a onclick="clearMarkers();getTakeaways();">Take Away</a></li>
 				</ul>
 
 
@@ -1146,10 +1501,10 @@ function loginAlert(){
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="bars">
-					<li>Pubs</li>
-					<li>Cocktails</li>
-					<li>Cheap</li>
-					<li>Expensive</li>
+					<li><a onclick="clearMarkers();getPubs();">Pubs</a></li>
+					<li><a onclick="clearMarkers();getCocktails();">Cocktails</a></li>
+					<li><a onclick="clearMarkers();getCheapBars();">Cheap</a></li>
+					<li><a onclick="clearMarkers();getExpensiveBars();">Expensive</a></li>
 				</ul>
 
 				<li data-toggle="collapse" data-target="#fitness" class="collapsed">
@@ -1157,18 +1512,20 @@ function loginAlert(){
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="fitness">
-					<li>Gym</li>
-					<li>Yoga</li>
-					<li>Pilates</li>
+					<li><a onclick="clearMarkers();getJustGym();">Gym</a></li>
+					<li><a onclick="clearMarkers();getYoga();">Yoga</a></li>
+					<li><a onclick="clearMarkers();getPilates();">Pilates</a></li>
 				</ul>
+				
+			
 
 				<li data-toggle="collapse" data-target="#leisure" class="collapsed">
-					<a href="#"><i class="fa fa-gift fa-lg"></i> Leisure : <span
+					<a onclick="clearMarkers();leisureActivityReport();"><i class="fa fa-gift fa-lg"></i> Leisure : <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="leisure">
-					<li>Parks <a href="javascript:clearMarkers();UniversityReport();"></a></li>
-					<li>Cinema</li>
+					<li><a onclick="clearMarkers();getLocalParks();">Parks</a></li>
+					<li><a onclick="clearMarkers();getCinemas();">Cinema</a></li>
 				</ul>
 				
 				<li data-toggle="collapse" data-target="#commute" class="collapsed">
@@ -1180,9 +1537,16 @@ function loginAlert(){
 					<a href="savedAreasMap"><i class="fa fa-home fa-lg"></i> My Saved Areas </a>
 				</li>
 				
-				<li data-toggle="collapse" data-target="reviews" class="collapsed">
-					<a href="#"><i class="fa fa-book fa-lg"></i> Reviews </a>
+				<li data-toggle="collapse" data-target="#reviews" class="collapsed">
+					<a href = "#"><i class="fa fa-book fa-lg"></i> Reviews <span
+						class="arrow"></span></a>
 				</li>
+				<ul class="sub-menu collapse" id="reviews">
+					<li><a onclick="leaveReview();">Write a Review for this Area</a></li>
+					<li><a onclick="seeallReviews();">Read Reviews for this Area</a></li>
+				</ul>
+				
+				
 			</ul>
 		</div>
 	</div>
@@ -1193,7 +1557,7 @@ function loginAlert(){
 
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/"
-					style="max-width: 30%; max-height: 30%;"> <img
+					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
 					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -1223,11 +1587,13 @@ function loginAlert(){
 								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
 
 							</c:if></li>
-							<li><a href="commuteplanner">test</a></li>
+							<li><a href="commuteplanner">Add more addresses to Commutes</a></li>
 						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
 		
 						</li>
+						
 					</ul>
+					
 					</div>
 				</div>
 			</div>
@@ -1236,32 +1602,39 @@ function loginAlert(){
 
 
 
-	<div class = map>	
+	<!-- <div class = map>	 -->
 	<!-- display google map -->
-		
-		<div class="form-group input-group">
+	    <table class = "location-form-table">
+	    <tr>
+	    <td>
 		<form>
+		<div class="form-group input-group">
+		
 			<input type="text" id="search_location" class="form-control"
 				placeholder="Search an area or put in an address " />
 			<div class="input-group-btn">
 				<button class="btn btn-default get_map" type="submit"
 					onclick="callAllFunctions();">Locate</button>
 			</div>
-		</form>
-		</div>
-	
-			<form>
-		<div class="form-group input-group">
+			</div>
+	    </td>
+	   <td style = "width : 50px">
+	   </td>
+	    <td>
+		<div class="form-group2 input-group">
 			<input type="hidden" name="addressBox"
 							id="addressBox" class="search_addr" size="45" class="form-control"
 				placeholder="Address" />
-			<div class="input-group-btn">
+			<div class="input-group-btn2">
 				<button class="btn btn-default " type="submit"
 					onclick="saveAreaToUser();">Save
 						Area</button>
 			</div>
 		</div>
+		</td>
 	</form>
+	</tr>
+	</table>
 		<!-- <div id="addressbartable">
 		<table style="width: 100%">
 			<tr>

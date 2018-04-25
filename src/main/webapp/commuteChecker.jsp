@@ -43,13 +43,16 @@
 
    <style>
 #geomap {
-	width: 80%;
-	height: 700px;
+		width: 77%;
+	height: 510px;
 	float: right;
+	margin: 5px;
+	padding: 5px
 }
 
 #inputbox {
     float: right; }
+    
 
 #forminputs .p {
 	display: inline-block;
@@ -219,6 +222,18 @@
 		display: block;
 	}
 }
+
+.logoimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width: 22%;
+}
+
+.travelselect{
+   height: 20px;
+}
 </style>
 
 <script>
@@ -305,49 +320,6 @@
 			  });
 			 
 			}
-
-
-/* 		function calcRoute() {
-
-			/* var location1 = document.getElementById("latlong1");
-			var location2 = document.getElementById("latlong1"); 
-			var location1 = convertAddress1();
-			var location2 = convertAddress2();
-
-			  
-			    var ret = location1.replace('(','').replace(')','');
-			   
-			    var res = ret.split(',');
-			    var lat1 = res[0];
-			    var lng1 = res[1];
-			    
-			var start = new google.maps.LatLng(lat1, lng1);
-			var end = new google.maps.LatLng(location2.lat, location2.lng);
-
-			
-			var bounds = new google.maps.LatLngBounds();
-			bounds.extend(start);
-			bounds.extend(end);
-			map.fitBounds(bounds);
-			var request = {
-				origin : start,
-				destination : end,
-				travelMode : google.maps.TravelMode.DRIVING
-			};
-			directionsService
-					.route(request,
-							function(response, status) {
-								if (status == google.maps.DirectionsStatus.OK) {
-									directionsDisplay.setDirections(response);
-									directionsDisplay.setMap(map);
-								} else {
-									alert("Directions Request from "
-											+ start.toUrlValue(6) + " to "
-											+ end.toUrlValue(6) + " failed: "
-											+ status);
-								}
-							});
-		} */
 
 		
 
@@ -457,24 +429,7 @@
 </script>
 </head>
 <body>
-  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
-    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
- </a>
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:goBack();">Back To The Map</a>
-                </li>
-                <li><a href="#">Log Out</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+
 
 	<div class="nav-side-menu">
 		<div class="brand">Brand Logo</div>
@@ -561,20 +516,45 @@
 			</ul>
 		</div>
 	</div>
+	
+	  <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
+    <img class = "logoimage" src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
+ </a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="javascript:goBack();">Back To The Map</a>
+                </li>
+                <li><a href="#">Log Out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 
 <br>
 <div id = "inputbox">
-<h3>Time: </h3> <p id = "time"></p> <p id = "distance"></p>
-	<form id="myForm">
- <input type="text" id="addressFrom" class="forminput1"  placeholder="Set Starting Location" style ="width: 50%"/>
- <!-- <input type="text" id="addressTo" class="forminput2"placeholder="Set Destination" width="35%" style ="width: 35%"/>  -->
- <input list="places" id="addressTo" class="forminput2" placeholder="Set Destination" style ="width: 50%"/>
+<p id = "time"></p> <p id = "distance"></p>
+<table class = "routetable">
+<tr>
+<form id="myForm">
+<td style = "width:100px">
+ <input type="text" id="addressFrom" class="forminput1"  placeholder="Set Starting Location" style = "width:370px"/>
+ </td>
+ <td style = "width:300px">
+ <input list="places" id="addressTo" class="forminput2" placeholder="Set Destination" style = "width:370px"/>
+ 
 <datalist id="places">
   <!--  <option value = "123 Fake St, Dublin, Ireland">Home</option> -->
    <c:forEach var="o" items="${savedCommutes}">
 					<option value="${o.address}"><c:out value="${o.addressnickname}" /></option>
    </c:forEach>
 </datalist>
+</td>
  
 <%--    <select>
    <c:forEach var="o" items="${savedCommutes}">
@@ -583,17 +563,23 @@
    </select> --%>
    
  
-
+<td>
  
-              <select id ="travelselect">
+              <select id ="travelselect" class = "travelselect">
 					<option value="WALKING">Walking</option>
 					<option value="BICYCLING">Cycling</option>
 					<option value="DRIVING">Driving</option>
 					<option value="TRANSIT">Public Transport</option>
 			   </select>
+</td>
  <!--  <input type="button" onclick="calculateAndDisplayRoute();" value="Calculate Commute"><br> -->
-  <input type="button" id="routebtn" value="Calculate Commute" onclick="initialize()"/><br> 
+ <td style = "width:10px"></td>
+<td> 
+  <input type="button" id="routebtn" value="Calculate Commute" onclick="initialize()"/>
+  </td>
 </form>
+</tr>
+</table>
 </div>
 <br>
 

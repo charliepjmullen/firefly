@@ -40,9 +40,11 @@
     
 <style>
 #geomap {
-	width: 80%;
-	height: 700px;
+	width: 77.5%;
+	height: 510px;
 	float: right;
+	margin: 5px;
+	padding: 5px
 }
 
 #forminputs .p {
@@ -56,7 +58,7 @@
 #forminputs .input {
 	display: inline-block;
 	float: left;
-	width: 80%;
+	width: 77.5%;
 }
 
 #addressbartable{float:right;}
@@ -70,7 +72,7 @@
 	font-weight: 200;
 	background-color: #2e353d;
 	position: fixed;
-	top: 0px;
+	top: 10px;
 	width: 300px;
 	height: 100%;
 	color: #e1ffff;
@@ -224,19 +226,30 @@ body {
 }
 
 .form-group2 {
-	width: 80%;
+	width: 77.5%;
 	float: right;
 }
 
  .map {
 	margin: 5px;
 	padding: 5px;
+	width : 95%;
+	float: right;
+	height : 10%;
 }
 
 .inputboxes{
 	float: right;
 		margin: 10px;
 	   padding: 10px;
+}
+
+.logoimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width: 22%;
 }
 </style>
 
@@ -317,8 +330,8 @@ $(document).ready(function () {
                         };
                     }));
                 });
-            }/* ,
-            select: function (event, ui) {
+            },
+/*             select: function (event, ui) {
                 $('.search_addr').val(ui.item.value);
                 $('.search_latitude').val(ui.item.lat);
                 $('.search_longitude').val(ui.item.lon);
@@ -648,6 +661,7 @@ function loginAlert(){
     		    getActivities();
     		    getSchools();	
     		    getUniversity();
+    		    getLeisureActivities();
     		    //getNearestGardaStation();
     		    clearRatings();
 
@@ -893,6 +907,48 @@ function loginAlert(){
         }, callback);
          }
 
+     function getLeisureActivities(){
+     	  $('.search_latitude').val(marker.getPosition().lat());
+           $('.search_longitude').val(marker.getPosition().lng());
+
+          var Lat = marker.getPosition().lat();
+          console.log(Lat);
+
+          var Long = marker.getPosition().lng();
+          console.log(Long);
+
+          var UniLocation = {lat: Lat, lng: Long};
+
+   	   var service = new google.maps.places.PlacesService(map);
+ 	   service.nearbySearch({
+ 		   location: UniLocation,
+ 		   radius: 1000,
+ 	       keyword: ['park'|'cinema']
+        }, leisureActivitiesCallback);
+         }
+
+    	function leisureActivitiesCallback(results4, status4){
+       	    var totalRating = 0,
+            ratedCount = 0; 
+
+        		results4.forEach(function( place ) {
+           		if (place.rating !== undefined) {
+                ratedCount++; 
+                totalRating += place.rating;
+            }
+        });
+
+        		var averageRating = results4.length == 0 ? 0 : totalRating / ratedCount; 
+            	var averageRatingRounded = averageRating.toFixed(1);
+          		/*  var averageSchoolRatingTB = document.getElementById('parkAvgRating');
+          		 averageSchoolRatingTB.value = averageRatingRounded; */
+
+          		var a = document.querySelector('li[data-target="#leisure"] > a'); //get the a in the menu
+             	var leisureScore = document.createElement("span"); //create a new span
+             	a.appendChild(leisureScore); // add the span to the a
+
+             	leisureScore.innerText = averageRatingRounded;
+          	}
 
      function gardaStationReport(){
      	  $('.search_latitude').val(marker.getPosition().lat());
@@ -973,65 +1029,7 @@ function loginAlert(){
 </head>
 
 <body>
-<div id="custom-bootstrap-menu" class="navbar navbar-default "
-		role="navigation">
-		<div class="container-fluid">
 
-			<div class="navbar-header">
-				<a class="navbar-brand" href="/"
-					style="max-width: 30%; max-height: 30%;"> <img
-					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
-
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-menubuilder">
-					<span class="sr-only">Toggle navigation</span><span
-						class="icon-bar"></span><span class="icon-bar"></span><span
-						class="icon-bar"></span>
-				</button>
-			</div>
-			<div class="container">
-
-
-
-
-				<div class="collapse navbar-collapse navbar-menubuilder">
-
-					<div id ="topnavbar">
-					<ul class="nav navbar-nav navbar-right">
-						<li><c:if
-								test="${pageContext.request.userPrincipal.name != null}">
-								<form id="logoutForm" method="POST"
-									action="${contextPath}/logout">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
-								</form>
-
-								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
-
-							 </c:if>
-						</li>
-						<li>
-						     <br>
-							 <form method="POST" action="${contextPath}/login" >
-        						<div class="form-group ${error != null ? 'has-error' : ''}">
-            					<span>${message}</span>
-            					<input name="username" type="text"  placeholder="Username" autofocus="true"/>
-            					<input name="password" type="password"  placeholder="Password"/>
-            					<span>${error}</span>
-            					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            					<button  type="submit">Log In</button>
-        						</div>
-    						 </form>
-    						 
-    					</li>
-
-                        <li><a href="registration">Register</a></li>
-					</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 <!-- <div class="container" id = "homelogin">
 
@@ -1120,11 +1118,69 @@ function loginAlert(){
 		</div>
 	</div>
 	
+	<div id="custom-bootstrap-menu" class="navbar navbar-default "
+		role="navigation">
+		<div class="container-fluid">
+
+			 <div class="navbar-header">
+				<a class="navbar-brand" href="/"
+					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
+					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-menubuilder">
+					<span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span
+						class="icon-bar"></span>
+				</button>
+			</div> 
+			<div class="container">
 
 
 
 
-	<div class = map>	
+				<div class="collapse navbar-collapse navbar-menubuilder">
+
+					<div id ="topnavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><c:if
+								test="${pageContext.request.userPrincipal.name != null}">
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
+
+								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
+
+							 </c:if>
+						</li>
+						<li>
+						     <br>
+							 <form method="POST" action="${contextPath}/login" >
+        						<div class="form-group ${error != null ? 'has-error' : ''}">
+            					<span>${message}</span>
+            					<input name="username" type="text"  placeholder="Username" autofocus="true"/>
+            					<input name="password" type="password"  placeholder="Password"/>
+            					<span>${error}</span>
+            					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            					<button  type="submit">Log In</button>
+        						</div>
+    						 </form>
+    						 
+    					</li>
+
+                        <li><a href="registration">Register</a></li>
+					</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!--  <div class = map> 	 -->
 	<!-- display google map -->
 		<form>
 		<div class="form-group2 input-group">
@@ -1201,51 +1257,51 @@ function loginAlert(){
 					<p>
 						<!-- Average House Price: --> <input type="hidden" size="10"
 							value="${houseprice}" />&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-default get_map" type="submit"
-							onclick="clearMarkers();parseHousePrice();">Full Report</button>
+						<!-- <button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();parseHousePrice();">Full Report</button> -->
 					</p>
 					<p>
 						<!-- Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input
 							type="hidden" size="10" value="${rating}" />&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-default get_map" type="submit"
+						<!-- <button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();gardaStationReport();">Full
-							Report</button>
+							Report</button> -->
 					</p>
 					<p>
 						<!-- Schools:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						&nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
 							name="schoolAvgRating" id="schoolAvgRating" />&nbsp; &nbsp;
 						&nbsp;
-						<button class="btn btn-default get_map" type="submit"
-							onclick="clearMarkers();SchoolsReport();">Full Report</button>
+						<!-- <button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();SchoolsReport();">Full Report</button> -->
 					</p>
 					<p>
 						<!-- Parks: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
 							name="parkAvgRating" id="parkAvgRating" />&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-default get_map" type="submit"
-							onclick="clearMarkers();UniversityReport();">Full Report</button>
+						<!-- <button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();UniversityReport();">Full Report</button> -->
 					</p>
 					<p>
 						<!-- Bars: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden"
 							size="10" name="barAvgRating" id="barAvgRating" />&nbsp; &nbsp;
 						&nbsp;
-						<button class="btn btn-default get_map" type="submit"
-							onclick="clearMarkers();BarReport();">Full Report</button>
+						<!-- <button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();BarReport();">Full Report</button> -->
 					</p>
 					<p>
 						<!-- Restaurants: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 						&nbsp; --><input type="hidden" size="10" name="restaurantAvgRating"
 							id="restaurantAvgRating" />&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-default get_map" type="submit"
-							onclick="clearMarkers();RestaurantReport();">Full Report</button>
+						<!-- <button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();RestaurantReport();">Full Report</button> -->
 					</p>
 					<p>
 						<!-- Gyms: --><input type="hidden" size="10"
 							name="gymAvgRating" id="gymAvgRating" />&nbsp; &nbsp; &nbsp;
-						<button class="btn btn-default get_map" type="submit"
-							onclick="clearMarkers();GymReport();">Full Report</button>
+					<!-- 	<button class="btn btn-default get_map" type="submit"
+							onclick="clearMarkers();GymReport();">Full Report</button> -->
 					</p>
 				</th>
 

@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.dit.arearatingsystem.model.Review;
 
 @Controller
 public class UserController {
@@ -65,9 +66,12 @@ public class UserController {
 	@Autowired
 	HousePriceRepository housePriceRepository;
 	
+	
 
 	ParseCrimeStatistics parseCrime = new ParseCrimeStatistics();
 	ParseHousePrices parseHousePrice = new ParseHousePrices();
+	AddReview addReviewMethod = new AddReview();
+	SeeAllReviews seeReveiwsMethod = new SeeAllReviews();
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -115,17 +119,17 @@ public class UserController {
 			                                                 @RequestParam("longitude") double longitude, 
 			                                                 @RequestParam("areaName") String areaName, 
 			                                                 @RequestParam("schools") double schools, 
-			                                                 @RequestParam("parks") double university, 
+			                                                 
 			                                                 @RequestParam("bars") double bars, 
 			                                                 @RequestParam("gym") double gym,
 			                                                 @RequestParam("restaurant") double restaurant) {
-		
+		  
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
 
 	     /* System.out.println(gardaStation_name);*/
 	      double house_price = parseHousePrice.ParseHousePrice(latitude, longitude);
-	      System.out.println(house_price);
+	      /*System.out.println(house_price);*/
 	      area.setHouse_price(house_price);
 	      areaRepository.save(area);
 	      User user = userRepository.findByUsername(username);
@@ -390,7 +394,59 @@ public class UserController {
 		return "savedAreas";
 	}
 	
+	@RequestMapping(value = "/review/{latitude}/{longitude}/{address}", method = RequestMethod.GET) 
+	public  String Review(@Valid Review review,  @PathVariable("address") String address, @PathVariable("latitude") double latitude, 
+            @PathVariable("longitude") double longitude, BindingResult bindingResult, Model model) {
+		
+
+		
+System.out.println(" Latitude " + latitude + " Longitude " + longitude + " address " + address );
+		
+		/*model.addAttribute("address", address);
+		  model.addAttribute("latitude", latitude);
+	      model.addAttribute("longitude", longitude);*/
+	      
+	      
+		return "review";
+	}
 	
+	@RequestMapping(value = "/addreview/{address}/{latitude}/{longitude}", method = RequestMethod.GET) 
+	public  String addReview(@Valid Review review, @RequestParam("comment") String comment, @PathVariable("address") String address, @PathVariable("latitude") double latitude, 
+            @PathVariable("longitude") double longitude, BindingResult bindingResult, Model model) {
+		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for
+	      User user = userRepository.findByUsername(username);
+	      
+		
+          System.out.println(" Latitude " + latitude + " Longitude " + longitude + " address " + address + "user: " + user.getUsername() + "comment" + comment);
+		
+
+          addReviewMethod.addReview( comment,  longitude,  latitude,  address,  username);
+
+          
+	      
+		return "welcome";		
+	}
+	
+	@RequestMapping(value = "/readreview/{latitude}/{longitude}", method = RequestMethod.GET) 
+	public  String readReview(@Valid Review review,  @PathVariable("latitude") double latitude, 
+            @PathVariable("longitude") double longitude, BindingResult bindingResult, Model model) {
+		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for
+	      User user = userRepository.findByUsername(username);
+	      
+		
+          System.out.println(" Latitude " + latitude + " Longitude " + longitude + "user: " + user.getUsername());
+		
+
+          ArrayList<Review> reviews = seeReveiwsMethod.getAllReviews(latitude, longitude);
+
+          model.addAttribute("reviews", reviews);
+	      
+		return "seeallreviews";		
+	}
 	
 	
 	
