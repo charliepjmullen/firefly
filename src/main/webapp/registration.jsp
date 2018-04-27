@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Create an account</title>
+    <title>Registration</title>
 
     <!--  <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- <link href="${contextPath}/resources/css/common.css" rel="stylesheet"> -->
@@ -56,7 +56,7 @@
 <div class="container">
 
     <form:form method="POST" modelAttribute="userForm" class="form-signin">
-        <h2 class="form-signin-heading">Create your account</h2>
+        <h2 class="form-signin-heading">Register to Suss below</h2>
         <spring:bind path="username">
             <div class="form-group ${status.error ? 'has-error' : ''}">
                 <form:input type="text" path="username" class="form-control" placeholder="Username"

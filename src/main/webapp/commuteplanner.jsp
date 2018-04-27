@@ -194,6 +194,20 @@
 	.nav-side-menu .menu-list .menu-content {
 		display: block;
 	}
+	
+.inputbox{
+    position: absolute;
+    left: 200px;
+	width : 50%;
+}
+
+    .logoimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width: 22%;
+}
 }
 </style>
 <script>
@@ -293,7 +307,7 @@ function saveCommuteAddresses(){
   <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
         <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
-    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
+    <img class = "logoimage" src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
  </a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>
@@ -313,7 +327,7 @@ function saveCommuteAddresses(){
 								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
 
 							</c:if></li>
-							<li><a href="commuteplanner">test</a></li>
+							
 						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
 		
 						</li>
@@ -323,21 +337,25 @@ function saveCommuteAddresses(){
     </div>
 </div>
 
-<div id = "inputbox">
+<div class = "inputbox">
 	
+	<h4>Welcome to Suss, Dublin's only application to get the Suss on areas. You're nearly ready to use all of Suss' features. </h4>
+	<h4>To get started enter an address you visit regularly and give it a nickname. This will come in handy later. </h4>
+	<h4>Or click skip for now to move on. Enjoy! </h4>
 	<br>
 	<br>
 	<br>
- <input type="text" id="address" class="forminput1"   placeholder="Commute address one" style ="width: 35%"/><br>
- <input type="text" id="addressnickname"  placeholder="Pick a nickname for this address e.g Home, Work, Birds Gaf" width="35%" style ="width: 35%"/>
+ <input type="text" id="address" class="form-control"   placeholder="Enter an address here" style ="width: 70%"/><br>
+ <input type="text" id="addressnickname" class="form-control" placeholder="Pick a nickname for this address e.g Home, Work, Bird/fellas Gaf" width="70%" />
 	
  
   
-  <input type="button" id="routebtn" value="Save Commute locations" onclick="saveCommuteAddresses(), location.href = '/'" /><br> 
+  <input type="button" id="routebtn" class="btn" value="Save Commute locations" onclick="saveCommuteAddresses(), location.href = '/'" /><br> 
 
+	<h4><a href = "/skip">Skip For Now</a></h4>
 </div>
 <br>
 
-<h4><a href = "/skip">Skip For Now</a></h4>
+
 </body>
 </html>

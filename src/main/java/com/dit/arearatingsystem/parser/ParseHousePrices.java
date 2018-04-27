@@ -30,7 +30,6 @@ public class ParseHousePrices {
 	         ResultSet rs = stmt.executeQuery( "SELECT * FROM house_prices WHERE ST_DWithin(ST_MakePoint(latitude,longitude)::geography,ST_MakePoint("+ latitude + "," + longitude +")::geography,1000)" );
 	         while ( rs.next() ) {
 	            double  price = rs.getDouble("price");
-	         /*   System.out.println();*/
 	            housePrices.add(price);
 	         }
 	         rs.close();

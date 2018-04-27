@@ -16,7 +16,7 @@ public class SeeAllReviews {
 		
 		  Connection c = null;
 	      Statement stmt = null;
-	      Review review = new Review();
+	      
 	      
 	      reviews.clear();
 		
@@ -34,11 +34,13 @@ public class SeeAllReviews {
 	            /*double  price = rs.getDouble("price");
 	            System.out.println();
 	            housePrices.add(price);*/
-	        	 
+	        	Review review = new Review();
 	        	String comment = rs.getString("comment");
+	        	String address = rs.getString("address");
 	        	String username = rs.getString("user");
 	        	review.setComment(comment);
 	        	review.setUsername(username);
+	        	review.setAddress(address);
 	        	reviews.add(review);
 	        	
 	         }

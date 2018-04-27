@@ -51,6 +51,8 @@ function goBack() {
 			<tr>
 			    <td width="3.5%"  height="50"></td>
 				<td width="10%" height="50"><h4><c:out value="${o.username}" /></h4></td>
+				<td></td>
+				<td width="10%" height="50"><h4><c:out value="${o.address}" /></h4></td>
 				 
 				 <td width="3.5%"  height="50">  </td>
 				 

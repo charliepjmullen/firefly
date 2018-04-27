@@ -68,7 +68,7 @@ function goBack() {
 			 
 			<th width="3.5%" class="tg-schools">Schools</th>
 			 
-			<th width="3.5%" class="tg-university">Park</th>
+			<!-- <th width="3.5%" class="tg-university">Park</th> -->
 			 
 			<th width="3.5%" class="tg-bars">Bars</th>
 			 
@@ -105,7 +105,7 @@ function goBack() {
                  
 				<td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.schools}" /></td>
 				 
-				<td width="3.5%"  height="50"  class="tg-yw4l"><c:out value="${o.university}" /></td>
+				<%-- <td width="3.5%"  height="50"  class="tg-yw4l"><c:out value="${o.university}" /></td> --%>
 				 
 				<td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.bars}" /></td>
 				 
