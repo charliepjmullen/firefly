@@ -23,6 +23,27 @@
 <title>House Price</title>
 
    <style>
+ .rating { font-weight:bold; }
+.low { color:#45FD00; }
+.medium { color:#FF4500; }
+.high { color:#ff0000; }
+   
+   .crimehubcontainer{
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        height : 100%;
+        width: 60%;
+}
+
+.logoimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width: 22%;
+}
+
  #geomap {
 	width: 80%;
 	height: 700px;
@@ -205,7 +226,38 @@
 </style>
 
 <script>
+/* window.onload = function() {
+	var rating = document.getElementById('rating').value;
 
+	if(rating < 4 ){
+		document.getElementById("rating").style.color = "#45FD00";
+	} else if(rating > 4 && rating < 6){
+		document.getElementById("rating").style.color = "#E6E6E6";
+    } else if(rating > 4 && rating < 6){
+		document.getElementById("rating").style.color = "#ff0000";
+    
+} */
+
+window.addEventListener("DOMContentLoaded", function() {
+	  // Get all the ratings into an array
+	  var ratings = Array.prototype.slice.call(document.querySelectorAll('.rating'));
+	  
+	  // Loop over the array
+	  ratings.forEach(function(r){
+	    // Get the text that is inside the element
+	    var val = +r.textContent; // The prepended + converts the text to a number
+
+	    // Just add the appropriate pre-made CSS class to the element
+	    // depending on its text content.
+	    if(val < 4 ){
+	      r.classList.add("low");
+	    } else if(val >= 4 && val <= 6){
+	      r.classList.add("medium");
+	    } else if(val > 6){
+	      r.classList.add("high");
+	    }
+	  });
+	});
 function goBack() {
 	window.history.back();
 }
@@ -216,42 +268,86 @@ function goBack() {
 
 </head>
 <body>
- <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
-    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
- </a>
+	<div id="custom-bootstrap-menu" class="navbar navbar-default "
+		role="navigation">
+		<div class="container-fluid">
 
-        </div>
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:goBack();">Back</a>
-                </li>
-                <li><a href="#">Log Out</a>
-                </li>
-            </ul>
-        </div> 
-    </div> 
-</div>
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"
+					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
+					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-menubuilder">
+					<span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="container">
+
+
+
+
+				<div class="collapse navbar-collapse navbar-menubuilder">
+
+					<div id ="topnavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><c:if
+								test="${pageContext.request.userPrincipal.name != null}">
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
+
+								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
+
+							</c:if></li>
+							<li><a href="javascript:goBack();">Back</a>
+						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
+		                
+						</li>
+						
+					</ul>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
         
     
     
-    
+    <div class ="crimehubcontainer">
 
-    <h3>Crime Statistics Information Hub</h3>
+    <h1>Crime Statistics Information Hub</h1>
 	
 	<table>
 	
 		
 		<c:forEach var="o" items="${gardaStationList}">
 			<tr>
-				<td width="10%" height="50"><h3>Based on <c:out value="${o.gardaStation_name}" /> and their statistics
-				                                the rating for this area is:  <c:out value="${o.crime_rating}" /></h3></td>  
+				<td width="10%" height="50"><h2>Based on <b><c:out value="${o.gardaStation_name}" /></b> and their statistics
+				                                the rating for this area is:  <span class="rating"><c:out value="${o.crime_rating}" /></span></h2></td>  
 				
              </tr>
 		</c:forEach>
 		
 </table>
+
+<h4>How is the Crime Rating calculated?</h4>
+<h4>The Crime Statistics are provided by <a href = "http://www.cso.ie/en/index.html">The Central Statistics Office</a>.There are 42 Garda Stations in Dublin and in order to get a rating we analyse the statistics of each Station over the span of 6 years and compare them 
+to every other Garda Station's figures and place it on a scale of <b>1 - 10</b>. A Garda Station usually deals with 15 different crimes and offences, however we only take into account 4 different offences that we feel a person may be most concerened about
+when researching areas, and these 4 offences are <b>Murder/Attempted Murder</b>, <b>Assault</b>, <b>Theft</b> and <b>Burglary</b>.</h4>
+
+
+  <h3><b id = "low" class="low">Low</b> means this Area's Crime Rating is less than average</h3>
+  <h3><b id = "medium" class="medium">Medium</b> means this Area's Crime Rating about average for Dublin</h3>
+  <h3><b id = "high" class="high">High</b> means this Area's Crime Rating is above average</h3>
+ 
+
+</div>
 <br>
 
 </body>

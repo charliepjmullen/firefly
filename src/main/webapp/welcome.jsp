@@ -286,10 +286,20 @@ var markers = [];
 var infowindow;
 var request
 
+
+
+window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
 /*
  * Google Map with marker
  */
 function initialize() {
+	
+	
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
     initialLat = initialLat?initialLat:53.350140;
@@ -368,16 +378,14 @@ $(document).ready(function () {
     $('.get_map').click(function (e) {
         var address = $(PostCodeid).val();
         geocoder.geocode({'address': address}, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
+            if (status == google.maps.GeocoderStatus.OK ) {
                 map.setCenter(results[0].geometry.location);
                 map.setZoom(14);
                 marker.setPosition(results[0].geometry.location);
                 $('.search_addr').val(results[0].formatted_address);
                 $('.search_latitude').val(marker.getPosition().lat());
                 $('.search_longitude').val(marker.getPosition().lng());
-            } else {
-                alert("You must enter a valid address in Dublin: " + status);
-            }
+            } 
         });
         e.preventDefault();
     });
@@ -1006,15 +1014,30 @@ function loginAlert(){
      	
 
     	function callAllFunctions(){
-    		getCafe();
-  		    getBars();
-  		    getActivities();
-  		    getSchools();	
-  		    //getUniversity();
-  		  getLeisureActivities();
-  		    //getNearestGardaStation();
-  		    clearRatings();
 
+    		var searchRequest = document.getElementById("search_location").value;
+    		var isInDublin;
+
+    		if (searchRequest.includes("Dublin") || searchRequest.includes("dublin")){
+                   isInDublin = true;
+        		}  
+    		else { isInDublin = false;}
+
+    		if (searchRequest == null || searchRequest ==" " || isInDublin == false)
+    		 {
+                alert("You must enter a valid address in Dublin:!");
+                location.reload();
+            } else {
+            	     
+                     getCafe();
+	    	         getBars();
+		    	     getActivities();
+		    	     getSchools();	
+		    	     //getUniversity();
+		  		     getLeisureActivities();
+		    	     //getNearestGardaStation();
+		    	     clearRatings();
+		    	   }
   		
     	}
 
@@ -1057,7 +1080,7 @@ function loginAlert(){
    	    var totalRating = 0,
           ratedCount = 0; 
 
-      results1.forEach(function( place ) {
+          results1.forEach(function( place ) {
           if (place.rating !== undefined) {
               ratedCount++; 
               totalRating += place.rating;
@@ -1384,6 +1407,11 @@ function loginAlert(){
  // An error is prompted here at times with red underline but the project still runs regardless
  function clearRatings() {
 	 document.querySelectorAll("span").forEach(span => span.parentNode.removeChild(span));  
+	 document.getElementById('schoolAvgRating').value = '';
+	 document.getElementById('parkAvgRating').value = '';
+	 document.getElementById('barAvgRating').value = '';
+	 document.getElementById('restaurantAvgRating').value = '';
+	 document.getElementById('gymAvgRating').value = '';
 	}
 
  function openCrimeStatistics(){
@@ -1438,8 +1466,54 @@ function loginAlert(){
 		 window.location.href = "/readreview/"+latitude+"/"+longitude;
 	 }
 
+  	function validateSearchCommute(){
 
- 
+  		var address = document.getElementById("addressBox").value;
+  		var searchRequest = document.getElementById("search_location").value;
+		var isInDublin;
+
+		if (searchRequest.includes("Dublin") || searchRequest.includes("dublin")){
+               isInDublin = true;
+    		}  
+		else { isInDublin = false;}
+
+		if (searchRequest == null || searchRequest ==" " || address == null || address ==" " || isInDublin == false)
+		 {
+            alert("Please Enter an Address in Dublin before checking the commute!");
+            location.reload();
+        } else 
+            {
+        	sendAddressToCommutePage();
+            }
+	}   
+
+  	function validateSearchReview(){
+
+  		var address = document.getElementById("addressBox").value;
+  		var searchRequest = document.getElementById("search_location").value;
+		var isInDublin;
+
+		if (searchRequest.includes("Dublin") || searchRequest.includes("dublin")){
+               isInDublin = true;
+    		}  
+		else { isInDublin = false;}
+
+		if (searchRequest == null || searchRequest ==" " || address == null || address ==" " || isInDublin == false)
+		 {
+            alert("Please Enter an Address in Dublin before writing a review!");
+            location.reload();
+        } else 
+            {
+        	leaveReview();
+            }
+	}   
+
+	function refreshAPIRatings(){
+		   if(!window.location.hash) {
+		        window.location = window.location + '#loaded';
+		        window.location.reload();
+		    }
+		}
 </script>
 </head>
 
@@ -1466,9 +1540,9 @@ function loginAlert(){
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">
-					<li><a >Address</a></li>
+				<!-- 	<li><a >Address</a></li>
 					<li><a >Latitude</a></li>
-					<li><a >Longitude</a></li>
+					<li><a >Longitude</a></li> -->
 					<li><a onclick="parseHousePrice();" href = "parseHousePrice2">House Price</a></li> 
 					<li><a onclick="openCrimeStatistics();" href = "#" >Crime Rating</a></li>
 				</ul>
@@ -1529,7 +1603,7 @@ function loginAlert(){
 				</ul>
 				
 				<li data-toggle="collapse" data-target="#commute" class="collapsed">
-					<a href="#" onclick="sendAddressToCommutePage()"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+					<a href="#" onclick="validateSearchCommute();"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
 
 				
@@ -1542,7 +1616,7 @@ function loginAlert(){
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="reviews">
-					<li><a onclick="leaveReview();">Write a Review for this Area</a></li>
+					<li><a onclick="validateSearchReview();">Write a Review for this Area</a></li>
 					<li><a onclick="seeallReviews();">Read Reviews for this Area</a></li>
 				</ul>
 				
@@ -1589,7 +1663,7 @@ function loginAlert(){
 							</c:if></li>
 							<li><a href="commuteplanner">Add more addresses to Commutes</a></li>
 						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
-		
+		               
 						</li>
 						
 					</ul>

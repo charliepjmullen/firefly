@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import com.dit.arearatingsystem.model.Review;
 
@@ -237,9 +239,47 @@ public class UserController {
 	      List<HousePrice> housePrice = new ArrayList<>();
 	     
 	      housePrice = housePriceRepository.findAll();
+	      
+	      double averagehouseprice = 380579.4;
+	      double housepercent2 = 0;
+	      double housepercent = 0;
+	      double houseprice = 0;
+	      String cheap_or_expensive = "";
+	      /*String housepricestatement = "";*/
+	      String minus = "-";
+	      
+	      for (HousePrice house : housePrice) {
+	    	  houseprice = house.getHousePrice();
+	      }
+	      
+	      if(houseprice > averagehouseprice) {
+	    	  cheap_or_expensive = "more expensive ";
+	    	  housepercent2 = (houseprice - averagehouseprice)/averagehouseprice * 100;
+	    	  housepercent =  Math.round(housepercent2 * 100.0) / 100.0;
+	      } else if (houseprice < averagehouseprice) {
+	    	  cheap_or_expensive = "cheaper ";
+	    	  housepercent2 = (houseprice - averagehouseprice)/houseprice * 100;
+	    	  housepercent =  Math.round(housepercent2 * 100.0) / 100.0;
+	      } else if (houseprice == averagehouseprice) {
+	    	  cheap_or_expensive = "the exact same ";
+	    	  housepercent2 = 100;
+	      }
+	      
+	      String housepricestatement = ("The houses in this area are " + housepercent + "% " + cheap_or_expensive + " than the PPR average property value.");
+	      
+	      
+	      if(housepricestatement.contains("-")) {
+	    	  char[] ca = minus.toCharArray();
+	    	    for (char c : ca) {
+	    	    	housepricestatement = housepricestatement.replace(""+c, "");
+	    	    }
+	      }
+	      System.out.println(housepricestatement);
 
+	      model.addAttribute("housepricestatement", housepricestatement);
 	      model.addAttribute("housePrice", housePrice);
 	      
+	     
 		return "houseprice";
 	}
 	
@@ -448,6 +488,11 @@ System.out.println(" Latitude " + latitude + " Longitude " + longitude + " addre
 		return "seeallreviews";		
 	}
 	
+/*	@RequestMapping(value = "/**")
+	public String pageNotFound() {
+		
+		return "404";
+	}*/
 	
 	
 	

@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org">
+<html lang="en">
+
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -14,15 +13,35 @@
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
 <head>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <title>House Price</title>
 
    <style>
+   
+   .pricehubcontainer{
+        position: absolute;
+        top: 10%;
+        left: 20%;
+        height : 100%;
+        width: 60%;
+}
+
+.logoimage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height : 100%;
+    width: 22%;
+}
  #geomap {
 	width: 80%;
 	height: 700px;
@@ -199,12 +218,20 @@
 	.nav-side-menu .menu-list .menu-content {
 		display: block;
 	}
-} 
+	
+
+
 
 
 </style>
 
 <script>
+window.onload = function() {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+}
 
 function goBack() {
 	window.history.back();
@@ -228,35 +255,60 @@ $("#housepricesize").val(data.housepricelistsize);
 
 </head>
 <body>
- <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
-    <div class="container-fluid">
-        <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
-    <img src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
- </a>
+	<div id="custom-bootstrap-menu" class="navbar navbar-default "
+		role="navigation">
+		<div class="container-fluid">
 
-        </div>
-        <div class="collapse navbar-collapse navbar-menubuilder">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:goBack();">Back</a>
-                </li>
-                <li><a href="#">Log Out</a>
-                </li>
-            </ul>
-        </div> 
-    </div> -
-</div>
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/"
+					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
+					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-menubuilder">
+					<span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span
+						class="icon-bar"></span>
+				</button>
+			</div>
+			<div class="container">
+
+
+
+
+				<div class="collapse navbar-collapse navbar-menubuilder">
+
+					<div id ="topnavbar">
+					<ul class="nav navbar-nav navbar-right">
+						<li><c:if
+								test="${pageContext.request.userPrincipal.name != null}">
+								<form id="logoutForm" method="POST"
+									action="${contextPath}/logout">
+									<input type="hidden" name="${_csrf.parameterName}"
+										value="${_csrf.token}" />
+								</form>
+
+								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
+
+							</c:if></li>
+							<li><a href="javascript:goBack();">Back</a>
+						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
+		                
+						</li>
+						
+					</ul>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
         
     
     
     
-<%--  <table>
-    <c:forEach items="${housepricesList}" var="HousePrice"> 
-        <tr>
-            <td><c:out value="${HousePrice.housePrice}"/></td>
-            <td><c:out value="${HousePrice.number_of_houses}"/></td>
-        </tr>
-    </c:forEach>
-</table>  --%>
+
+<div class = "pricehubcontainer">
  <h3>House Price Information Hub</h3>
 	
 	<table>
@@ -264,24 +316,23 @@ $("#housepricesize").val(data.housepricelistsize);
 		
 		<c:forEach var="o" items="${housePrice}">
 			<tr>
-				<td width="10%" height="50"><h3>The average house price for this area is <c:out value="${o.housePrice}" /> based on <c:out value="${o.number_of_houses}" /> houses in this area</h3></td>  
+				<td width="10%" height="50"><h3>The average house price for this area is <b> <c:out value="${o.housePrice}" /> Euro </b> based on <b><c:out value="${o.number_of_houses}" /></b> houses in this area</h3></td>  
              </tr>
-		</c:forEach>
-		
-		<tr><p>Based on Dublin's average property price (380579.4) this house is </p></tr>
-</table>
+		</c:forEach> 
+   </table>
+   
+   <h3><c:out value="${housepricestatement}"/></h3>
 <br>
 <h4>How is the average price calculated?</h4>
-<p>The house prices are provided by The Property Services Regulatory Authority. Over 30,000 (33,183) records of Dublin based property prices</p>
-<p> are stored locally in a PostgreSQL database with a PostGIS extension, which when queried will return the average house prices of all</p>
-<p>the properties within a 1 kilometre radius of the searched area. This current dataset is up to date of of 21/03/2018</p>
+<h4>The house prices are provided by <a href = "https://www.propertypriceregister.ie/website/npsra/pprweb.nsf/page/ppr-home-en">The Property Services Regulatory Authority</a>. 33,183 records of 
+ Dublin based property prices are stored locally in a PostgreSQL database with a PostGIS extension, which when queried will return the average house prices of all the properties within a 1 kilometre radius of the searched area.
+ This current dataset is up to date of of 21/03/2018</h4>
 <br>
 <br>
 <br>
 
-<p>Here is a visular representation of the Property Price Register. The large yellow and green markers represent properties worth </p>
-<p>over 1,000,000 Euro in value.</p>
 
-<img src="${pageContext.request.contextPath}/resources/images/HousePriceMarkers.PNG" alt="House Price Markers" >
+<%-- <img src="${pageContext.request.contextPath}/resources/images/HousePriceMarkers.PNG" alt="House Price Markers" > --%>
+</div>
 </body>
 </html>
