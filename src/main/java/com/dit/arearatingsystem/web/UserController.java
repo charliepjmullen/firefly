@@ -468,8 +468,8 @@ System.out.println(" Latitude " + latitude + " Longitude " + longitude + " addre
 	}
 	
 	// The inclusion of a 404 page removes the logo from the navbar but otherwise works fine
-/*	@RequestMapping(value = "/**")
+	@RequestMapping(value = "/*")
 	public String error() {
 		return "404";
-	}*/
+	}
 }

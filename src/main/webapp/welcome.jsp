@@ -1045,7 +1045,7 @@ function loginAlert(){
 		  		     getLeisureActivities();
 		    	     clearRatings();
 		    	     storeAddress();
-		 
+		    	     window.location.reload();
 		    	   }
   		
     	}
@@ -1345,12 +1345,7 @@ function loginAlert(){
 
 	function gardaStationReportcallback(results, status){
 		
-		  if (status === google.maps.places.PlacesServiceStatus.OK) {
-			  if(marker)
-		           	marker.setMap(null)
-			 for (var i = 0; i < 1; i++) {
-			      createMarker(results[i]);
-			    }
+
 			  results2 = results.slice(0,1); 
 			  results2.forEach(function(place){
 					var gardastation = place.name;
@@ -1365,7 +1360,7 @@ function loginAlert(){
 				     datatype: 'json'
 				});
 			  });
-		  }
+		 
 		  
 		}
 	
