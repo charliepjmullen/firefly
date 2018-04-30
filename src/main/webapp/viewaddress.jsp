@@ -358,15 +358,7 @@ $(document).ready(function () {
                         };
                     }));
                 });
-            }/* ,
-            select: function (event, ui) {
-                $('.search_addr').val(ui.item.value);
-                $('.search_latitude').val(ui.item.lat);
-                $('.search_longitude').val(ui.item.lon);
-                var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
-                marker.setPosition(latlng);
-                initialize();
-            } */
+            }
             
         });
     });
@@ -1173,8 +1165,7 @@ function getCafe(){
  
  	var averageRating = results4.length == 0 ? 0 : totalRating / ratedCount; 
  	var averageRatingRounded = averageRating.toFixed(1);
-		/*  var averageSchoolRatingTB = document.getElementById('parkAvgRating');
-		 averageSchoolRatingTB.value = averageRatingRounded; */
+
 
 		var a = document.querySelector('li[data-target="#leisure"] > a'); //get the a in the menu
   	var leisureScore = document.createElement("span"); //create a new span
@@ -1324,17 +1315,6 @@ function getCafe(){
 	  }
 	} 
 
-/* 	function callback(results, status) {
-		  if (status === google.maps.places.PlacesServiceStatus.OK) {
-		    var service = new google.maps.places.PlacesService(map);
-		    for (var i = 0; i < results.length; i++) {
-		      var request = {
-		        placeId: results[i].place_id
-		      }
-		      service.getDetails(request, createMarker)
-		    }
-		  } else console.log("nearbySearch:"+status);
-		} */
 
 	function gardaStationReportcallback(results, status){
 		
@@ -1416,8 +1396,6 @@ function openCrimeStatistics(){
 	 }
 
 function leaveReview(){
-	    /* window.location.href = "/review"; */	
-
 	     $('.search_latitude').val(marker.getPosition().lat());
 	     $('.search_longitude').val(marker.getPosition().lng());
 
@@ -1425,40 +1403,22 @@ function leaveReview(){
 	     var longitude = marker.getPosition().lng();
 		 var address = document.getElementById("addressBox").value;
 
-	/* 		$.ajax({
-			     type: "GET",
-			     url: "/review",
-			     data: { 
-			    	     address: address,
-			    	     latitude: latitude,
-				         longitude: longitude				         
-				}, // parameters
-		     datatype: 'json'
-		}); */
+
 
 		 window.location.href = "/review/"+latitude+"/"+longitude+"/"+address ;
 	 }
 
 function seeallReviews(){
-	   /*  window.location.href = "/review"; */	
+	 
 
 	     $('.search_latitude').val(marker.getPosition().lat());
 	     $('.search_longitude').val(marker.getPosition().lng());
 
 	     var latitude = marker.getPosition().lat();
 	     var longitude = marker.getPosition().lng();
-		 //var address = document.getElementById("addressBox").value;
 
-	/* 		$.ajax({
-			     type: "GET",
-			     url: "/review",
-			     data: { 
-			    	     address: address,
-			    	     latitude: latitude,
-				         longitude: longitude				         
-				}, // parameters
-		     datatype: 'json'
-		}); */
+
+
 
 		 window.location.href = "/readreview/"+latitude+"/"+longitude;
 	 }
@@ -1531,9 +1491,7 @@ function seeallReviews(){
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">
-					<li><a >Address</a></li>
-					<li><a >Latitude</a></li>
-					<li><a >Longitude</a></li>
+					
 					<li><a onclick="parseHousePrice();" href = "parseHousePrice2">House Price</a></li> 
 					<li><a onclick="openCrimeStatistics();" href = "#" >Crime Rating</a></li>
 				</ul>
@@ -1652,7 +1610,8 @@ function seeallReviews(){
 								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
 
 							</c:if></li>
-							<li><a href="commuteplanner">Add more addresses to Commutes</a></li>
+							<li><a href="/">Search another Area</a></li>
+							<li><a href="savedAreasMap">Back to my Saved Areas</a></li>
 						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
 		
 						</li>
@@ -1667,8 +1626,6 @@ function seeallReviews(){
 
 
 
-	<!-- <div class = map>	 -->
-	<!-- display google map -->
 	 <table class = "location-form-table">
 	    <tr>
 	    <td>
@@ -1677,8 +1634,7 @@ function seeallReviews(){
 			<input type="text" id="search_location" class="form-control"
 				placeholder="Search an area or put in an address " />
 			<div class="input-group-btn">
-				<button class="btn btn-default get_map" type="submit"
-					onclick="callAllFunctions();">Locate</button>
+
 			</div>
 		    </div>
 	 </td>
@@ -1690,32 +1646,14 @@ function seeallReviews(){
 							id="addressBox" class="search_addr" size="45" class="form-control"
 				placeholder="Address" />
 			<div class="input-group-btn">
-				<!-- <button class="btn btn-default " type="submit"
-					onclick="saveAreaToUser();">Save
-						Area</button> -->
+		
 			</div>
 		</div>
 		</td>
 	</form>
 	</tr>
 	</table>
-		<!-- <div id="addressbartable">
-		<table style="width: 100%">
-			<tr>
-				<td>
-					<p>
-						Address: &nbsp; &nbsp;<input type="text" name="addressBox"
-							id="addressBox" class="search_addr" size="45" />
-					</p>
-				</td>
-				<td></td>
-				<td><button type="submit" onclick="saveAreaToUser();">Save
-						Area</button></td>
-
-			</tr>
-
-		</table>
-		</div> -->
+	
 		<div id="geomap"></div>
 
 	<div class = inputboxes>

@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,6 +25,14 @@
     height : 100%;
     width: 22%;
 }
+
+.errorcontainer{
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    height : 100%;
+    width: 60%;
+}
 </style>
 
 <script>
@@ -44,7 +52,7 @@ function goBack() {
         </div>
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="javascript:goBack();">Back To The Map</a>
+                <li><a href="/">Back To The Map</a>
                 </li>
                 <li><a href="#">Log Out</a>
                 </li>
@@ -52,8 +60,10 @@ function goBack() {
         </div>
     </div>
 </div>
+<div class = "errorcontainer">
 <h1>Oops!</h1>
 <h3>We can't seem to find the page you're looking for.</h3>
 <p>Error code: 404</p>
+</div>
 </body>
 </html>

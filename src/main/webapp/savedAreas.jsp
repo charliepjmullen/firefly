@@ -58,18 +58,15 @@ function goBack() {
 	
 	<table class="table table-striped">
 		<tr>
-			<!--  <th class="tg-area">Area ID</th>
-			<!--<th width="5%"></th> -->
+
 			<th width="10%"class="tg-address">Address</th>
 			
 			<th width="5%"class="tg-houseprice">House Price</th>
-			
-			<!-- <th width="3.5%" class="tg-crimerating">Crime Rating</th> -->
+
 			 
 			<th width="3.5%" class="tg-schools">Schools</th>
 			 
-			<!-- <th width="3.5%" class="tg-university">Park</th> -->
-			 
+	
 			<th width="3.5%" class="tg-bars">Bars</th>
 			 
 			<th width="3.5%" class="tg-restaurant">Gym</th>
@@ -83,17 +80,7 @@ function goBack() {
 
 
 		</tr>
-<!-- 		<tr>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-			<td class="tg-yw4l"></td>
-		</tr> -->
+
 
 		<c:forEach var="o" items="${savedAreas}">
 			<tr>
@@ -101,11 +88,9 @@ function goBack() {
 				 
                 <td width="5%" height="50" class="tg-yw4l"><c:out value="${o.house_price}" /></td>
                  
-                <%-- <td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.crime_rating}" /></td> --%>
-                 
+
 				<td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.schools}" /></td>
 				 
-				<%-- <td width="3.5%"  height="50"  class="tg-yw4l"><c:out value="${o.university}" /></td> --%>
 				 
 				<td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.bars}" /></td>
 				 
@@ -118,10 +103,6 @@ function goBack() {
    				View on Map
   				</a>
                 </td>
-				
-			   <!--  <td width="3%" height="50"  class="tg-yw4l">  <button type="button" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-remove"></span> Remove 
-                </button></td> -->
                 
                 <td width="3.5%" height="50">
  				 <a href="<c:url value='/deletearea/${o.areaId}' />">

@@ -31,6 +31,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
 import com.dit.arearatingsystem.model.Review;
 
 @Controller
@@ -128,7 +131,6 @@ public class UserController {
 		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 	      String username = loggedInUser.getName(); // Authentication for 
 
-	     /* System.out.println(gardaStation_name);*/
 	      double house_price = parseHousePrice.ParseHousePrice(latitude, longitude);
 	      System.out.println(house_price);
 	      area.setHouse_price(house_price);
@@ -145,49 +147,6 @@ public class UserController {
 		return "savedAreas";
 	}
 	
-/*		// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
-	@RequestMapping(value = "/saveAreaToProfile", method = RequestMethod.POST)
-	public @ResponseBody String saveAreaToProfile(           @RequestParam("latitude") double latitude,
-			                                                 @RequestParam("longitude") double longitude, 
-			                                                 @RequestParam("areaName") String areaName, 
-			                                                 @RequestParam("schools") double schools, 
-			                                                 @RequestParam("gardastation2") String gardastation,
-			                                                 @RequestParam("bars") double bars, 
-			                                                 @RequestParam("gym") double gym,
-			                                                 @RequestParam("restaurant") double restaurant) {
-		  
-		  double crime_rating =  parseCrime.ParseCrime(gardastation);
-	      
-	      
-		  Area area = new Area();
-		  area.setLatitude(latitude);
-		  area.setLongitude(longitude);
-		  area.setAreaName(areaName);
-		  area.setSchools(schools);
-		  area.setCrime_rating(crime_rating);
-		  area.setBars(bars);
-		  area.setGym(gym);
-		  area.setRestaurant(restaurant);
-		  
-		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for 
-	     
-	   
-	      double house_price = parseHousePrice.ParseHousePrice(latitude, longitude);
-	   
-	      area.setHouse_price(house_price);
-	      areaRepository.save(area);
-	      User user = userRepository.findByUsername(username);
-	      
-	      System.out.println(username + " just saved " +"Area: " + area + "Bar: " + bars);
-	      System.out.println("Bar: " + gardastation + " " + crime_rating);
-
-		  
-	      user.addArea(area);
-	      userRepository.save(user);
-
-		return "savedAreas";
-	}*/
 	
 	@RequestMapping(value = "/savedAreasMap", method = RequestMethod.GET)
 	public String savedAreas(@Valid Area area, BindingResult bindingResult, Model model) { 
@@ -288,7 +247,6 @@ public class UserController {
 	      double housepercent = 0;
 	      double houseprice = 0;
 	      String cheap_or_expensive = "";
-	      /*String housepricestatement = "";*/
 	      String minus = "-";
 	      
 	      for (HousePrice house : housePrice) {
@@ -354,7 +312,7 @@ public class UserController {
 	@RequestMapping(value = "/crimestats", method=RequestMethod.POST)
 	public String crimeStatistics(@Valid GardaStation gardaStationObject, @RequestParam("gardastationname") String gardaStation_name, BindingResult bindingResult,Model model) {
 
-		//gardaStationObject = new GardaStation();
+
 		System.out.println("crime stats 1");
 		System.out.println(" ");
 	    System.out.println("Garda Station: " + gardaStation_name);
@@ -395,17 +353,7 @@ public class UserController {
 	public String CommutePlanner(@Valid Commutes commutes,  BindingResult bindingResult, Model model) {
 		
 		
-	
-		/* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for 
 
-	      commutesRepository.save(commutes);
-	      User user = userRepository.findByUsername(username);
-	      
-	      List<Commutes> savedCommutes = user.getSavedCommutes();
-	      for (int i = 0; i < savedCommutes.size(); i++) {
-	    	  model.addAttribute("savedCommutes", savedCommutes);
-	      }*/
 	      
 		return "commuteplanner";
 	}
@@ -415,16 +363,7 @@ public class UserController {
 		
 		
 		System.out.println(address);
-		/* Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for 
 
-	      commutesRepository.save(commutes);
-	      User user = userRepository.findByUsername(username);
-	      
-	      List<Commutes> savedCommutes = user.getSavedCommutes();
-	      for (int i = 0; i < savedCommutes.size(); i++) {
-	    	  model.addAttribute("savedCommutes", savedCommutes);
-	      }*/
 		String address2 = address;
 		
 		model.addAttribute("address2", address2);
@@ -484,10 +423,7 @@ public class UserController {
 
 		
 System.out.println(" Latitude " + latitude + " Longitude " + longitude + " address " + address );
-		
-		/*model.addAttribute("address", address);
-		  model.addAttribute("latitude", latitude);
-	      model.addAttribute("longitude", longitude);*/
+
 	      
 	      
 		return "review";
@@ -531,15 +467,9 @@ System.out.println(" Latitude " + latitude + " Longitude " + longitude + " addre
 		return "seeallreviews";		
 	}
 	
+	// The inclusion of a 404 page removes the logo from the navbar but otherwise works fine
 /*	@RequestMapping(value = "/**")
-	public String pageNotFound() {
-		
+	public String error() {
 		return "404";
 	}*/
-	
-	
-	
-	
-
-	
 }

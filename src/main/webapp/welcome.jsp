@@ -9,7 +9,7 @@
 <link
 	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script
 	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -26,18 +26,25 @@
 
 <title>Area Rating System</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 
 
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=places"></script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=places"></script>
 
 
 <style>
@@ -63,8 +70,13 @@
 	width: 70%;
 }
 
-#addressbartable{float:right;}
-#topnavbar{float: right;}
+#addressbartable {
+	float: right;
+}
+
+#topnavbar {
+	float: right;
+}
 
 /* Nav Side Bar  */
 .nav-side-menu {
@@ -98,19 +110,6 @@
 	margin: 0px;
 	line-height: 35px;
 	cursor: pointer;
-	/*    
-    .collapsed{
-       .arrow:before{
-                 font-family: FontAwesome;
-                 content: "\f053";
-                 display: inline-block;
-                 padding-left:10px;
-                 padding-right: 10px;
-                 vertical-align: middle;
-                 float:right;
-            }
-     }
-*/
 }
 
 .nav-side-menu ul :not(collapsed) .arrow:before, .nav-side-menu li :not(collapsed) .arrow:before
@@ -232,48 +231,41 @@ body {
 	float: right;
 	top: 5px;
 	left: 35px;
-	
 }
 
-.form-group2{
-    float: right;
+.form-group2 {
+	float: right;
 }
 
- .map {
+.map {
 	margin: 5px;
 	padding: 5px;
 }
 
-.inputboxes{
+.inputboxes {
 	float: left;
-		margin: 10px;
-	   padding: 10px;
+	margin: 10px;
+	padding: 10px;
 }
 
 .logoimage {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height : 100%;
-    width: 22%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 22%;
 }
 
-.location-form-table{
-	width:80%;
+.location-form-table {
+	width: 80%;
 	float: right;
-    right: 0px;
-	
+	right: 0px;
 }
 
-.input-group-btn2{
-	
+.input-group-btn2 {
 	height: 50%;
 	right: 5px;
 }
-
-
-    
-    
 </style>
 
 <script>
@@ -1050,12 +1042,10 @@ function loginAlert(){
 	    	         getBars();
 		    	     getActivities();
 		    	     getSchools();	
-		    	     //getUniversity();
 		  		     getLeisureActivities();
-		    	     /* getGS(); */
 		    	     clearRatings();
 		    	     storeAddress();
-		    	     /* console.log(localStorage.key(0) + "=[" + localStorage.getItem(localStorage.key(0)) + "]"); */
+		 
 		    	   }
   		
     	}
@@ -1066,9 +1056,7 @@ function loginAlert(){
 	         getBars();
     	     getActivities();
     	     getSchools();	
-    	     //getUniversity();
   		     getLeisureActivities();
-    	     //getNearestGardaStation();
     	     clearRatings();
     	     storeAddress();
 
@@ -1204,8 +1192,7 @@ function loginAlert(){
     
     	var averageRating = results4.length == 0 ? 0 : totalRating / ratedCount; 
     	var averageRatingRounded = averageRating.toFixed(1);
-  		/*  var averageSchoolRatingTB = document.getElementById('parkAvgRating');
-  		 averageSchoolRatingTB.value = averageRatingRounded; */
+
 
   		var a = document.querySelector('li[data-target="#leisure"] > a'); //get the a in the menu
      	var leisureScore = document.createElement("span"); //create a new span
@@ -1355,17 +1342,6 @@ function loginAlert(){
 	  }
 	} 
 
-/* 	function callback(results, status) {
-		  if (status === google.maps.places.PlacesServiceStatus.OK) {
-		    var service = new google.maps.places.PlacesService(map);
-		    for (var i = 0; i < results.length; i++) {
-		      var request = {
-		        placeId: results[i].place_id
-		      }
-		      service.getDetails(request, createMarker)
-		    }
-		  } else console.log("nearbySearch:"+status);
-		} */
 
 	function gardaStationReportcallback(results, status){
 		
@@ -1521,25 +1497,6 @@ function loginAlert(){
             }
 	}   
 
-/* 	function refreshAPIRatings(){
-		   if(!window.location.hash) {
-		        window.location = window.location + '#loaded';
-		        window.location.reload();
-		    }
-		}
-
-	function setCookie(addresscookie){
-		addresscookie = document.getElementById("addressBox").value;
-		document.cookie = addresscookie;
-		}
-
-	function getCookie(addresscookie){
-		}
-
-	function deleteCookie(){
-		}
- */
-
  function storeAddress(){
 
 	 if(typeof(Storage) !==  "undefined"){
@@ -1599,10 +1556,10 @@ function loginAlert(){
 
 <body>
 
-	
+
 
 	<div class="nav-side-menu">
-		<div class="brand"> Brand Logo </div>
+		<div class="brand">Brand Logo</div>
 		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 			data-target="#menu-content"></i>
 
@@ -1614,32 +1571,34 @@ function loginAlert(){
 				</a></li>
 
 				<li data-toggle="collapse" data-target="#products"
-					class="collapsed active"><a onclick = "gardaStationReport();"><i
+					class="collapsed active"><a onclick="gardaStationReport();"><i
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">
-				<!-- 	<li><a >Address</a></li>
-					<li><a >Latitude</a></li>
-					<li><a >Longitude</a></li> -->
-					<li><a onclick="parseHousePrice();" href = "parseHousePrice2">House Price</a></li> 
-					<li><a onclick="openCrimeStatistics();" href = "#" >Crime Rating</a></li>
+
+					<li><a onclick="parseHousePrice();" href="parseHousePrice2">House
+							Price</a></li>
+					<li><a onclick="openCrimeStatistics();" href="#">Crime
+							Rating</a></li>
 				</ul>
 
 
-				<li data-toggle="collapse" data-target="#education" class="collapsed">
-					<a onclick="clearMarkers();SchoolsReport();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
-						Education : <span class="arrow"></span></a>
-				</li>
+				<li data-toggle="collapse" data-target="#education"
+					class="collapsed"><a onclick="clearMarkers();SchoolsReport();"
+					href="#"><i class="fa fa-graduation-cap fa-lg"></i> Education :
+						<span class="arrow"></span></a></li>
 				<ul class="sub-menu collapse" id="education">
 					<li><a onclick="clearMarkers();getCreche();">Creche</a></li>
-					<li><a onclick="clearMarkers();getPrimarySchool();">Primary Schoool</a></li>
-					<li><a onclick="clearMarkers();getSecondarySchool();">Secondary School</a></li>
-						 
+					<li><a onclick="clearMarkers();getPrimarySchool();">Primary
+							Schoool</a></li>
+					<li><a onclick="clearMarkers();getSecondarySchool();">Secondary
+							School</a></li>
+
 				</ul>
 
 				<li data-toggle="collapse" data-target="#food" class="collapsed">
-					<a onclick="clearMarkers();RestaurantReport();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food : <span
-						class="arrow"></span></a>
+					<a onclick="clearMarkers();RestaurantReport();" href="#"><i
+						class="fa fa-cutlery fa-lg"></i> Food : <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="food">
 					<li><a onclick="clearMarkers();getCafes();">Cafe</a></li>
@@ -1649,8 +1608,8 @@ function loginAlert(){
 
 
 				<li data-toggle="collapse" data-target="#bars" class="collapsed">
-					<a onclick="clearMarkers();BarReport();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars : <span
-						class="arrow"></span></a>
+					<a onclick="clearMarkers();BarReport();" href="#"><i
+						class="fa fa fa-beer fa-lg"></i> Bars : <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="bars">
 					<li><a onclick="clearMarkers();getPubs();">Pubs</a></li>
@@ -1660,56 +1619,60 @@ function loginAlert(){
 				</ul>
 
 				<li data-toggle="collapse" data-target="#fitness" class="collapsed">
-					<a onclick="clearMarkers();GymReport();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness : <span
-						class="arrow"></span></a>
+					<a onclick="clearMarkers();GymReport();" href="#"><i
+						class="fa fa-heart fa-lg"></i> Fitness : <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="fitness">
 					<li><a onclick="clearMarkers();getJustGym();">Gym</a></li>
 					<li><a onclick="clearMarkers();getYoga();">Yoga</a></li>
 					<li><a onclick="clearMarkers();getPilates();">Pilates</a></li>
 				</ul>
-				
-			
+
+
 
 				<li data-toggle="collapse" data-target="#leisure" class="collapsed">
-					<a onclick="clearMarkers();leisureActivityReport();"><i class="fa fa-gift fa-lg"></i> Leisure : <span
-						class="arrow"></span></a>
+					<a onclick="clearMarkers();leisureActivityReport();"><i
+						class="fa fa-gift fa-lg"></i> Leisure : <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="leisure">
 					<li><a onclick="clearMarkers();getLocalParks();">Parks</a></li>
 					<li><a onclick="clearMarkers();getCinemas();">Cinema</a></li>
 				</ul>
-				
+
 				<li data-toggle="collapse" data-target="#commute" class="collapsed">
-					<a href="#" onclick="validateSearchCommute();"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
+					<a href="#" onclick="validateSearchCommute();"><i
+						class="fa fa-car fa-lg"></i> Check The Commute </a>
 				</li>
 
-				
-				<li data-toggle="collapse" data-target="savedareas" class="collapsed">
-					<a href="savedAreasMap"><i class="fa fa-home fa-lg"></i> My Saved Areas </a>
-				</li>
-				
+
+				<li data-toggle="collapse" data-target="savedareas"
+					class="collapsed"><a href="savedAreasMap"><i
+						class="fa fa-home fa-lg"></i> My Saved Areas </a></li>
+
 				<li data-toggle="collapse" data-target="#reviews" class="collapsed">
-					<a href = "#"><i class="fa fa-book fa-lg"></i> Reviews <span
+					<a href="#"><i class="fa fa-book fa-lg"></i> Reviews <span
 						class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="reviews">
-					<li><a onclick="validateSearchReview();">Write a Review for this Area</a></li>
-					<li><a onclick="seeallReviews();">Read Reviews for this Area</a></li>
+					<li><a onclick="validateSearchReview();">Write a Review
+							for this Area</a></li>
+					<li><a onclick="seeallReviews();">Read Reviews for this
+							Area</a></li>
 				</ul>
-				
-				
+
+
 			</ul>
 		</div>
 	</div>
-	
+
 	<div id="custom-bootstrap-menu" class="navbar navbar-default "
 		role="navigation">
 		<div class="container-fluid">
 
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/"
-					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
+					style="max-width: 30%; max-height: 30%;"> <img
+					class="logoimage"
 					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -1726,26 +1689,27 @@ function loginAlert(){
 
 				<div class="collapse navbar-collapse navbar-menubuilder">
 
-					<div id ="topnavbar">
-					<ul class="nav navbar-nav navbar-right">
-						<li><c:if
-								test="${pageContext.request.userPrincipal.name != null}">
-								<form id="logoutForm" method="POST"
-									action="${contextPath}/logout">
-									<input type="hidden" name="${_csrf.parameterName}"
-										value="${_csrf.token}" />
-								</form>
+					<div id="topnavbar">
+						<ul class="nav navbar-nav navbar-right">
+							<li><c:if
+									test="${pageContext.request.userPrincipal.name != null}">
+									<form id="logoutForm" method="POST"
+										action="${contextPath}/logout">
+										<input type="hidden" name="${_csrf.parameterName}"
+											value="${_csrf.token}" />
+									</form>
 
-								<a>Welcome ${pageContext.request.userPrincipal.name}</a>
+									<a>Welcome ${pageContext.request.userPrincipal.name}</a>
 
-							</c:if></li>
-							<li><a href="commuteplanner">Add more addresses to Commutes</a></li>
-						<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
-		               
-						</li>
-						
-					</ul>
-					
+								</c:if></li>
+							<li><a href="commuteplanner">Add more addresses to
+									Commutes</a></li>
+							<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
+
+							</li>
+
+						</ul>
+
 					</div>
 				</div>
 			</div>
@@ -1754,64 +1718,43 @@ function loginAlert(){
 
 
 
-	<!-- <div class = map>	 -->
-	<!-- display google map -->
-	    <table class = "location-form-table">
-	    <tr>
-	    <td>
-		<form>
-		<div class="form-group input-group">
-		
-			<input type="text" id="search_location" class="form-control"
-				placeholder="Search an area or put in an address " />
-			<div class="input-group-btn">
-				<button class="btn btn-default get_map" type="submit"
-					onclick="callAllFunctions();">Locate</button>
-			</div>
-			</div>
-	    </td>
-	   <td style = "width : 50px">
-	   
-	   <td style = "width : 50px">
-	     <button class="btn btn-default " type="submit"
-					onclick="searchnewArea();">Search New Area</button>
-	   </td>
-	    <td>
-		<div class="form-group2 input-group">
-			<input type="hidden" name="addressBox"
-							id="addressBox" class="search_addr" size="45" class="form-control"
-				placeholder="Address" />
-			<div class="input-group-btn2">
+	<table class="location-form-table">
+		<tr>
+			<td>
+				<form>
+					<div class="form-group input-group">
+
+						<input type="text" id="search_location" class="form-control"
+							placeholder="Search an area or put in an address " />
+						<div class="input-group-btn">
+							<button class="btn btn-default get_map" type="submit"
+								onclick="callAllFunctions();">Locate</button>
+						</div>
+					</div>
+			</td>
+			<td style="width: 50px">
+			<td style="width: 50px">
 				<button class="btn btn-default " type="submit"
-					onclick="saveAreaToUser();">Save
-						Area</button>
-			</div>
-		</div>
-		</td>
-	</form>
-	</tr>
+					onclick="searchnewArea();">Search New Area</button>
+			</td>
+			<td>
+				<div class="form-group2 input-group">
+					<input type="hidden" name="addressBox" id="addressBox"
+						class="search_addr" size="45" class="form-control"
+						placeholder="Address" />
+					<div class="input-group-btn2">
+						<button class="btn btn-default " type="submit"
+							onclick="saveAreaToUser();">Save Area</button>
+					</div>
+				</div>
+			</td>
+			</form>
+		</tr>
 	</table>
-		<!-- <div id="addressbartable">
-		<table style="width: 100%">
-			<tr>
-				<td>
-					<p>
-						Address: &nbsp; &nbsp;<input type="text" name="addressBox"
-							id="addressBox" class="search_addr" size="45" />
-					</p>
-				</td>
-				<td></td>
-				<td><button type="submit" onclick="saveAreaToUser();">Save
-						Area</button></td>
+	<div id="geomap"></div>
 
-			</tr>
-
-		</table>
-		</div> -->
-		<div id="geomap"></div>
-
-	<div class = inputboxes>
-	<div id="forminputs"></div>
+	<div class=inputboxes>
+		<div id="forminputs"></div>
 
 		<table>
 			<tr style="width: 50%">
@@ -1819,73 +1762,82 @@ function loginAlert(){
 			<tr>
 				<!-- display selected location information -->
 				<th>
-					
+
 					<p>
-						<!-- Address: &nbsp; &nbsp; --><input type="hidden" name="addressBox"
-							id="addressBox" class="search_addr" size="45" />
+						<!-- Address: &nbsp; &nbsp; -->
+						<input type="hidden" name="addressBox" id="addressBox"
+							class="search_addr" size="45" />
 					</p>
 					<p>
-						<!-- Latitude: --> <input type="hidden" class="search_latitude"
-							size="30" />
+						<!-- Latitude: -->
+						<input type="hidden" class="search_latitude" size="30" />
 					</p>
 					<p>
-						<!-- Longitude: --> <input type="hidden" class="search_longitude" size="30" />
+						<!-- Longitude: -->
+						<input type="hidden" class="search_longitude" size="30" />
 					</p>
 					<p style="height: 120px"></p>
 
 				</th>
 				<th style="width: 50px"></th>
 				<th>
-					<h4><!-- Area Rating --></h4>
-			
+					<h4>
+						<!-- Area Rating -->
+					</h4>
+
 
 
 					<p>
-						<!-- Average House Price: --> <input type="hidden" size="10"
-							value="${houseprice}" />&nbsp; &nbsp; &nbsp;
+						<!-- Average House Price: -->
+						<input type="hidden" size="10" value="${houseprice}" />&nbsp;
+						&nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();parseHousePrice();">Full Report</button>
 					</p>
 					<p>
-						<!-- Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input
-							type="hidden" size="10" value="${rating}" />&nbsp; &nbsp; &nbsp;
+						<!-- Crime Rating: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -->
+						<input type="hidden" size="10" value="${rating}" />&nbsp; &nbsp;
+						&nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();gardaStationReport();">Full
 							Report</button>
 					</p>
 					<p>
 						<!-- Schools:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
-							name="schoolAvgRating" id="schoolAvgRating" />&nbsp; &nbsp;
-						&nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; -->
+						<input type="hidden" size="10" name="schoolAvgRating"
+							id="schoolAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();SchoolsReport();">Full Report</button>
 					</p>
 					<p>
 						<!-- Parks: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden" size="10"
-							name="parkAvgRating" id="parkAvgRating" />&nbsp; &nbsp; &nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -->
+						<input type="hidden" size="10" name="parkAvgRating"
+							id="parkAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();UniversityReport();">Full Report</button>
 					</p>
 					<p>
 						<!-- Bars: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; --> <input type="hidden"
-							size="10" name="barAvgRating" id="barAvgRating" />&nbsp; &nbsp;
-						&nbsp;
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; -->
+						<input type="hidden" size="10" name="barAvgRating"
+							id="barAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();BarReport();">Full Report</button>
 					</p>
 					<p>
 						<!-- Restaurants: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-						&nbsp; --><input type="hidden" size="10" name="restaurantAvgRating"
+						&nbsp; -->
+						<input type="hidden" size="10" name="restaurantAvgRating"
 							id="restaurantAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();RestaurantReport();">Full Report</button>
 					</p>
 					<p>
-						<!-- Gyms: --><input type="hidden" size="10"
-							name="gymAvgRating" id="gymAvgRating" />&nbsp; &nbsp; &nbsp;
+						<!-- Gyms: -->
+						<input type="hidden" size="10" name="gymAvgRating"
+							id="gymAvgRating" />&nbsp; &nbsp; &nbsp;
 						<button class="btn btn-default get_map" type="submit"
 							onclick="clearMarkers();GymReport();">Full Report</button>
 					</p>
