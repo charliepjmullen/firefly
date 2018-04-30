@@ -412,13 +412,14 @@
 		  time = time.replace('hours','H');
 		  time = time.replace('mins','M');
 		  total = total / 1000.
-		  /* document.getElementById('from').innerHTML = from + '-'+to;
-		  document.getElementById('duration').innerHTML = time ;*/
+		  /*  document.getElementById('from').innerHTML = from + '-'+to;
+		  document.getElementById('duration').innerHTML = time ; */
 		  total2 =Math.round( total); 
 		  /* alert(time + " " + total2 +"KM" ); */
 
 		  document.getElementById('time').innerHTML = time;
-		  document.getElementById('distance').innerHTML = total2 ;
+		  document.getElementById('distance').innerHTML = total2 + " Kilometeres for this commute";
+		 /*  document.getElementById("km").innerHTML = " Kilometeres"; */
 		}
 
 	google.maps.event.addDomListener(window, 'load', initialize);
@@ -538,7 +539,15 @@
 
 <br>
 <div id = "inputbox">
-<p id = "time"></p> <p id = "distance"></p>
+<!-- <p id = "time"></p> <p id = "distance"></p> -->
+<table style="width:35%">
+  <tr>
+    <th><p id = "time"></p></th>
+    <th><p id = "distance"></p><b id= "km"></b></th> 
+  
+  </tr>
+
+</table>
 <table class = "routetable">
 <tr>
 <form id="myForm">

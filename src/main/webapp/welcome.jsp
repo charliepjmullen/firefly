@@ -285,20 +285,37 @@ var map;
 var markers = [];
 var infowindow;
 var request
+/* var searchbox = document.getElementById("search_location").value;  */
 
 
 
-window.onload = function() {
+/* window.onload = function() {
     if(!window.location.hash) {
         window.location = window.location + '#loaded';
         window.location.reload();
     }
-}
+} */
 /*
  * Google Map with marker
  */
 function initialize() {
-	
+
+	getAddress();
+	 if(document.getElementById('search_location').value != ''){
+		 var PostCodeid = '#search_location';
+		 var address = $(PostCodeid).val();
+	        geocoder.geocode({'address': address}, function (results, status) {
+	            if (status == google.maps.GeocoderStatus.OK ) {
+	                map.setCenter(results[0].geometry.location);
+	                map.setZoom(14);
+	                marker.setPosition(results[0].geometry.location);
+	                $('.search_addr').val(results[0].formatted_address);
+	                $('.search_latitude').val(marker.getPosition().lat());
+	                $('.search_longitude').val(marker.getPosition().lng());
+		            callAllfunctions2();
+	            }
+	        });
+	 }
 	
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
@@ -1028,18 +1045,34 @@ function loginAlert(){
                 alert("You must enter a valid address in Dublin:!");
                 location.reload();
             } else {
-            	     
+            	
                      getCafe();
 	    	         getBars();
 		    	     getActivities();
 		    	     getSchools();	
 		    	     //getUniversity();
 		  		     getLeisureActivities();
-		    	     //getNearestGardaStation();
+		    	     /* getGS(); */
 		    	     clearRatings();
+		    	     storeAddress();
+		    	     /* console.log(localStorage.key(0) + "=[" + localStorage.getItem(localStorage.key(0)) + "]"); */
 		    	   }
   		
     	}
+
+    	function callAllfunctions2(){
+
+    		 getCafe();
+	         getBars();
+    	     getActivities();
+    	     getSchools();	
+    	     //getUniversity();
+  		     getLeisureActivities();
+    	     //getNearestGardaStation();
+    	     clearRatings();
+    	     storeAddress();
+
+        	}
 
         
         
@@ -1419,7 +1452,7 @@ function loginAlert(){
 	 }
 
  function leaveReview(){
-	    /* window.location.href = "/review"; */	
+
 
 	     $('.search_latitude').val(marker.getPosition().lat());
 	     $('.search_longitude').val(marker.getPosition().lng());
@@ -1428,40 +1461,20 @@ function loginAlert(){
 	     var longitude = marker.getPosition().lng();
 		 var address = document.getElementById("addressBox").value;
 
-	/* 		$.ajax({
-			     type: "GET",
-			     url: "/review",
-			     data: { 
-			    	     address: address,
-			    	     latitude: latitude,
-				         longitude: longitude				         
-				}, // parameters
-		     datatype: 'json'
-		}); */
+	
 
 		 window.location.href = "/review/"+latitude+"/"+longitude+"/"+address ;
 	 }
 
  function seeallReviews(){
-	   /*  window.location.href = "/review"; */	
+
 
 	     $('.search_latitude').val(marker.getPosition().lat());
 	     $('.search_longitude').val(marker.getPosition().lng());
 
 	     var latitude = marker.getPosition().lat();
 	     var longitude = marker.getPosition().lng();
-		 //var address = document.getElementById("addressBox").value;
 
-	/* 		$.ajax({
-			     type: "GET",
-			     url: "/review",
-			     data: { 
-			    	     address: address,
-			    	     latitude: latitude,
-				         longitude: longitude				         
-				}, // parameters
-		     datatype: 'json'
-		}); */
 
 		 window.location.href = "/readreview/"+latitude+"/"+longitude;
 	 }
@@ -1508,12 +1521,77 @@ function loginAlert(){
             }
 	}   
 
-	function refreshAPIRatings(){
+/* 	function refreshAPIRatings(){
 		   if(!window.location.hash) {
 		        window.location = window.location + '#loaded';
 		        window.location.reload();
 		    }
 		}
+
+	function setCookie(addresscookie){
+		addresscookie = document.getElementById("addressBox").value;
+		document.cookie = addresscookie;
+		}
+
+	function getCookie(addresscookie){
+		}
+
+	function deleteCookie(){
+		}
+ */
+
+ function storeAddress(){
+
+	 if(typeof(Storage) !==  "undefined"){
+		//Store
+			addressstorage = document.getElementById("search_location").value;
+			localStorage.setItem("address", addressstorage)
+		 }
+	 }
+
+ function getAddress(){
+	 var address = localStorage.getItem("address");
+	 document.getElementById("search_location").value = address;
+	 }
+
+ function searchnewArea(){
+	 localStorage.clear();
+	 location.reload();
+	 
+	 }
+ 	function getGS(){
+		 $('.search_latitude').val(marker.getPosition().lat());
+         $('.search_longitude').val(marker.getPosition().lng());
+
+        var Lat = marker.getPosition().lat();
+        console.log(Lat);
+
+        var Long = marker.getPosition().lng();
+        console.log(Long);
+
+        var location = {lat: Lat, lng: Long};
+
+ 	   var service = new google.maps.places.PlacesService(map);
+	   service.nearbySearch({
+		   location: location,
+		   //radius: 1500,
+		 rankBy: google.maps.places.RankBy.DISTANCE,
+	       type: ['police']
+      }, gardaStationReportcallback2);
+       }
+
+	function gardaStationReportcallback2(results, status){
+		var gardastation;
+
+			  results2 = results.slice(0,1); 
+			  results2.forEach(function(place){
+					gardastation = place.name;
+					console.log(gardastation);
+			  });
+
+			  return gardastation;
+		  }
+		  
 </script>
 </head>
 
@@ -1693,6 +1771,10 @@ function loginAlert(){
 			</div>
 	    </td>
 	   <td style = "width : 50px">
+	   
+	   <td style = "width : 50px">
+	     <button class="btn btn-default " type="submit"
+					onclick="searchnewArea();">Search New Area</button>
 	   </td>
 	    <td>
 		<div class="form-group2 input-group">

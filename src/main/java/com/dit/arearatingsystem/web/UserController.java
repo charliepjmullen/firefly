@@ -121,7 +121,6 @@ public class UserController {
 			                                                 @RequestParam("longitude") double longitude, 
 			                                                 @RequestParam("areaName") String areaName, 
 			                                                 @RequestParam("schools") double schools, 
-			                                                 
 			                                                 @RequestParam("bars") double bars, 
 			                                                 @RequestParam("gym") double gym,
 			                                                 @RequestParam("restaurant") double restaurant) {
@@ -131,13 +130,13 @@ public class UserController {
 
 	     /* System.out.println(gardaStation_name);*/
 	      double house_price = parseHousePrice.ParseHousePrice(latitude, longitude);
-	      /*System.out.println(house_price);*/
+	      System.out.println(house_price);
 	      area.setHouse_price(house_price);
 	      areaRepository.save(area);
 	      User user = userRepository.findByUsername(username);
 	      
 	      System.out.println(username + " just saved " +"Area: " + area + "Bar: " + bars);
-	      /*System.out.println("Bar: " + bars);*/
+	      System.out.println("Bar: " + bars);
 
 		  
 	      user.addArea(area);
@@ -145,6 +144,50 @@ public class UserController {
 
 		return "savedAreas";
 	}
+	
+/*		// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
+	@RequestMapping(value = "/saveAreaToProfile", method = RequestMethod.POST)
+	public @ResponseBody String saveAreaToProfile(           @RequestParam("latitude") double latitude,
+			                                                 @RequestParam("longitude") double longitude, 
+			                                                 @RequestParam("areaName") String areaName, 
+			                                                 @RequestParam("schools") double schools, 
+			                                                 @RequestParam("gardastation2") String gardastation,
+			                                                 @RequestParam("bars") double bars, 
+			                                                 @RequestParam("gym") double gym,
+			                                                 @RequestParam("restaurant") double restaurant) {
+		  
+		  double crime_rating =  parseCrime.ParseCrime(gardastation);
+	      
+	      
+		  Area area = new Area();
+		  area.setLatitude(latitude);
+		  area.setLongitude(longitude);
+		  area.setAreaName(areaName);
+		  area.setSchools(schools);
+		  area.setCrime_rating(crime_rating);
+		  area.setBars(bars);
+		  area.setGym(gym);
+		  area.setRestaurant(restaurant);
+		  
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for 
+	     
+	   
+	      double house_price = parseHousePrice.ParseHousePrice(latitude, longitude);
+	   
+	      area.setHouse_price(house_price);
+	      areaRepository.save(area);
+	      User user = userRepository.findByUsername(username);
+	      
+	      System.out.println(username + " just saved " +"Area: " + area + "Bar: " + bars);
+	      System.out.println("Bar: " + gardastation + " " + crime_rating);
+
+		  
+	      user.addArea(area);
+	      userRepository.save(user);
+
+		return "savedAreas";
+	}*/
 	
 	@RequestMapping(value = "/savedAreasMap", method = RequestMethod.GET)
 	public String savedAreas(@Valid Area area, BindingResult bindingResult, Model model) { 

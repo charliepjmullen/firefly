@@ -25,6 +25,7 @@ public class Area {
 	private double restaurant;
 	private double house_price;
 	private double crime_rating;
+	private String gardastation;
 
 	
 
@@ -70,7 +71,20 @@ public class Area {
 		this.restaurant = restaurant;
 	}
 	
-
+	public Area(Long areaId, String areaName, double longitude, double latitude, double schools, double university, String gardastation,double bars, double gym, double restaurant) {
+		super();
+		this.areaId = areaId;
+		this.areaName = areaName;
+		this.longitude = longitude;
+		this.latitude = latitude;
+		this.schools = schools;
+		this.university = university;
+		this.bars = bars;
+		this.gym = gym;
+		this.restaurant = restaurant;
+		this.gardastation = gardastation;
+	}
+	
 	public Area(Long areaId, String areaName, double longitude, double latitude, double house_price, double crime_rating, double schools, double university, double bars, double restaurant) {
 		super();
 		this.areaId = areaId;
@@ -174,7 +188,15 @@ public class Area {
 		this.crime_rating = crime_rating;
 	}
 
+	public String getGardastation() {
+		return gardastation;
+	}
 
+	public void setGardastation(String gardastation) {
+		this.gardastation = gardastation;
+	}
+
+	
 
 	
 

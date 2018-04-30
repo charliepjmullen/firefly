@@ -25,7 +25,7 @@
    <style>
  .rating { font-weight:bold; }
 .low { color:#45FD00; }
-.medium { color:#FF4500; }
+.medium { color:#FFA500; }
 .high { color:#ff0000; }
    
    .crimehubcontainer{
@@ -249,9 +249,9 @@ window.addEventListener("DOMContentLoaded", function() {
 
 	    // Just add the appropriate pre-made CSS class to the element
 	    // depending on its text content.
-	    if(val < 4 ){
+	    if(val < 2 ){
 	      r.classList.add("low");
-	    } else if(val >= 4 && val <= 6){
+	    } else if(val >= 2 && val <= 6){
 	      r.classList.add("medium");
 	    } else if(val > 6){
 	      r.classList.add("high");

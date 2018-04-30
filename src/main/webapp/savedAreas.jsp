@@ -64,7 +64,7 @@ function goBack() {
 			
 			<th width="5%"class="tg-houseprice">House Price</th>
 			
-			<th width="3.5%" class="tg-crimerating">Crime Rating</th>
+			<!-- <th width="3.5%" class="tg-crimerating">Crime Rating</th> -->
 			 
 			<th width="3.5%" class="tg-schools">Schools</th>
 			 
@@ -101,7 +101,7 @@ function goBack() {
 				 
                 <td width="5%" height="50" class="tg-yw4l"><c:out value="${o.house_price}" /></td>
                  
-                <td width="3.5%" height="50"  class="tg-yw4l"></td>
+                <%-- <td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.crime_rating}" /></td> --%>
                  
 				<td width="3.5%" height="50"  class="tg-yw4l"><c:out value="${o.schools}" /></td>
 				 
