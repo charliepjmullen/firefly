@@ -40,7 +40,7 @@
     
 <style>
 #geomap {
-	width: 77.5%;
+	width: 95%;
 	height: 510px;
 	float: right;
 	margin: 5px;
@@ -58,167 +58,12 @@
 #forminputs .input {
 	display: inline-block;
 	float: left;
-	width: 77.5%;
+	width: 95%;
 }
 
 #addressbartable{float:right;}
 #topnavbar{float: right;}
 
-/* Nav Side Bar  */
-.nav-side-menu {
-	overflow: auto;
-	font-family: verdana;
-	font-size: 12px;
-	font-weight: 200;
-	background-color: #2e353d;
-	position: fixed;
-	top: 10px;
-	width: 300px;
-	height: 100%;
-	color: #e1ffff;
-}
-
-.nav-side-menu .brand {
-	background-color: #23282e;
-	line-height: 50px;
-	display: block;
-	text-align: center;
-	font-size: 14px;
-}
-
-.nav-side-menu .toggle-btn {
-	display: none;
-}
-
-.nav-side-menu ul, .nav-side-menu li {
-	list-style: none;
-	padding: 0px;
-	margin: 0px;
-	line-height: 35px;
-	cursor: pointer;
-	/*    
-    .collapsed{
-       .arrow:before{
-                 font-family: FontAwesome;
-                 content: "\f053";
-                 display: inline-block;
-                 padding-left:10px;
-                 padding-right: 10px;
-                 vertical-align: middle;
-                 float:right;
-            }
-     }
-*/
-}
-
-.nav-side-menu ul :not(collapsed) .arrow:before, .nav-side-menu li :not(collapsed) .arrow:before
-	{
-	font-family: FontAwesome;
-	content: "\f078";
-	display: inline-block;
-	padding-left: 10px;
-	padding-right: 10px;
-	vertical-align: middle;
-	float: right;
-}
-
-.nav-side-menu ul .active, .nav-side-menu li .active {
-	border-left: 3px solid #d19b3d;
-	background-color: #4f5b69;
-}
-
-.nav-side-menu ul .sub-menu li.active, .nav-side-menu li .sub-menu li.active
-	{
-	color: #d19b3d;
-}
-
-.nav-side-menu ul .sub-menu li.active a, .nav-side-menu li .sub-menu li.active a
-	{
-	color: #d19b3d;
-}
-
-.nav-side-menu ul .sub-menu li, .nav-side-menu li .sub-menu li {
-	background-color: #181c20;
-	border: none;
-	line-height: 28px;
-	border-bottom: 1px solid #23282e;
-	margin-left: 0px;
-}
-
-.nav-side-menu ul .sub-menu li:hover, .nav-side-menu li .sub-menu li:hover
-	{
-	background-color: #020203;
-}
-
-.nav-side-menu ul .sub-menu li:before, .nav-side-menu li .sub-menu li:before
-	{
-	font-family: FontAwesome;
-	content: "\f105";
-	display: inline-block;
-	padding-left: 10px;
-	padding-right: 10px;
-	vertical-align: middle;
-}
-
-.nav-side-menu li {
-	padding-left: 0px;
-	border-left: 3px solid #2e353d;
-	border-bottom: 1px solid #23282e;
-}
-
-.nav-side-menu li a {
-	text-decoration: none;
-	color: #e1ffff;
-}
-
-.nav-side-menu li a i {
-	padding-left: 10px;
-	width: 20px;
-	padding-right: 20px;
-}
-
-.nav-side-menu li:hover {
-	border-left: 3px solid #d19b3d;
-	background-color: #4f5b69;
-	-webkit-transition: all 1s ease;
-	-moz-transition: all 1s ease;
-	-o-transition: all 1s ease;
-	-ms-transition: all 1s ease;
-	transition: all 1s ease;
-}
-
-@media ( max-width : 767px) {
-	.nav-side-menu {
-		position: relative;
-		width: 100%;
-		margin-bottom: 10px;
-	}
-	.nav-side-menu .toggle-btn {
-		display: block;
-		cursor: pointer;
-		position: absolute;
-		right: 10px;
-		top: 10px;
-		z-index: 10 !important;
-		padding: 3px;
-		background-color: #ffffff;
-		color: #000;
-		width: 40px;
-		text-align: center;
-	}
-	.brand {
-		text-align: left !important;
-		font-size: 22px;
-		padding-left: 20px;
-		line-height: 50px !important;
-	}
-}
-
-@media ( min-width : 767px) {
-	.nav-side-menu .menu-list .menu-content {
-		display: block;
-	}
-}
 
 body {
 	margin: 0px;
@@ -226,7 +71,7 @@ body {
 }
 
 .form-group2 {
-	width: 77.5%;
+	width: 95.5%;
 	float: right;
 }
 
@@ -234,7 +79,6 @@ body {
 	margin: 5px;
 	padding: 5px;
 	width : 95%;
-	float: right;
 	height : 10%;
 }
 
@@ -249,7 +93,15 @@ body {
     top: 0px;
     left: 0px;
     height : 100%;
-    width: 22%;
+    width: 8%;
+}
+
+#introtext {
+	    position: absolute;
+    top: 5%;
+    left: 10%;
+    height : 100%;
+   
 }
 </style>
 
@@ -257,6 +109,10 @@ body {
 var geocoder = new google.maps.Geocoder();
 var map;
 var marker;
+var events = [
+    ['<p><b>European Innovation Academy </b></p>' + '<p> Address: Av. Amaral, 2765-192 Estoril</p>' +  '<p> The extreme accelerator from idea to a start-up in 15 days!</p>' + '<p>When: Today </p>' + '<p>Duration: 10:00 - 20:00</p> ' + '<p>Hosted by: <a href = "#"> EIA</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.706501, -9.396243, 4],
+    ['<p><b>Beach Party </b></p>' + '<p> Address: Estoril Beach</p>' +  '<p> Planning a big beach party for EIA students. Tell your friends everyones invited!</p>' + '<p>When: Today </p>' + '<p>Duration: 20:00 - 7:00</p>' + '<p>Hosted by: <a href = "#"> CK Dhaliwal</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.700284, -9.387348, 5],
+  ];
 
 
 
@@ -266,8 +122,8 @@ var marker;
 function initialize() {
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
-    initialLat = initialLat?initialLat:53.350140;
-    initialLong = initialLong?initialLong:-6.266155;
+    initialLat = initialLat?initialLat:38.706838; 
+    initialLong = initialLong?initialLong:-9.396743;
 
     var latlng = new google.maps.LatLng(initialLat, initialLong);
     var options = {
@@ -283,7 +139,8 @@ function initialize() {
     marker = new google.maps.Marker({
         map: map,
         draggable: true,
-        position: latlng
+        position: latlng,
+        icon: {url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
     });
 
     google.maps.event.addListener(marker, "dragend", function () {
@@ -302,6 +159,23 @@ function initialize() {
         });
     });
 
+    var marker2, i;
+    var infowindow2 = new google.maps.InfoWindow();
+
+    for (i = 0; i < events.length; i++) {  
+      marker2 = new google.maps.Marker({
+        position: new google.maps.LatLng(events[i][1], events[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker2, 'click', (function(marker2, i) {
+        return function() {
+          infowindow2.setContent(events[i][0]);
+          infowindow2.open(map, marker2);
+        }
+      })(marker2, i));
+    }
+
 }
 
 $(document).ready(function () {
@@ -319,7 +193,7 @@ $(document).ready(function () {
             source: function (request, response) {
                 geocoder.geocode({
                     'address': request.term,
-                    componentRestrictions: {country: "ie"}
+                    componentRestrictions: {country: "pt"}
                 }, function (results, status) {
                     response($.map(results, function (item) {
                         return {
@@ -385,6 +259,8 @@ $(document).ready(function () {
 function loginAlert(){
 	alert("User must be logged in to view details on these ratings, check the crime statistics, house price and much more!");
 }
+
+
 
   function sendLatLong(){
 
@@ -1035,8 +911,12 @@ function loginAlert(){
 
     
 </div> -->
-	<div class="nav-side-menu">
-		<div class="brand">Brand Logo</div>
+	<body>
+
+
+
+<!-- 	<div class="nav-side-menu">
+		<div class="brand">Suss</div>
 		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 			data-target="#menu-content"></i>
 
@@ -1048,75 +928,42 @@ function loginAlert(){
 				</a></li>
 
 				<li data-toggle="collapse" data-target="#products"
-					class="collapsed active"><a onclick="loginAlert();"><i
+					class="collapsed active"><a onclick="gardaStationReport();"><i
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
 				<ul class="sub-menu collapse" id="products">
-					<li><a >Address</a></li>
-					<li><a >Latitude</a></li>
-					<li><a >Longitude</a></li>
-					<li><a onclick="parseHousePrice();" href = "#">House Price</a></li> 
-					<li><a onclick="gardaStationReport();" href = "#" >Crime Rating</a></li>
-				</ul>
 
-
-				<li data-toggle="collapse" data-target="#education" class="collapsed">
-					<a onclick="loginAlert();" href="#"><i class="fa fa-graduation-cap fa-lg"></i>
-						Education  <span class="arrow"></span></a>
-				</li>
-				<ul class="sub-menu collapse" id="education">
-					<li>Creche</li>
-					<li>Primary Schoool</li>
-					<li>Secondary School</li>
-					<li><div class="slidecontainer">
- 						 <input type="range" min="1" max="100" value="50">
- 						 </div>
- 					</li>	 
-				</ul>
-
-				<li data-toggle="collapse" data-target="#food" class="collapsed">
-					<a onclick="loginAlert();" href="#"><i class="fa fa-cutlery fa-lg"></i> Food - <span
-						class="arrow"></span></a>
-				</li>
-				<ul class="sub-menu collapse" id="food">
-					<li>Cafe</li>
-					<li>Restaurant</li>
-				</ul>
-
-
-				<li data-toggle="collapse" data-target="#bars" class="collapsed">
-					<a onclick="loginAlert();" href="#"><i class="fa fa fa-beer fa-lg"></i> Bars - <span
-						class="arrow"></span></a>
-				</li>
-				<ul class="sub-menu collapse" id="bars">
-					<li>Pubs</li>
-					<li>Cocktails</li>
-					<li>Cheap</li>
-					<li>Expensive</li>
-				</ul>
-
-				<li data-toggle="collapse" data-target="#fitness" class="collapsed">
-					<a onclick="loginAlert();" href="#"><i class="fa fa-heart fa-lg"></i> Fitness - <span
-						class="arrow"></span></a>
-				</li>
-				<ul class="sub-menu collapse" id="fitness">
-					<li>Gym</li>
-					<li>Yoga</li>
-					<li>Pilates</li>
-				</ul>
-
-				<li data-toggle="collapse" data-target="#leisure" class="collapsed">
-					<a onclick="loginAlert();"><i class="fa fa-gift fa-lg"></i> Leisure - <span
-						class="arrow"></span></a>
-				</li>
-				<ul class="sub-menu collapse" id="leisure">
-					<li>Parks</li>
-					<li>Cinema</li>
+					<li><a onclick="parseHousePrice();" href="parseHousePrice2">House
+							Price</a></li>
+					<li><a onclick="openCrimeStatistics();" href="#">Crime
+							Rating</a></li>
 				</ul>
 				
+								<li data-toggle="collapse" data-target="#findevents"
+					class="collapsed active"><a href = "findevent"><i
+						class="fa fa-area-chart fa-lg"></i> Find Events <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="findevents">
+
+					<li><a href="#">Local Events</a></li>
+					<li><a href="#">Future Events</a></li>
+				</ul>
+				
+				<li data-toggle="collapse" data-target="#addevents"
+					class="collapsed active"><a href = "addeventpage"><i
+						class="fa fa-area-chart fa-lg"></i> Add an Event <span class="arrow"></span></a>
+				</li>
+			
+
+
+				
+
+			
+
+
 			</ul>
 		</div>
-	</div>
+	</div> -->
 	
 	<div id="custom-bootstrap-menu" class="navbar navbar-default "
 		role="navigation">
@@ -1125,7 +972,7 @@ function loginAlert(){
 			 <div class="navbar-header">
 				<a class="navbar-brand" href="/"
 					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
-					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
+					src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG"></a>
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-menubuilder">
@@ -1179,7 +1026,7 @@ function loginAlert(){
 	</div>
 
 
-
+	<div id= "introtext"><h4>Welcome to Firefly, find small and trendy events in your city now!</h4></div>
 	<!--  <div class = map> 	 -->
 	<!-- display google map -->
 		<form>
@@ -1222,9 +1069,10 @@ function loginAlert(){
 
 		</table>
 		</div> -->
+		
 		<div id="geomap"></div>
 
-	<div class = inputboxes>
+	<%-- <div class = inputboxes>
 	<div id="forminputs"></div>
 
 		<table>
@@ -1312,7 +1160,7 @@ function loginAlert(){
 			</tr>
 
 		</table>
-	</div>
-	</div>
+	</div> --%>
+	
 </body>
 </html>

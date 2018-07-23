@@ -445,10 +445,10 @@
 				</a></li>
 
 				<li data-toggle="collapse" data-target="#products"
-					class="collapsed active"><a ><i
-						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
+					class="collapsed active"><a href="/" ><i
+						class="fa fa-area-chart fa-lg"></i> Check the Ratings and Reviews </a>
 				</li>
-				<ul class="sub-menu collapse" id="products">
+				<!-- <ul class="sub-menu collapse" id="products">
 					<li><a href="#">Address</a></li>
 					<li><a href="#">Latitude</a></li>
 					<li><a href="#">Longitude</a></li>
@@ -505,15 +505,26 @@
 				<ul class="sub-menu collapse" id="leisure">
 					<li>Parks</li>
 					<li>Cinema</li>
-				</ul>
+				</ul> -->
 				
-				<li data-toggle="collapse" data-target="commute" class="collapsed">
+				<!-- <li data-toggle="collapse" data-target="commute" class="collapsed">
 					<a href="commuteCheckerPage"><i class="fa fa-car fa-lg"></i> Check The Commute </a>
-				</li>
+				</li> -->
 				
 				<li data-toggle="collapse" data-target="savedareas" class="collapsed">
-					<a href="savedAreasMap"><i class="fa fa-home fa-lg"></i> My Saved Areas </a>
+					<a href="/savedAreasMap"><i class="fa fa-home fa-lg"></i> My Saved Areas </a>
 				</li>
+				
+	<!-- 			<li data-toggle="collapse" data-target="#reviews" class="collapsed">
+					<a href="#"><i class="fa fa-book fa-lg"></i> Reviews <span
+						class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="reviews">
+					<li><a onclick="validateSearchReview();">Write a Review
+							for this Area</a></li>
+					<li><a onclick="seeallReviews();">Read Reviews for this
+							Area</a></li>
+				</ul> -->
 			</ul>
 		</div>
 	</div>

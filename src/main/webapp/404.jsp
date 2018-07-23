@@ -15,7 +15,7 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Page not found - Suss</title>
+<title>Page not found - Firefly</title>
 
 <style>
 .logoimage {
@@ -23,7 +23,7 @@
     top: 0px;
     left: 0px;
     height : 100%;
-    width: 22%;
+    width: 8%;
 }
 
 .errorcontainer{
@@ -45,7 +45,7 @@ function goBack() {
     <div id="custom-bootstrap-menu-savedareas" class="navbar navbar-default " role="navigation">
     <div class="container-fluid">
         <div class="navbar-header"><a class="navbar-brand" href="/" style="max-width: 30%;">
-    <img class ="logoimage" src="${pageContext.request.contextPath}/resources/images/logo2.PNG">
+    <img class ="logoimage" src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG">
  </a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
             </button>

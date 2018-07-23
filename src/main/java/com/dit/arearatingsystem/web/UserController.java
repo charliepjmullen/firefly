@@ -2,6 +2,7 @@ package com.dit.arearatingsystem.web;
 
 import com.dit.arearatingsystem.model.Area;  
 import com.dit.arearatingsystem.model.Commutes;
+import com.dit.arearatingsystem.model.Event;
 import com.dit.arearatingsystem.model.GardaStation;
 import com.dit.arearatingsystem.model.HousePrice;
 import com.dit.arearatingsystem.model.User;
@@ -19,6 +20,7 @@ import com.dit.arearatingsystem.parser.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -77,6 +79,7 @@ public class UserController {
 	ParseHousePrices parseHousePrice = new ParseHousePrices();
 	AddReview addReviewMethod = new AddReview();
 	SeeAllReviews seeReveiwsMethod = new SeeAllReviews();
+	AddEvent addEventMethod = new AddEvent();
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -118,7 +121,7 @@ public class UserController {
     }
 	
 	
-	// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
+/*	// THIS REQUEST HANDLES ALLOWING THE USER TO ADD AN AREA TO THEIR LIST OF SAVED AREAS
 	@RequestMapping(value = "/saveAreaToProfile", method = RequestMethod.POST)
 	public @ResponseBody String saveAreaToProfile(Area area, @RequestParam("latitude") double latitude,
 			                                                 @RequestParam("longitude") double longitude, 
@@ -358,6 +361,16 @@ public class UserController {
 		return "commuteplanner";
 	}
 	
+	
+	@RequestMapping(value = "/commuteplanner3", method = RequestMethod.GET) 
+	public String CommutePlanner2(@Valid Commutes commutes,  BindingResult bindingResult, Model model) {
+		
+		
+
+	      
+		return "commutePlanner2";
+	}
+	
 	@RequestMapping(value = "/commuteplanner2", method = RequestMethod.GET) 
 	public String CommutePlanner2(@Valid Commutes commutes, @RequestParam("address")String address, BindingResult bindingResult, Model model) {
 		
@@ -466,10 +479,52 @@ System.out.println(" Latitude " + latitude + " Longitude " + longitude + " addre
 	      
 		return "seeallreviews";		
 	}
-	
+	*/
 	// The inclusion of a 404 page removes the logo from the navbar but otherwise works fine
 	@RequestMapping(value = "/*")
 	public String error() {
 		return "404";
+	}
+	
+	@RequestMapping(value = "/addeventpage")
+	public String addEvent() {
+		return "AddEvent";
+	}
+	
+	@RequestMapping(value = "/addevent", method = RequestMethod.GET) 
+	public String addEvent(@Valid Event event, BindingResult bindingResult, Model model, @RequestParam("description") String description, @RequestParam("eventname") String eventname
+			              , @RequestParam("addressBox") String address, @RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude,
+			                @RequestParam("eventdate") String date, @RequestParam("start-time") String starttime, @RequestParam("end-time") String endtime) {
+		
+		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+	      String username = loggedInUser.getName(); // Authentication for
+	      User user = userRepository.findByUsername(username);
+	      
+	      System.out.println("\nEvent name " + eventname + 
+	    		  			 "\nComment " + description +
+	    		  			 "\nHost:  " + username+ 
+	    		  			 "\nAddress: " + address + 
+	    		  			 "\nDate: " + date + 
+	    		  			 "\nLatitude" + latitude + 
+	    		  			 "\nLongitude" + longitude + 
+	    		  			 "\nStart Time: " + starttime +
+	    		  			 "\nEnd Time:" + endtime);
+	      
+	      int attendees = 0;
+	      
+        /*
+		
+			
+          addReviewMethod.addReview( comment,  longitude,  latitude,  address,  username);
+*/
+	      addEventMethod.addEvent(eventname, description, username, address, date, starttime, endtime, longitude, latitude);
+          
+	      
+		return "welcome";		
+	}
+	
+	@RequestMapping(value = "/landingpage", method = RequestMethod.GET) 
+	public String LandingPage() {
+		return "LandingPage";
 	}
 }

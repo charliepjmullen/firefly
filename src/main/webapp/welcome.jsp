@@ -24,7 +24,7 @@
 <meta name="author" content="">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>Area Rating System</title>
+<title>Firefly </title>
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -49,7 +49,7 @@
 
 <style>
 #geomap {
-	width: 77%;
+	width: 84%;
 	height: 500px;
 	float: right;
 	margin: 5px;
@@ -87,7 +87,7 @@
 	background-color: #2e353d;
 	position: fixed;
 	top: 10px;
-	width: 300px;
+	width: 15%;
 	height: 100%;
 	color: #e1ffff;
 }
@@ -253,7 +253,7 @@ body {
 	top: 0px;
 	left: 0px;
 	height: 100%;
-	width: 22%;
+	width: 8%;
 }
 
 .location-form-table {
@@ -278,8 +278,11 @@ var markers = [];
 var infowindow;
 var request
 /* var searchbox = document.getElementById("search_location").value;  */
-
-
+  var events = [
+      ['<p><b>European Innovation Academy </b></p>' + '<p> Address: Av. Amaral, 2765-192 Estoril</p>' +  '<p> The extreme accelerator from idea to a start-up in 15 days!</p>' + '<p>When: Today </p>' + '<p>Duration: 10:00 - 20:00</p> ' + '<p>Hosted by: <a href = "#"> EIA</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.706501, -9.396243, 4],
+      ['<p><b>Beach Party </b></p>' + '<p> Address: Estoril Beach</p>' +  '<p> Planning a big beach party for EIA students. Tell your friends everyones invited!</p>' + '<p>When: Today </p>' + '<p>Duration: 20:00 - 7:00</p>' + '<p>Hosted by: <a href = "#"> CK Dhaliwal</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.700284, -9.387348, 5],
+    ];
+  
 
 /* window.onload = function() {
     if(!window.location.hash) {
@@ -308,11 +311,13 @@ function initialize() {
 	            }
 	        });
 	 }
+
+
 	
     var initialLat = $('.search_latitude').val();
     var initialLong = $('.search_longitude').val();
-    initialLat = initialLat?initialLat:53.350140;
-    initialLong = initialLong?initialLong:-6.266155;
+    initialLat = initialLat?initialLat:38.706838; 
+    initialLong = initialLong?initialLong:-9.396743;
 
     var latlng = new google.maps.LatLng(initialLat, initialLong);
     var options = {
@@ -332,6 +337,7 @@ function initialize() {
         icon: {url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'}
     });
 
+    
     google.maps.event.addListener(marker, "dragend", function () {
         var point = marker.getPosition();
         map.panTo(point);
@@ -345,6 +351,24 @@ function initialize() {
             }
         });
     });
+
+
+    var marker2, i;
+    var infowindow2 = new google.maps.InfoWindow();
+
+    for (i = 0; i < events.length; i++) {  
+      marker2 = new google.maps.Marker({
+        position: new google.maps.LatLng(events[i][1], events[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker2, 'click', (function(marker2, i) {
+        return function() {
+          infowindow2.setContent(events[i][0]);
+          infowindow2.open(map, marker2);
+        }
+      })(marker2, i));
+    }
 
 }
 
@@ -363,7 +387,7 @@ $(document).ready(function () {
             source: function (request, response) {
                 geocoder.geocode({
                     'address': request.term,
-                    componentRestrictions: {country: "ie"}
+                    componentRestrictions: {country: "pt"}
                 }, function (results, status) {
                     response($.map(results, function (item) {
                         return {
@@ -417,6 +441,10 @@ $(document).ready(function () {
 
 function loginAlert(){
 	alert("User must be logged in to view reports");
+}
+
+function profileAlert(){
+	alert("Profile feature coming soon!");
 }
 
 	function saveAreaToUser(){
@@ -1024,7 +1052,7 @@ function loginAlert(){
 
     	function callAllFunctions(){
 
-    		var searchRequest = document.getElementById("search_location").value;
+    	/* 	var searchRequest = document.getElementById("search_location").value;
     		var isInDublin;
 
     		if (searchRequest.includes("Dublin") || searchRequest.includes("dublin")){
@@ -1036,7 +1064,7 @@ function loginAlert(){
     		 {
                 alert("You must enter a valid address in Dublin:!");
                 location.reload();
-            } else {
+            } else { */
             	
                      getCafe();
 	    	         getBars();
@@ -1048,7 +1076,7 @@ function loginAlert(){
 		    	     window.location.reload();
 		    	   }
   		
-    	}
+    	/* } */
 
     	function callAllfunctions2(){
 
@@ -1379,7 +1407,7 @@ function loginAlert(){
 
 	  markers.push(reportmarker);
 	  google.maps.event.addListener(reportmarker, 'click', function() {
-	    infowindow.setContent("<p>" + place.name + "<br />" + place.rating + "<br />" + place.vicinity + "<br />" + "<br />" + place.types + "<br />" +"</p>");
+	    infowindow.setContent("<p>" + place.name + "<br />" + place.rating + "<br />" + place.vicinity + "<br />" + "<br />" + place.url + "<br />" +"</p>");
 	    infowindow.open(map, this);
 	  });
 	}
@@ -1452,7 +1480,7 @@ function loginAlert(){
 
   	function validateSearchCommute(){
 
-  		var address = document.getElementById("addressBox").value;
+ /*  		var address = document.getElementById("addressBox").value;
   		var searchRequest = document.getElementById("search_location").value;
 		var isInDublin;
 
@@ -1466,14 +1494,14 @@ function loginAlert(){
             alert("Please Enter an Address in Dublin before checking the commute!");
             location.reload();
         } else 
-            {
+            { */
         	sendAddressToCommutePage();
-            }
+         /*    } */
 	}   
 
   	function validateSearchReview(){
 
-  		var address = document.getElementById("addressBox").value;
+  	/* 	var address = document.getElementById("addressBox").value;
   		var searchRequest = document.getElementById("search_location").value;
 		var isInDublin;
 
@@ -1487,9 +1515,9 @@ function loginAlert(){
             alert("Please Enter an Address in Dublin before writing a review!");
             location.reload();
         } else 
-            {
+            { */
         	leaveReview();
-            }
+           /*  } */
 	}   
 
  function storeAddress(){
@@ -1554,18 +1582,17 @@ function loginAlert(){
 
 
 	<div class="nav-side-menu">
-		<div class="brand">Brand Logo</div>
+		<div class="brand">Firefly</div>
 		<i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse"
 			data-target="#menu-content"></i>
 
 		<div class="menu-list">
 
 			<ul id="menu-content" class="menu-content collapse out">
-				<li><a href="/"> <i class="fa fa-bar-chart fa-lg"></i> Area
-						Stats
+				<li><a href="/"> <i class="glyphicon glyphicon-menu-hamburger"></i> Event Menu
 				</a></li>
 
-				<li data-toggle="collapse" data-target="#products"
+<!-- 				<li data-toggle="collapse" data-target="#products"
 					class="collapsed active"><a onclick="gardaStationReport();"><i
 						class="fa fa-area-chart fa-lg"></i> General <span class="arrow"></span></a>
 				</li>
@@ -1575,10 +1602,36 @@ function loginAlert(){
 							Price</a></li>
 					<li><a onclick="openCrimeStatistics();" href="#">Crime
 							Rating</a></li>
+				</ul> -->
+				
+								<li data-toggle="collapse" data-target="#findevents"
+					class="collapsed active"><a href = "#"><i
+						class="fa fa-search"></i> Find Events <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="findevents">
+
+					<li><a href="#">Local Events</a></li>
+					<li><a href="#">Future Events</a></li>
+				</ul>
+				
+				<li data-toggle="collapse" data-target="#addevents"
+					class="collapsed active"><a href = "addeventpage"><i
+						class="	fa fa-calendar"></i> Add an Event <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="#addevents">
+
+				</ul>
+				
+					<li data-toggle="collapse" data-target="#profile"
+					class="collapsed active"><a href = "javascript:profileAlert();"><i
+						class=" fa fa-user"></i> Profile <span class="arrow"></span></a>
+				</li>
+				<ul class="sub-menu collapse" id="#addevents">
+
 				</ul>
 
 
-				<li data-toggle="collapse" data-target="#education"
+		<!-- 		<li data-toggle="collapse" data-target="#education"
 					class="collapsed"><a onclick="clearMarkers();SchoolsReport();"
 					href="#"><i class="fa fa-graduation-cap fa-lg"></i> Education :
 						<span class="arrow"></span></a></li>
@@ -1653,7 +1706,7 @@ function loginAlert(){
 							for this Area</a></li>
 					<li><a onclick="seeallReviews();">Read Reviews for this
 							Area</a></li>
-				</ul>
+				</ul> -->
 
 
 			</ul>
@@ -1665,11 +1718,11 @@ function loginAlert(){
 		<div class="container-fluid">
 
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/"
+				 <a class="navbar-brand" href="/"
 					style="max-width: 30%; max-height: 30%;"> <img
 					class="logoimage"
-					src="${pageContext.request.contextPath}/resources/images/logo2.PNG"></a>
-
+					src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG"> </a>
+				
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-menubuilder">
 					<span class="sr-only">Toggle navigation</span><span
@@ -1697,8 +1750,7 @@ function loginAlert(){
 									<a>Welcome ${pageContext.request.userPrincipal.name}</a>
 
 								</c:if></li>
-							<li><a href="commuteplanner">Add more addresses to
-									Commutes</a></li>
+							
 							<li><a onclick="document.forms['logoutForm'].submit()">Logout</a>
 
 							</li>
@@ -1730,7 +1782,7 @@ function loginAlert(){
 			<td style="width: 50px">
 			<td style="width: 50px">
 				<button class="btn btn-default " type="submit"
-					onclick="searchnewArea();">Search New Area</button>
+					onclick="searchnewArea();">Search New Area For Local Events</button>
 			</td>
 			<td>
 				<div class="form-group2 input-group">
@@ -1748,7 +1800,7 @@ function loginAlert(){
 	</table>
 	<div id="geomap"></div>
 
-	<div class=inputboxes>
+<%-- 	<div class=inputboxes>
 		<div id="forminputs"></div>
 
 		<table>
@@ -1846,6 +1898,6 @@ function loginAlert(){
 
 		</table>
 	</div>
-	</div>
+	</div> --%>
 </body>
 </html>
