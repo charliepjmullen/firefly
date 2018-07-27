@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "usert", schema ="myapp")
+@Table(name = "usera")
 public class User {
-	@Column(name="id")
     private Long id;
     private String username;
     private String password;
