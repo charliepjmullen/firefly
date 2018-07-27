@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema ="myapp")
 public class User {
 	@Column(name="id")
     private Long id;
