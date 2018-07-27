@@ -27,8 +27,8 @@ public class AddEvent {
 		  try {
 		         Class.forName("org.postgresql.Driver");
 		         c = DriverManager
-		            .getConnection("jdbc:postgresql://localhost:5432/fireflypgdb",
-		            "postgres", "root");
+		            .getConnection("postgres://vboafkstvyrmoi:2767af4821495805b2f3555f0b9b3ec492c12ff3f4f066bbc080e22a87ddeb5f@ec2-54-247-123-231.eu-west-1.compute.amazonaws.com:5432/d6788da6nv1p7a",
+		            "2767af4821495805b2f3555f0b9b3ec492c12ff3f4f066bbc080e22a87ddeb5f", "vboafkstvyrmoi");
 		         c.setAutoCommit(false);
 
 		         stmt = c.createStatement();
