@@ -1,5 +1,6 @@
 package com.dit.arearatingsystem.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ public class Event {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="event_id")
 	private Long event_Id;
 	private String event_Name;
 	private String event_Description;

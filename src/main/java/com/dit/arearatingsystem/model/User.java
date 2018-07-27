@@ -9,6 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 public class User {
+	@Column(name="id")
     private Long id;
     private String username;
     private String password;
