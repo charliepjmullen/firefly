@@ -280,7 +280,20 @@ var request
 /* var searchbox = document.getElementById("search_location").value;  */
   var events = [
       ['<p><b>European Innovation Academy </b></p>' + '<p> Address: Av. Amaral, 2765-192 Estoril</p>' +  '<p> The extreme accelerator from idea to a start-up in 15 days!</p>' + '<p>When: Today </p>' + '<p>Duration: 10:00 - 20:00</p> ' + '<p>Hosted by: <a href = "#"> EIA</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.706501, -9.396243, 4],
-      ['<p><b>Beach Party </b></p>' + '<p> Address: Estoril Beach</p>' +  '<p> Planning a big beach party for EIA students. Tell your friends everyones invited!</p>' + '<p>When: Today </p>' + '<p>Duration: 20:00 - 7:00</p>' + '<p>Hosted by: <a href = "#"> CK Dhaliwal</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.700284, -9.387348, 5],
+      ['<p><b>Walk with WhereToRun EIA  </b></p>' + '<p> Address: EIA HQ</p>' +  '<p> Come join us for a 30min walk of distress to Cascais after keynotes </p>' + '<p>When: Tuesday, July 31 </p>' + '<p>Duration: 12:00 - 13:00</p>' + '<p> <a href = "https://www.facebook.com/events/295223034386373" target="_blank"> FB Event</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.706860, -9.395716, 5],
+      ['<p><b>Volleyball, Yoga and Afro House Party </b></p>' + '<p> Address: Carcavelos Beach</p>' +  '<p> Join EIA Members and Friends for a sunset unique party in one of the best beaches in Lisbon</p>' + '<p>When: Saturday 28 July </p>' + '<p>Duration: 19:00 - 00:00</p> ' + '<p><a href = "https://www.facebook.com/events/1839831662744025/" target="_blank" > FB Event</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.679595, -9.336017, 4],
+      ['<p><b>Outjazz </b></p>' + '<p> Address: Eduardo VII Park</p>' +  '<p> Enjoy Somersby or Beer under sunny Lisbon to the sound of underground jazzy bands</p>' + '<p>When: 29 July </p>' + '<p>Duration: 17:00 - late</p>' + '<p><a href = "https://www.facebook.com/OutJazz/" target="_blank" > FB Event</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.707176, -9.143523, 5],
+      ['<p><b>EDP Cool Jazz</b></p>' + '<p> Address: Hipódromo Municipal Manuel Possolo, Cascais</p>' +  '<p> Listen to the music of your favourite artists or find new talent at one of the most chilled music festivals of lisbon for 30 Euro</p>' + '<p>When: 28 - 31 July </p>' + '<p>Duration: 17:00 - 2:00</p> ' + '<p><a href = "https://www.facebook.com/events/353556418449515" target="_blank"> FB Event</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.693796, -9.424955, 4],
+      ['<p><b> Fiartil - Feira de Artesanato do Estoril </b></p>' + '<p> Address: Av. Amaral, 2765-192 Estoril</p>' +  '<p> Showing a secret movie outside in Cascais Park</p>' + '<p>When: Today </p>' + '<p>Duration: 20:30 - 00:00</p>' + '<p>Hosted by: <a href = "#"> Cascais garden</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.707326,-9.396020, 5],
+      ['<p><b> Erasmus Tuesday Party at Musicbox</b></p>' + '<p> Address: Rua nova do carvalho, nº 24, 1200-292 Lisbon</p>' +  '<p> We hope that you guys had the best time with us! This time we invite you for a closing party of Musicbox tuesday Parties! FREE entrance ALL night long with your ELL card! </p>' + '<p>When: Tuesday 31 July </p>' + '<p>Duration: 20:30 - 00:00</p>' + '<p><a href = "https://www.facebook.com/events/118140258854700" target="_blank" >FB Event</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.707170,-9.143393, 5],
+      ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the beach to see the waves!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.732471,-9.472477, 5],
+      ['<p><b> Skate Park</b></p>' + '<p> Address: R. António Ferro, 2765-218 São João do Estoril</p>' +  '<p> Local Outdoor Free Skate Park </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/parque-das-geracoes-skatepark/" target="_blank"> Check out live footage of the skate park!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.698220, -9.380154, 5],
+/*       ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the beach to see the waves!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.698220,-9.380154, 5],
+      ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the skate park!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.732471,-9.472477, 5],
+      ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the beach to see the waves!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.732471,-9.472477, 5],
+      ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the beach to see the waves!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.732471,-9.472477, 5],
+      ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the beach to see the waves!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.732471,-9.472477, 5],
+      ['<p><b> Praia de Guincho </b></p>' + '<p> Address: Praia de Guincho</p>' +  '<p> One of Lisbons favourite beaches for surfing </p>' + '<p>When: Everyday </p>' + '<p><a href = "http://beachcam.meo.pt/livecams/praia-do-guincho/" target="_blank"> Check out live footage of the beach to see the waves!</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.732471,-9.472477, 5], */
     ];
   
 
@@ -293,6 +306,16 @@ var request
 /*
  * Google Map with marker
  */
+
+ function loadDatabase(){
+	var pg = require('pg');
+	var connectionString = "postgres://postgres:root@localhost:5432/fireflypgdb";
+	var client = new pg.Client(conString);
+	client.connect();
+	alert("Connected");
+	
+	 }
+
 function initialize() {
 
 	getAddress();
@@ -350,7 +373,7 @@ function initialize() {
                 $('.search_longitude').val(marker.getPosition().lng());
             }
         });
-    });
+    }); 
 
 
     var marker2, i;
@@ -370,11 +393,15 @@ function initialize() {
       })(marker2, i));
     }
 
+    
+
 }
 
 $(document).ready(function () {
     //load google map
+    
     initialize();
+    
     
     /*
      * autocomplete location search
@@ -516,7 +543,7 @@ function profileAlert(){
 		}
 	
 
-  function getCafe(){
+  /* function getCafe(){
 
 	  $('.search_latitude').val(marker.getPosition().lat());
 	   $('.search_longitude').val(marker.getPosition().lng());
@@ -714,7 +741,7 @@ function profileAlert(){
    	   service.nearbySearch({
    		   location: location,
    		   radius: 1000,
-   	       /* type: ['gym'] */
+   	       
    	       keyword: ['yoga']
           }, callback);
       	}
@@ -736,11 +763,11 @@ function profileAlert(){
     	   service.nearbySearch({
     		   location: location,
     		   radius: 1000,
-    	       /* type: ['gym'] */
+    	       
     	       keyword: ['pilates']
            }, callback);
        	}
-
+/* 
     	function getJustGym(){
 
        	   $('.search_latitude').val(marker.getPosition().lat());
@@ -758,7 +785,7 @@ function profileAlert(){
      	   service.nearbySearch({
      		   location: location,
      		   radius: 1000,
-     	       /* type: ['gym'] */
+     	       
      	       keyword: ['gym']
             }, callback);
         	}
@@ -781,7 +808,7 @@ function profileAlert(){
      	   service.nearbySearch({
      		   location: location,
      		   radius: 1000,
-     	       /* type: ['gym'] */
+     	       
      	       keyword: ['cocktails']
             }, callback);
         	}
@@ -803,7 +830,7 @@ function profileAlert(){
 	     	   service.nearbySearch({
 	     		   location: location,
 	     		   radius: 1000,
-	     	       /* type: ['gym'] */
+	     	     
 	     	       keyword: ['pub']
 	            }, callback);
 	        	}
@@ -1051,7 +1078,7 @@ function profileAlert(){
      	
 
     	function callAllFunctions(){
-
+ */
     	/* 	var searchRequest = document.getElementById("search_location").value;
     		var isInDublin;
 
@@ -1064,7 +1091,7 @@ function profileAlert(){
     		 {
                 alert("You must enter a valid address in Dublin:!");
                 location.reload();
-            } else { */
+            } else { 
             	
                      getCafe();
 	    	         getBars();
@@ -1076,9 +1103,9 @@ function profileAlert(){
 		    	     window.location.reload();
 		    	   }
   		
-    	/* } */
+    	 } */
 
-    	function callAllfunctions2(){
+/*     	function callAllfunctions2(){
 
     		 getCafe();
 	         getBars();
@@ -1150,9 +1177,9 @@ function profileAlert(){
     		 
       }
 
+ */
 
-
-
+/* 
     	
     	function gymCallback(results2, status2) {
     	    var totalRating = 0,
@@ -1355,10 +1382,10 @@ function profileAlert(){
   		 rankBy: google.maps.places.RankBy.DISTANCE,
   	       type: ['police']
          }, gardaStationReportcallback);
-          }
+          } */
 
  //<![CDATA[
- 	
+ 	 
 	 function callback(results, status) {
 		
 	  if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -1437,14 +1464,14 @@ function profileAlert(){
 	 }
 
  // An error is prompted here at times with red underline but the project still runs regardless
- function clearRatings() {
+/*  function clearRatings() {
 	 document.querySelectorAll("span").forEach(span => span.parentNode.removeChild(span));  
 	 document.getElementById('schoolAvgRating').value = '';
 	 document.getElementById('parkAvgRating').value = '';
 	 document.getElementById('barAvgRating').value = '';
 	 document.getElementById('restaurantAvgRating').value = '';
 	 document.getElementById('gymAvgRating').value = '';
-	}
+	} */
 
  function openCrimeStatistics(){
 	 window.location.href = "/crimeStats2";
@@ -1721,7 +1748,7 @@ function profileAlert(){
 				 <a class="navbar-brand" href="/"
 					style="max-width: 30%; max-height: 30%;"> <img
 					class="logoimage"
-					src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG"> </a>
+					src="${pageContext.request.contextPath}/resources/images/Logo.PNG"> </a>
 				
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-menubuilder">
@@ -1780,22 +1807,22 @@ function profileAlert(){
 					</div>
 			</td>
 			<td style="width: 50px">
-			<td style="width: 50px">
+			<!-- <td style="width: 50px">
 				<button class="btn btn-default " type="submit"
 					onclick="searchnewArea();">Search New Area For Local Events</button>
-			</td>
+			</td> -->
 			<td>
 				<div class="form-group2 input-group">
 					<input type="hidden" name="addressBox" id="addressBox"
 						class="search_addr" size="45" class="form-control"
 						placeholder="Address" />
-					<div class="input-group-btn2">
+					<!-- <div class="input-group-btn2">
 						<button class="btn btn-default " type="submit"
 							onclick="saveAreaToUser();">Save Area</button>
-					</div>
+					</div> -->
 				</div>
 			</td>
-			</form>
+			
 		</tr>
 	</table>
 	<div id="geomap"></div>

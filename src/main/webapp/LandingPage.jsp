@@ -22,8 +22,15 @@
 
 .intro_text_box {
 	 position: absolute;
-	 top: 45%;
-	 left: 15%;
+	 top: 35%;
+	 left: 25%;
+	 
+ }
+ 
+ .intro_text_box2 {
+	 position: absolute;
+	 top: 65%;
+	 left: 25%;
 	 
  }
  
@@ -39,8 +46,12 @@
  }
  
  .button { position: absolute;
-	 top: 47%;
-	 left: 60%;}
+	 top: 52%;
+	 left: 37%;}
+	 
+.button2 { position: absolute;
+	 top: 72%;
+	 left: 40%;}
  
  .footer {
    position: fixed;
@@ -56,17 +67,27 @@
 <body>
 
 <div class = "maincontainer">
-<img class = "fireflylogo" src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG">
+<img class = "fireflylogo" src="${pageContext.request.contextPath}/resources/images/Logo.PNG">
 
 <div class = "intro_text_box">
-	<p>Welcome to Firefly, a new and exciting platform that helps you find </p>
-	<p>all sorts of different trendy things to do happening in your city </p>
+	<p>Welcome to On The Fly, a new and exciting platform that helps you  </p>
+	<p>find all sorts of different trendy things to do happening in your city </p>
 	<p>right now.</p>
 </div>
 
 <div class = "button">
 <button onclick = "window.location.href='login'" type="button" class="btn btn-primary btn-lg">Get started finding events</button>
 </div>
+
+<div class = "intro_text_box2">
+	<p>Check out some more information about Firefly here.  </p>
+	
+</div>
+
+<div class = "button2">
+<button onclick = "window.location.href='infopage'" type="button" class="btn btn-primary btn-lg">Who Are We?</button>
+</div>
+
 </div>
 
 <div class="footer">

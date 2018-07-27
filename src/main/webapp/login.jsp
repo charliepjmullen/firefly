@@ -1,43 +1,52 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html lang="en">
+
+<link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script
+	src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Area Rating System</title>
-    
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> 
+<title>Firefly </title>
 
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<link rel="stylesheet"href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=places"></script>
-    
-
-     <!--  <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="${contextPath}/resources/css/common.css" rel="stylesheet"> -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
+
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFPWYqo7eTVGJhmehhcndY1R8Dc-vQuXE&amp;libraries=places"></script>
+
+
 <style>
 #geomap {
 	width: 95%;
@@ -110,8 +119,12 @@ var geocoder = new google.maps.Geocoder();
 var map;
 var marker;
 var events = [
-    ['<p><b>European Innovation Academy </b></p>' + '<p> Address: Av. Amaral, 2765-192 Estoril</p>' +  '<p> The extreme accelerator from idea to a start-up in 15 days!</p>' + '<p>When: Today </p>' + '<p>Duration: 10:00 - 20:00</p> ' + '<p>Hosted by: <a href = "#"> EIA</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.706501, -9.396243, 4],
-    ['<p><b>Beach Party </b></p>' + '<p> Address: Estoril Beach</p>' +  '<p> Planning a big beach party for EIA students. Tell your friends everyones invited!</p>' + '<p>When: Today </p>' + '<p>Duration: 20:00 - 7:00</p>' + '<p>Hosted by: <a href = "#"> CK Dhaliwal</a></p>' + '<p><button type="button">I am interested in this event</button></p>', 38.700284, -9.387348, 5],
+    ['<p><b>Please Log In or Regsiter to view details on this great event </b></p>' + '<p><a href = "/register"  > Register Here</a></p>' , 38.706501, -9.396243, 4],
+    ['<p><b>Please Log In or Regsiter to view details on this great event </b></p>' + '<p><a href = "/register"  > Register Here</a></p>', 38.700284, -9.387348, 5],
+    ['<p><b>Please Log In or Regsiter to view details on this great event </b></p>' + '<p><a href = "/register"  > Register Here</a></p>' , 38.706860, -9.395716, 4],
+    ['<p><b>Please Log In or Regsiter to view details on this great event </b></p>' + '<p><a href = "/register"  > Register Here </a></p>', 38.707176, -9.143523, 5],
+    ['<p><b>Please Log In or Regsiter to view details on this great event </b></p>' + '<p><a href = "/register"  > Register Here</a></p>' , 38.693796, -9.424955, 4],
+    ['<p><b>Please Log In or Regsiter to view details on this great event </b></p>' + '<p><a href = "/register"  > Register Here</a></p>', 38.707326,-9.396020, 5],
   ];
 
 
@@ -898,9 +911,9 @@ function loginAlert(){
 		  
 		}
 
-		 function clearRatings() {
+		/*  function clearRatings() {
 			 document.querySelectorAll("span").forEach(a => a.parentNode.removeChild(a));  
-			}
+			} */
 </script>
 </head>
 
@@ -972,7 +985,7 @@ function loginAlert(){
 			 <div class="navbar-header">
 				<a class="navbar-brand" href="/"
 					style="max-width: 30%; max-height: 30%;"> <img class = "logoimage"
-					src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG"></a>
+					src="${pageContext.request.contextPath}/resources/images/Logo.PNG"></a>
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-menubuilder">
@@ -1026,7 +1039,7 @@ function loginAlert(){
 	</div>
 
 
-	<div id= "introtext"><h4>Welcome to Firefly, find small and trendy events in your city now!</h4></div>
+	<!-- <div id= "introtext"><h4>Welcome to Firefly, find small and trendy events in your city now!</h4></div> -->
 	<!--  <div class = map> 	 -->
 	<!-- display google map -->
 		<form>
