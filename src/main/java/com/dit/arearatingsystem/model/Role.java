@@ -3,15 +3,16 @@ package com.dit.arearatingsystem.model;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-@Table(name = "role")
+@Entity(name = "role")
 public class Role {
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="id")
     private Long id;
     private String name;
     private Set<User> users;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    
     public Long getId() {
         return id;
     }
