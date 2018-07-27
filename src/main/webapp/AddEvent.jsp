@@ -209,6 +209,8 @@ function loginAlert(){
 
 function pendingApproval(){
 	alert("Thank you for submitting your event! It is pending approval and will be posted soon!");
+	window.location.href = "/";
+	
 }
 
   function sendLatLong(){

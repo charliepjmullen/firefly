@@ -1,9 +1,9 @@
 package com.dit.arearatingsystem.web;
 
 
-import com.dit.arearatingsystem.model.Event;
+import com.dit.arearatingsystem.model.Event; 
 import com.dit.arearatingsystem.model.User;
-import com.dit.arearatingsystem.parser.ParseCrimeStatistics;
+
 import com.dit.arearatingsystem.repository.UserRepository;
 import com.dit.arearatingsystem.service.SecurityService;
 import com.dit.arearatingsystem.service.UserService;
@@ -58,10 +58,8 @@ public class UserController {
 	
 	
 
-	ParseCrimeStatistics parseCrime = new ParseCrimeStatistics();
-	ParseHousePrices parseHousePrice = new ParseHousePrices();
-	AddReview addReviewMethod = new AddReview();
-	SeeAllReviews seeReveiwsMethod = new SeeAllReviews();
+	
+	
 	SeeAllEvents seeEvents = new SeeAllEvents();
 	AddEvent addEventMethod = new AddEvent();
 
@@ -111,86 +109,7 @@ public class UserController {
     }
 	
 	
-/*
-	
-	@RequestMapping(value = "/skip", method = RequestMethod.GET) 
-	public String Skip() {
-		return "welcome";
-	}
-	
-	@RequestMapping(value = "/login2", method = RequestMethod.GET) 
-	public String Login2() {
-		return "login2";
-	}
-	
-	
-	@RequestMapping(value = "/map/savedAreasMap", method = RequestMethod.GET) 
-	public String saveAreaRedirect(@Valid Area area, BindingResult bindingResult, Model model) {
-		
-		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for 
 
-	      areaRepository.save(area);
-	      User user = userRepository.findByUsername(username);
-	      
-	      List<Area> savedAreas = user.getSavedAreas();
-	      for (int i = 0; i < savedAreas.size(); i++) {
-	    	  model.addAttribute("savedAreas", savedAreas);
-	      }
-		return "savedAreas";
-	}
-	
-	@RequestMapping(value = "/review/{latitude}/{longitude}/{address}", method = RequestMethod.GET) 
-	public  String Review(@Valid Review review,  @PathVariable("address") String address, @PathVariable("latitude") double latitude, 
-            @PathVariable("longitude") double longitude, BindingResult bindingResult, Model model) {
-		
-
-		
-System.out.println(" Latitude " + latitude + " Longitude " + longitude + " address " + address );
-
-	      
-	      
-		return "review";
-	}
-	
-	@RequestMapping(value = "/addreview/{address}/{latitude}/{longitude}", method = RequestMethod.GET) 
-	public  String addReview(@Valid Review review, @RequestParam("comment") String comment, @PathVariable("address") String address, @PathVariable("latitude") double latitude, 
-            @PathVariable("longitude") double longitude, BindingResult bindingResult, Model model) {
-		
-		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for
-	      User user = userRepository.findByUsername(username);
-	      
-		
-          System.out.println(" Latitude " + latitude + " Longitude " + longitude + " address " + address + "user: " + user.getUsername() + "comment" + comment);
-		
-
-          addReviewMethod.addReview( comment,  longitude,  latitude,  address,  username);
-
-          
-	      
-		return "welcome";		
-	}
-	
-	@RequestMapping(value = "/readreview/{latitude}/{longitude}", method = RequestMethod.GET) 
-	public  String readReview(@Valid Review review,  @PathVariable("latitude") double latitude, 
-            @PathVariable("longitude") double longitude, BindingResult bindingResult, Model model) {
-		
-		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for
-	      User user = userRepository.findByUsername(username);
-	      
-		
-          System.out.println(" Latitude " + latitude + " Longitude " + longitude + "user: " + user.getUsername());
-		
-
-          ArrayList<Review> reviews = seeReveiwsMethod.getAllReviews(latitude, longitude);
-
-          model.addAttribute("reviews", reviews);
-	      
-		return "seeallreviews";		
-	}
-	*/
 	// The inclusion of a 404 page removes the logo from the navbar but otherwise works fine
 	@RequestMapping(value = "/*")
 	public String error() {
@@ -239,25 +158,6 @@ System.out.println(" Latitude " + latitude + " Longitude " + longitude + " addre
 		return "LandingPage";
 	}
 	
-/*	@RequestMapping(value = "/", method = RequestMethod.GET) 
-	public  String getEvents(@Valid Event event, BindingResult bindingResult, Model model) {
-		
-		  Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
-	      String username = loggedInUser.getName(); // Authentication for
-	      User user = userRepository.findByUsername(username);
-	      
-		
-          
-		
-
-          ArrayList<Event> events = seeEvents.getAllEvents();
-          System.out.println(events);
-        
-          
-          
-	      
-		return "welcome";		
-	}*/
 	
 	@RequestMapping(value = "/infopage")
 	public String infopage() {
