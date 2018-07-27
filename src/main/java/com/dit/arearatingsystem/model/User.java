@@ -6,12 +6,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-@Entity(name = "user")
+@Entity
+@Table(name = "user")
 public class User {
-	
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
     private Long id;
     private String username;
     private String password;
@@ -19,7 +16,8 @@ public class User {
     private Set<Role> roles;
    
 
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
