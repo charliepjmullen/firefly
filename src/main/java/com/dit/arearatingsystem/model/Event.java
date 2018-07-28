@@ -14,8 +14,8 @@ public class Event {
 	private String event_Name;
 	private String event_Description;
 	private String address;
-	private Long start_time;
-	private Long end_time;
+	private String start_time;
+	private String end_time;
 	private double latitude;
 	private double longitude;
 	private int attendees_number;
@@ -29,8 +29,8 @@ public class Event {
 
 	
 	
-	public Event(Long event_Id, String event_Name, String event_Description, String address, Long start_time,
-			Long end_time, double latitude, double longitude, int attendees_number) {
+	public Event(Long event_Id, String event_Name, String event_Description, String address, String start_time,
+			String end_time, double latitude, double longitude, int attendees_number) {
 		super();
 		this.event_Id = event_Id;
 		this.event_Name = event_Name;
@@ -43,6 +43,19 @@ public class Event {
 		this.attendees_number = attendees_number;
 	}
 
+	public Event(Long event_Id, String event_Name, String event_Description, String address, String start_time,
+			String end_time, double latitude, double longitude) {
+		super();
+		this.event_Id = event_Id;
+		this.event_Name = event_Name;
+		this.event_Description = event_Description;
+		this.address = address;
+		this.start_time = start_time;
+		this.end_time = end_time;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		
+	}
 
 
 
@@ -94,25 +107,25 @@ public class Event {
 
 
 
-	public Long getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
 
 
 
-	public void setStart_time(Long start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
 
 
 
-	public Long getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
 
 
 
-	public void setEnd_time(Long end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 

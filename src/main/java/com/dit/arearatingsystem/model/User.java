@@ -1,9 +1,7 @@
 package com.dit.arearatingsystem.model;
 
-import javax.persistence.*;  
+import javax.persistence.*;   
 
-import com.dit.arearatingsystem.model.Area;
-import com.dit.arearatingsystem.model.Commutes;
 
 import java.util.List;
 import java.util.Set;
@@ -16,8 +14,7 @@ public class User {
     private String password;
     private String passwordConfirm;
     private Set<Role> roles;
-    private List<Area> savedAreas;
-    private List<Commutes> savedCommutes;
+   
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,15 +51,8 @@ public class User {
         this.passwordConfirm = passwordConfirm;
     }
 
-    @ManyToMany
-    @JoinTable(name = "user_area", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "area_id"))
-    public List<Area> getSavedAreas() {
-		return savedAreas;
-	}
 
-	public void setSavedAreas(List<Area> savedAreas) {
-		this.savedAreas = savedAreas;
-	}
+	
 
 	@ManyToMany
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -74,27 +64,5 @@ public class User {
         this.roles = roles;
     }
     
-    @ManyToMany
-	@JoinTable(name = "user_commutes", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "commutes_id"))
-	public List<Commutes> getSavedCommutes(){
-		return savedCommutes;
-	}
-	
-	public void setSavedCommutes(List<Commutes> savedCommutes) {
-		this.savedCommutes = savedCommutes;
-	}
-	
-	public void addArea(Area area) {
-		savedAreas.add(area);
-	}
-	
-	public void addCommute(Commutes commute) {
-		savedCommutes.add(commute);
-	}
-	
-	public void deleteArea(Area area) {
-		
-			savedAreas.remove(area);
-		
-	}
+
 }

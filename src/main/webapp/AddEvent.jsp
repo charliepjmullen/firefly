@@ -207,6 +207,12 @@ function loginAlert(){
 	alert("User must be logged in to view reports");
 }
 
+function pendingApproval(){
+	alert("Thank you for submitting your event! It is pending approval and will be posted soon!");
+	window.location.href = "/";
+	
+}
+
   function sendLatLong(){
 
 	   $('.search_latitude').val(marker.getPosition().lat());
@@ -301,7 +307,7 @@ function loginAlert(){
 				<a class="navbar-brand" href="/"
 					style="max-width: 30%; max-height: 30%;"> <img
 					class="logoimage"
-					src="${pageContext.request.contextPath}/resources/images/firefly_logo.PNG"> </a>
+					src="${pageContext.request.contextPath}/resources/images/Logo.PNG"> </a>
 				
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-menubuilder">
@@ -380,7 +386,7 @@ function loginAlert(){
                           <input type="time" class="form-control" id="start-time" name="start-time"/>
  <!-- Event End Time --><label for="appt-time">End Time:</label>
   						<input type="time" class="form-control" id="end-time" name="end-time"/>
-  <input type="submit">
+  <input type="submit" onclick = "pendingApproval();">
 </form:form> 
 </div>
 
