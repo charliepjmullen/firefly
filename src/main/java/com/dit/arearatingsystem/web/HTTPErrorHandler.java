@@ -15,6 +15,6 @@ public class HTTPErrorHandler {
 	  
 	 @RequestMapping(value="/404", method= RequestMethod.POST)
 	 public String error404post(){
-	  return "404";
+	  return "redirect:/404";
 	 }
 }
