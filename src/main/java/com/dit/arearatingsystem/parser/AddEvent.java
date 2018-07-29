@@ -22,6 +22,7 @@ public class AddEvent {
 			             String latitude) {
 		
 		Event e = new Event(eventname,  description, address, starttime, endtime, Double.valueOf(longitude), Double.valueOf(latitude), 0);
+		eventRepository.saveAndFlush(e);
 	//	Connection c = null;
 	//	Statement stmt = null;
 		
