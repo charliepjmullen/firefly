@@ -3,26 +3,31 @@ package com.dit.arearatingsystem.parser;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import com.dit.arearatingsystem.model.Event;
 import com.dit.arearatingsystem.repository.EventRepository;
 
+@Controller
 public class AddEvent {
 
 	@Autowired
-	EventRepository eventRepository;
+	private EventRepository eventRepository;
+	
 	public AddEvent() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ArrayList<Event> events = new ArrayList<>();
+	//public ArrayList<Event> events = new ArrayList<>();
 	
 	public void addEvent(String eventname, String description, String username,
 			             String address, String date, String starttime, String endtime, String longitude,
 			             String latitude) {
 		
 		Event e = new Event(eventname,  description, address, starttime, endtime, Double.valueOf(longitude), Double.valueOf(latitude), 0);
-		eventRepository.saveAndFlush(e);
+		//System.out.println(eventRepository.toString());
+		eventRepository.save(e);
+		
 	//	Connection c = null;
 	//	Statement stmt = null;
 		

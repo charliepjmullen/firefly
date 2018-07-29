@@ -1,42 +1,26 @@
 package com.dit.arearatingsystem.web;
 
 
-import com.dit.arearatingsystem.model.Event; 
-import com.dit.arearatingsystem.model.User;
-
-import com.dit.arearatingsystem.repository.UserRepository;
-import com.dit.arearatingsystem.service.SecurityService;
-import com.dit.arearatingsystem.service.UserService;
-import com.dit.arearatingsystem.validator.UserValidator;
-import com.dit.arearatingsystem.parser.*;
-
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
+
+import com.dit.arearatingsystem.model.Event;
+import com.dit.arearatingsystem.model.User;
+import com.dit.arearatingsystem.parser.AddEvent;
+import com.dit.arearatingsystem.repository.UserRepository;
+import com.dit.arearatingsystem.service.SecurityService;
+import com.dit.arearatingsystem.service.UserService;
+import com.dit.arearatingsystem.validator.UserValidator;
 
 
 
@@ -54,14 +38,17 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Autowired
+	AddEvent eventAdder;
+	
 
 	
 	
 
 	
 	
-	SeeAllEvents seeEvents = new SeeAllEvents();
-	AddEvent addEventMethod = new AddEvent();
+	//SeeAllEvents seeEvents = new SeeAllEvents();
+	//AddEvent addEventMethod = new AddEvent();
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
@@ -147,7 +134,7 @@ public class UserController {
 			
           addReviewMethod.addReview( comment,  longitude,  latitude,  address,  username);
 */
-	      addEventMethod.addEvent(eventname, description, username, address, date, starttime, endtime, longitude, latitude);
+	      eventAdder.addEvent(eventname, description, username, address, date, starttime, endtime, longitude, latitude);
           
 	      
 		return "welcome";		
@@ -163,4 +150,6 @@ public class UserController {
 	public String infopage() {
 		return "infopage";
 	}
+	
+	
 }
