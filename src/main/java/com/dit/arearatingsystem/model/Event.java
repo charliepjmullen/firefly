@@ -57,6 +57,18 @@ public class Event {
 		
 	}
 
+	public Event(String event_Name, String event_Description, String address, String start_time,
+			String end_time, double latitude, double longitude, int attendees_number) {
+		super();
+		this.event_Name = event_Name;
+		this.event_Description = event_Description;
+		this.address = address;
+		this.start_time = start_time;
+		this.end_time = end_time;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.attendees_number = attendees_number;
+	}
 
 
 	public Long getEvent_Id() {
