@@ -1,18 +1,22 @@
 package com.dit.arearatingsystem.parser;
 
-import java.sql.Connection;  
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.dit.arearatingsystem.model.Event;
-import com.dit.arearatingsystem.model.Review; 
+import com.dit.arearatingsystem.repository.EventRepository; 
 
 public class SeeAllEvents {
+	
+	@Autowired
+	EventRepository eventRepository;
 
 	public ArrayList<Event> events = new ArrayList<>();
-	public ArrayList <Event> getAllEvents(){
+	
+	
+	public List<Event> getAllEvents(){
 		/*
 		Connection c = null;
 	      Statement stmt = null;
@@ -58,8 +62,8 @@ public class SeeAllEvents {
 	         System.exit(0);
 	      }*/
 		
-		Event event = new Event(1L, "Test 1", "Test Description", "123 Fake Street", "5:00", "9:00", 38.691776, -9.423874);
-		events.add(event);
+		//Event event = new Event(1L, "Test 1", "Test Description", "123 Fake Street", "5:00", "9:00", 38.691776, -9.423874);
+		//events.add(event);
 		
     	/*String eventname = event.setEvent_Name(test);
     	String description = event.setEvent_Description("description");
@@ -70,7 +74,9 @@ public class SeeAllEvents {
     	double latitude;
     	double longitude;*/
 		
-		return events;
+		
+					
+		return eventRepository.findAll();
 		
 	}
 	
