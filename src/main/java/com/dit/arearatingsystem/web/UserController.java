@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.dit.arearatingsystem.model.Event;
 import com.dit.arearatingsystem.model.User;
 import com.dit.arearatingsystem.parser.AddEvent;
+import com.dit.arearatingsystem.repository.EventRepository;
 import com.dit.arearatingsystem.repository.UserRepository;
 import com.dit.arearatingsystem.service.SecurityService;
 import com.dit.arearatingsystem.service.UserService;
@@ -40,6 +41,9 @@ public class UserController {
 	
 	@Autowired
 	AddEvent eventAdder;
+	
+	@Autowired
+	private EventRepository eventRepository;
 	
 
 	

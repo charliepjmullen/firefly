@@ -384,7 +384,7 @@ function initialize() {
 
 
     var marker2, i;
-    var infowindow2 = new google.maps.InfoWindow();
+    var infowindow2 = new google.maps.InfoWindow({ maxWidth: 200 });
 
     for (i = 0; i < events.length; i++) {  
       marker2 = new google.maps.Marker({
